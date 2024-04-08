@@ -310,6 +310,10 @@ let routes: Array<RouteRecordRaw> = [
     name: 'register',
     meta: { requiresAuth : true },
     component: () => import(/* webpackChunkName: "about" */ '../views/Login/register.vue')
+  },{
+    //使用正则匹配任意
+    path:'/:path(.*)',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Login/NotFound.vue')
   }
 ]
 
