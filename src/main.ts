@@ -11,6 +11,11 @@ import '@/styles/antGlobelStyle.css'
 import '@/styles/CrmGlobleStyle.css'
 dayjs.locale('zh-cn');
 
+
+// import { Button,Tabbar,TabbarItem,Grid,GridItem ,Swipe,SwipeItem,NavBar,NoticeBar } from 'vant';
+// import 'vant/lib/index.css';
+import AddVantComponents from '@/assets/vant-config/vant-config'
+
 import { jsSeamlessScroll, cssSeamlessScroll,vueSeamless,vueSeamlessScroll  } from "vue-seamless-scroll";
 const app=createApp(App);
 app.use(cssSeamlessScroll);
@@ -22,4 +27,10 @@ setUpAntd(app);
 app.use(store);
 app.use(router);
 //app.use(Fragment.Plugin)
+
+AddVantComponents(app);
+// app.use( Button );
+// app.use( Tabbar );
+// app.use( TabbarItem );app.use( Grid );app.use( GridItem );app.use( Swipe );
+// app.use( SwipeItem );app.use( NavBar );app.use( NoticeBar );
 app.mount('#app')

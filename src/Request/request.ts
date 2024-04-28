@@ -18,7 +18,8 @@ enum messageEnum{
 
 
 //let baseURLT=process.env.NODE_ENV === 'production' ? 'http://119.8.25.19:8059/Api/' : '/DevApi';
-let baseURLT=process.env.NODE_ENV === 'production' ? 'http://127.0.0.1:8086/Api/' : '/DevApi';
+// let baseURLT=process.env.NODE_ENV === 'production' ? 'http://127.0.0.1:8086/Api/' : '/DevApi';
+let baseURLT=process.env.NODE_ENV === 'production' ? 'http://192.168.18.96:8086/Api/' : '/DevApi';
 
 const instance = axios.create({
    // baseURL: '/api/',

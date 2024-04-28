@@ -19,6 +19,7 @@
     "moment": "^2.29.4",
     "screenfull": "^4.2.0",
     "tslib": "^2.3.0",
+    "vant": "^4.8.10",
     "vue": "^3.2.45",
     "vue-request": "^1.2.4",
     "vue-router": "^4.0.0-0",

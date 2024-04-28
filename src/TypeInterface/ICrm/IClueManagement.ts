@@ -43,11 +43,11 @@ createrStr: string;//创建人
   }
 
   interface IClueQueryInfo {
-    clueCode: string;
+   clueCode: string;
     name: string;
     mobilePhone: string;
     
-    rate:string;
+    rate:string; firm?:string;
 }
 
 const ClueColumns = [
@@ -199,18 +199,20 @@ const ClueDatas=[
 
         QueryConditionInfo:any={
            
-          clueCode: "",
+          // clueCode: "",
           name: "",
         
           mobilePhone: "",
         
           rate: "未选择",
+    firm: ""
+
           }
           QueryConditionInfoConfig:any={
-            clueCode:{
-              name:"线索编号",
-              type:"text"
-            },
+            // clueCode:{
+            //   name:"线索编号",
+            //   type:"text"
+            // },
             
             name:{
               name:"姓名",
@@ -225,6 +227,10 @@ const ClueDatas=[
               type:"select",
               optionValueArray:["未选择","Level1","Level2","Level3","Level4"]
             },
+            firm:{
+              name:"公司",
+              type:"text"
+            }
            
           }
 

@@ -46,7 +46,7 @@
                     登录
                   </a-button>
                    <a-button
-                   style="margin-left:3px"
+                   style="margin-left:3px;margin-right:3px"
                     type="primary"
                    
                     size="large"
@@ -54,6 +54,30 @@
                   >
                     注册
                   </a-button>
+                  <a-dropdown  >
+      <template #overlay>
+        <a-menu @click="handleMenuClick">
+          <a-menu-item key="1">
+            <UserOutlined />
+          PC
+          </a-menu-item>
+          <a-menu-item key="2">
+            <UserOutlined />
+           APP
+          </a-menu-item>
+         
+        </a-menu>
+      </template>
+      <a-button   type="primary"
+                   
+                   size="large">
+        {{LoginTypeMaek}}
+        <DownOutlined />
+      </a-button>
+    </a-dropdown>
+
+
+
                 </a-form-item>
               </a-form>
             </div>
@@ -65,7 +89,7 @@
 </template>
 
 <script lang="ts">
-import { UserOutlined, LockOutlined } from "@ant-design/icons-vue";
+import { UserOutlined, LockOutlined,DownOutlined } from "@ant-design/icons-vue";
 import { ValidateErrorEntity } from "ant-design-vue/es/form/interface";
 import { defineComponent, reactive, UnwrapRef, ref } from "vue";
 import { message } from "ant-design-vue";
@@ -73,6 +97,7 @@ import { useStore } from "vuex";
 import{useRouter} from 'vue-router'
 import {GetUserDemo} from '../../Request/userRequest'
 import {IsPCEnd} from '../../../src/utility/commonFunc'
+
 interface FormState {
   user: string;
   password: string;
@@ -81,7 +106,7 @@ interface FormState {
 export default defineComponent({
   components: {
     UserOutlined,
-    LockOutlined,
+    LockOutlined,DownOutlined
   },
   setup() {
     const store = useStore();
@@ -91,8 +116,26 @@ export default defineComponent({
     const formState: UnwrapRef<FormState> = reactive({
       user: "Admin",
       password: "123456",
-      loginType:"PC Browser"
+      loginType:"PC"
     });
+    const LoginTypeMaek = ref<String>("PC");
+
+    
+
+    const handleMenuClick= (e:any) => {
+  console.log('click', e);
+  if(e.key==1)
+  {
+    LoginTypeMaek.value="PC";
+    formState.loginType="PC";
+  }
+  if(e.key==2)
+  {
+    LoginTypeMaek.value="APP";
+    formState.loginType="APP";
+  }
+};
+
     const handleFinish = async () => {
       const { user, password } = formState;
       if (user.trim() == "" || password.trim() == "") {
@@ -108,11 +151,28 @@ export default defineComponent({
         // let sss=   await  login(formState)
         //   console.log(sss.data);
        var _isPc=IsPCEnd();
-       if(!_isPc){
-formState.loginType="Mobile Browser";
-       }
-       
-      let res = await store.dispatch("LoginSys", formState);
+//        if(!_isPc){
+// formState.loginType="APP";
+//        }
+       console.log(user);
+        if(LoginTypeMaek.value=="APP")
+{
+
+  console.log(formState.loginType);
+  // let res = await store.dispatch("LoginSysApp", formState);
+       //console.log(result);
+       let res = await store.dispatch("LoginSys", formState);
+      if (!res.result) {
+        message.error(res.msg);
+      } else {
+       router.push({path: '/Home_App/MainApp', query: {selected: "1"}});
+      }
+
+
+}       
+else
+{
+  let res = await store.dispatch("LoginSys", formState);
        //console.log(result);
 
       if (!res.result) {
@@ -120,6 +180,11 @@ formState.loginType="Mobile Browser";
       } else {
        router.push({path: '/Home/HomePage', query: {selected: "1"}});
       }
+
+}
+      
+
+
       spinning.value = !spinning.value;
     };
     const handleFinishFailed = (errors: ValidateErrorEntity<FormState>) => {
@@ -135,13 +200,17 @@ formState.loginType="Mobile Browser";
       handleFinishFailed,
       spinning,
       delayTime,
-      registerBtn
+      registerBtn,handleMenuClick,LoginTypeMaek
     };
   },
 });
 </script>
 
 <style scoped>
+.demo-dropdown-wrap :deep(.ant-dropdown-button) {
+  margin-right: 8px;
+  margin-bottom: 8px;
+}
 .login-container {
   width: 100%;
   height: 100vh;

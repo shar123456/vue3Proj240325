@@ -8,8 +8,22 @@ export default createStore({
     USERNAME:(localStorage.getItem("UserName")==""||localStorage.getItem("UserName")==undefined||localStorage.getItem("UserName")==null)?"***" :localStorage.getItem("UserName"),
     CollapseMark:true,
     NewMessageMark:false,
-    allRoutes:[]
+    allRoutes:[],
+    AduitTaskCount:0,
+    CollectList: localStorage.getItem("starCollect") ? JSON.parse(localStorage.getItem("starCollect")??"") : [],
   },
+  //如果state中的值需要过滤或者有其他操作，那么就放在getter中处理
+getters:{
+  reverseUserName:function(state){
+    return state.USERNAME?.split('').reverse().join('');
+  },
+  reverseUserNameLength:function(state,getters)//getters这个参数表示当前store中的getters对象
+  {
+    return getters.reverseUserName.length;
+  }
+},
+
+
   mutations: {
     set_allRoutes(state, payLoad){
       //console.log("payLoadallRoutes",payLoad)
@@ -22,7 +36,11 @@ export default createStore({
     SetUserName(state, payLoad) {
       state.USERNAME = payLoad;
       localStorage.setItem("UserName",payLoad);
-    }
+    },
+    SetAduitTaskCount(state, payLoad) {
+      console.log("SetAduitTaskCount",payLoad);
+      state.AduitTaskCount = payLoad;
+    },
   },
   actions: {
      LoginSys({commit},payLoad){
@@ -47,6 +65,18 @@ export default createStore({
         }, 200);
       });
     },
+    LoginSysApp({commit},payLoad){
+      return new Promise((resolve)  => {
+         const {user,password,loginType}=payLoad;
+         setTimeout(  ()  => {          
+          commit("SetToken","1234567");
+          commit("SetUserName",user);
+          
+          localStorage.setItem("starToken","Bearer "+"1234567");
+          resolve({result:true,msg:""});
+         }, 200);
+       });
+     },
     RegisterSys({commit},payLoad){
       return new Promise((resolve)  => {
          
@@ -84,6 +114,56 @@ export default createStore({
          }, 1);
        });
      }
+,
+     addCollect({ commit, state }, payLoad) {
+      return new Promise((resolve, reject) => {
+          setTimeout(() => {
+              if (payLoad) {
+                  var collectId = state.CollectList.map(((i:any) => {
+                      return i.id
+                  }));
+
+                  collectId.sort((a:any, b:any) => {
+                      return b - a;
+                  })
+                  let id = 0;
+                  if (collectId && collectId.length > 0) {
+                      id = collectId[0];
+                  }
+                  let Pid = payLoad.content.ProductId;
+                  if (state.CollectList.findIndex((i:any) => i.ProductId == Pid) >= 0) {
+                      resolve(true)
+
+                  } else {
+                      state.CollectList.push({
+                          ...payLoad.content,
+                          id: id + 1
+
+                      });
+                      localStorage.setItem(
+                          "starCollect",
+                          JSON.stringify(state.CollectList)
+                      );
+                      resolve(true)
+                  }
+
+
+              }
+          }, 100);
+      });
+
+  },
+  GetCollectList({ commit, state }, payLoad) {
+      return new Promise((resolve, reject) => {
+          setTimeout(() => {
+
+              resolve(state.CollectList)
+
+          }, 100);
+      });
+  },
+
+
   },
   modules: {
   }

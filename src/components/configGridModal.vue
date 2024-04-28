@@ -179,5 +179,8 @@ const handleOk = (e: MouseEvent) => {
 .ExportGridConfig {
     overflow: auto;max-width: 1200px!important;width: 1200px!important;
 }
-
+.ExportGridConfig .ant-modal-body{
+  height: 500px;
+  overflow-y: auto;
+}
 </style>

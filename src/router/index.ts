@@ -288,33 +288,129 @@ let routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'Home1',
-    meta: { rName: "/首页/" ,requiresAuth : true},
+    meta: { rName: "/首页/", requiresAuth: true },
     //component: () => import(/* webpackChunkName: "about" */ '../views/Home.vue')
     redirect: "/Home/HomePage"
   },
 
   {
     path: '/login',
-    name: 'login',    meta: { requiresAuth : true },
+    name: 'login', meta: { requiresAuth: true },
     component: () => import(/* webpackChunkName: "about" */ '../views/Login/login.vue')
   },
   {
     path: '/Home',
     name: 'Home',
-    meta: { rName: "/首页/",requiresAuth : true },
+    meta: { rName: "/首页/", requiresAuth: true },
     component: Home,
     children: MenuArr
   },
   {
     path: '/register',
     name: 'register',
-    meta: { requiresAuth : true },
+    meta: { requiresAuth: true },
     component: () => import(/* webpackChunkName: "about" */ '../views/Login/register.vue')
-  },{
+  }, {
     //使用正则匹配任意
-    path:'/:path(.*)',
+    path: '/:path(.*)',
     component: () => import(/* webpackChunkName: "about" */ '../views/Login/NotFound.vue')
-  }
+  },
+  {
+    path: '/Home_App',
+    name: 'Home_App', meta: { requiresAuth: true },
+    component: () => import(/* webpackChunkName: "about" */ '../views/Home_App.vue'),
+    children: [
+      {
+        path: 'MainApp',
+        name: 'MainApp',
+        meta: { rName: "", Sub: "" },
+        component: () => import('../views/CrmAppPage/MainApp.vue')
+      },
+      {
+        path: 'Profile',
+        name: 'Profile',
+        meta: { rName: "", Sub: "" },
+        component: () => import('../views/CrmAppPage/Profile/Profile.vue')
+      },
+      {
+        path: 'SearchProduct',
+        name: 'SearchProduct',
+        meta: { rName: "", Sub: "" },
+        component: () => import('../views/CrmAppPage/Product/SearchProduct.vue')
+      },
+      {
+        path: 'SearchProductv1',
+        name: 'SearchProductv1',
+        meta: { rName: "", Sub: "" },
+        component: () => import('../views/CrmAppPage/Product/SearchProductv1.vue')
+      },
+      {
+        path: 'productDetail/:Id',
+        name: 'productDetail',
+        meta: { rName: "", Sub: "" },
+        component: () => import('../views/CrmAppPage/Product/productDetail.vue')
+      },
+      {
+        path: 'Collect',
+        name: 'Collect',
+        meta: { rName: "", Sub: "" },
+        component: () => import('../views/CrmAppPage/Profile/Collect.vue')
+      },
+      {
+        path: 'Aduit',
+        name: 'Aduit',
+        meta: { rName: "", Sub: "" },
+        component: () => import('../views/CrmAppPage/Aduit.vue')
+      },
+      {
+        path: 'SearchAduit',
+        name: 'SearchAduit',
+        meta: { rName: "", Sub: "" },
+        component: () => import('../views/CrmAppPage/Aduit/SearchAduit.vue')
+      },
+      {
+        path: 'AduitDetail/:Id',
+        name: 'AduitDetail',
+        meta: { rName: "", Sub: "" },
+        component: () => import('../views/CrmAppPage/Aduit/AduitDetail.vue')
+      },
+      {
+        path: 'SearchClue',
+        name: 'SearchClue',
+        meta: { rName: "", Sub: "" },
+        component: () => import('../views/CrmAppPage/Clue/SearchClue.vue')
+      },
+      {
+        path: 'ClueDetail/:Id',
+        name: 'ClueDetail',
+        meta: { rName: "", Sub: "" },
+        component: () => import('../views/CrmAppPage/Clue/ClueDetail.vue')
+      },
+      {
+        path: 'SearchContacts',
+        name: 'SearchContacts',
+        meta: { rName: "", Sub: "" },
+        component: () => import('../views/CrmAppPage/Contacts/SearchContacts.vue')
+      },
+
+      {
+        path: 'SearchWorkPlan',
+        name: 'SearchWorkPlan',
+        meta: { rName: "", Sub: "" },
+        component: () => import('../views/CrmAppPage/WorkPlan/SearchWorkPlan.vue')
+      },
+
+      {
+        path: 'WorkPlanDetail',
+        name: 'WorkPlanDetail',
+        meta: { rName: "", Sub: "" },
+        component: () => import('../views/CrmAppPage/WorkPlan/WorkPlanDetail.vue')
+      },
+
+      
+
+    ]
+  },
 ]
 
 const router = createRouter({
@@ -351,7 +447,7 @@ export function getInitRouter(): void {
 //           component: () => import(/* webpackChunkName: "about" */ '../views/MainPage/RoleListPage.vue')
 //         })
 
-function configRouter(){
+function configRouter() {
 
 
 
@@ -363,136 +459,168 @@ router.beforeEach((to: any, from: any, next: any) => {
 
   //if( to.matched.some( (record:any) => record.meta.requiresAuth ) )
   {
-//console.log(to.path)
-if (to.path === "/login" || to.path === "/register") {
-  // console.log("/login",to.path);
-  resetRouter();
-  next();
-}
-else {
-  const token = localStorage.getItem("starToken");
-  console.log("token",token);
-
-  if (!token) {
-    next("/login");
-  }
-  else {
-
-
-
-    //不是去首页的话，判湖store仓库中的aLLroutes是不是有值了，如果有说明己经构造过了，就跳转
-
-    if (store.state.allRoutes && store.state.allRoutes.length > 0) {
-      //console.log("store.state.allRoutes",store.state.allRoutes)
-      // routes=store.state.allRoutes
-      //  console.log("s111tore.state.allRoutes",store.state.allRoutes)
-      // router = createRouter({
-      //   history: createWebHistory(process.env.BASE_URL),
-      //   routes
-      // })
+    //console.log(to.path)
+    if (to.path === "/login" || to.path === "/register") {
+      // console.log("/login",to.path);
+      resetRouter();
       next();
-      //next({ ...to })
     }
     else {
-      //console.log("getInitRouter",store.state.allRoutes)
-try{
-  GetMenuDatas({
-    current: 1,
-    pageSize: 1000,
-    ...DataEntityState.QueryConditionInfo,
-  }).then((res: any) => {
-if(res==undefined)
-{
-  
-}
-    if (res!=undefined&&res.isSuccess) {
-      //console.log("111111routerMenu",res.datas);
-      if (res.datas != undefined && res.datas != null) {
+      const token = localStorage.getItem("starToken");
+      console.log("token", token);
 
-        res.datas.forEach((element: any) => {
-          // console.log("routerMenuelement",element);
-          if (element.menuLevel == 1) {
-            if (element.hasSub == "是") {
-              element?.children?.forEach((elementSub2: any) => {
-                const menuPageTemp = elementSub2.menuUrl.split('/');
-                const menuPage = menuPageTemp[menuPageTemp.length - 1]
-               
-                // console.log("menuPage",menuPage);
-                // MenuArr.push(
-                //   {
-                //     path: menuPage,
-                //     name: menuPage,
-                //     meta:{rName:"/"+element.menuTitle+"/"+elementSub2.menuTitle,Sub:element.menuKey},
-                //     component: () => import(/* webpackChunkName: "about" */ `../views/MainPage/${menuPage}.vue`)
-                //   }
-                // );
+      if (!token) {
+        next("/login");
+      }
+      else {
+        //console.log(to)
+        var p = to.path;
+        if ((to.path).indexOf("App") > -1) {
 
-                router.addRoute('Home', {
-                  path: menuPage,
-                  name: menuPage,
-                  meta: { rName: "/" + element.menuTitle + "/" + elementSub2.menuTitle, Sub: element.menuKey,requiresAuth : true },
-                  // component: () => import(/* webpackChunkName: "about" */ `../views/MainPage/${menuPage}.vue`)
-                 // component: () => import(/* webpackChunkName: "about" */ `../views/${element.menuTitle==="CRM"?"CrmPage":"MainPage"}/${menuPage}.vue`)
-                 component: () => import(/* webpackChunkName: "about" */ `../views/${element.menuAreaName}/${menuPage}.vue`)
+          GetMenuDatas({
+            current: 1,
+            pageSize: 1000,
+            ...DataEntityState.QueryConditionInfo,
+          }).then((res: any) => {
+            if (res == undefined) {
 
-                })
+            }
+            if (res != undefined && res.isSuccess) {
+
+
+            } else {
+              resetRouter()
+              next("/login");
+              ///console.log("getmenudatas error")
+            }
+          });
 
 
 
-              })
+
+
+          next();
+        }
+        else {
+          //不是去首页的话，判湖store仓库中的aLLroutes是不是有值了，如果有说明己经构造过了，就跳转
+
+          if (store.state.allRoutes && store.state.allRoutes.length > 0) {
+            //console.log("store.state.allRoutes",store.state.allRoutes)
+            // routes=store.state.allRoutes
+            //  console.log("s111tore.state.allRoutes",store.state.allRoutes)
+            // router = createRouter({
+            //   history: createWebHistory(process.env.BASE_URL),
+            //   routes
+            // })
+            next();
+            //next({ ...to })
+          }
+          else {
+            //console.log("getInitRouter",store.state.allRoutes)
+            try {
+
+
+
+              GetMenuDatas({
+                current: 1,
+                pageSize: 1000,
+                ...DataEntityState.QueryConditionInfo,
+              }).then((res: any) => {
+                if (res == undefined) {
+
+                }
+                if (res != undefined && res.isSuccess) {
+                  //console.log("111111routerMenu",res.datas);
+                  if (res.datas != undefined && res.datas != null) {
+
+                    res.datas.forEach((element: any) => {
+                      // console.log("routerMenuelement",element);
+                      if (element.menuLevel == 1) {
+                        if (element.hasSub == "是") {
+                          element?.children?.forEach((elementSub2: any) => {
+                            const menuPageTemp = elementSub2.menuUrl.split('/');
+                            const menuPage = menuPageTemp[menuPageTemp.length - 1]
+
+                            // console.log("menuPage",menuPage);
+                            // MenuArr.push(
+                            //   {
+                            //     path: menuPage,
+                            //     name: menuPage,
+                            //     meta:{rName:"/"+element.menuTitle+"/"+elementSub2.menuTitle,Sub:element.menuKey},
+                            //     component: () => import(/* webpackChunkName: "about" */ `../views/MainPage/${menuPage}.vue`)
+                            //   }
+                            // );
+
+                            router.addRoute('Home', {
+                              path: menuPage,
+                              name: menuPage,
+                              meta: { rName: "/" + element.menuTitle + "/" + elementSub2.menuTitle, Sub: element.menuKey, requiresAuth: true },
+                              // component: () => import(/* webpackChunkName: "about" */ `../views/MainPage/${menuPage}.vue`)
+                              // component: () => import(/* webpackChunkName: "about" */ `../views/${element.menuTitle==="CRM"?"CrmPage":"MainPage"}/${menuPage}.vue`)
+                              component: () => import(/* webpackChunkName: "about" */ `../views/${element.menuAreaName}/${menuPage}.vue`)
+
+                            })
+
+
+
+                          })
+                        }
+
+
+                      }
+
+
+                    });
+
+                    //console.log("set");
+                    //将更新后的路由提交给store，后续展示中会从store中获取
+                    store.commit('set_allRoutes', router.getRoutes());
+                    //console.log("111埃夫特rgetInitRouter",store.state.allRoutes)
+                    next({ ...to, replace: true });
+
+                    //console.log("MenuArr",MenuArr);
+                  }
+
+                } else {
+                  resetRouter()
+                  next("/login");
+                  // console.log("getmenudatas error")
+                }
+              });
+
+
+            }
+            catch {
+              resetRouter()
+              next("/login");
             }
 
 
+
           }
+        }
 
 
-        });
 
-        //console.log("set");
-        //将更新后的路由提交给store，后续展示中会从store中获取
-        store.commit('set_allRoutes', router.getRoutes());
-        //console.log("111埃夫特rgetInitRouter",store.state.allRoutes)
-        next({ ...to, replace: true });
 
-        //console.log("MenuArr",MenuArr);
+
+
+
+
+
+
+
+
+
+
+
+
+        //next();
       }
-
-    }else
-    { resetRouter()
-      next("/login");
-      console.log("getmenudatas error")
     }
-  });
-}
-catch{
-  resetRouter()
-  next("/login");
-}
-      
-
-
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //next();
-  }
-}
   }
 
-  
+
 
 })
 
