@@ -671,9 +671,13 @@ order:3,
 
     console.log('menuList.value ',menuList.value );
 
+    let userinfoStr:string=localStorage.getItem("UserName")||"";
+    let UserInfo:any =JSON.parse(userinfoStr);
 
    
-      UserTitle.value=store.state.USERNAME;
+      //UserTitle.value=store.state.USERNAME;
+      UserTitle.value=UserInfo.Name;
+
       if (routeDescMeta.value && routeDescMeta.value.rName) {
     
 

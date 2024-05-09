@@ -16,9 +16,9 @@
         </div>
         <div class="profile_up-right">
           <ul>
-            <li><span>昵称：</span><span>admin</span></li>
-            <li><span>登录名：</span><span>motic@163.com</span></li>
-            <li><span>角色：</span><span>管理员测试</span></li>
+            <li><span>昵称：</span><span>{{UserInfo.NickName}}</span></li>
+            <li><span>登录名：</span><span>{{UserInfo.Name}}</span></li>
+            <!-- <li><span>性别：</span><span>{{UserInfo.Gender}}</span></li> -->
                <li><span>状态：</span><span>在线</span></li>
           </ul>
         </div>
@@ -38,22 +38,23 @@
             <van-icon name="arrow" />
           </li>
          
-          <li style=""  @click="goTo('/UserAccount')">
-            <span>账户管理</span>
-            <van-icon name="arrow" />
-          </li>
-          <li style=""  @click="goTo('/Address')">
+        
+          <!--  <li style=""  @click="goTo('/Address')">
             <span>地址管理</span>
             <van-icon name="arrow" />
-          </li>
+          </li> -->
             <li style=""  @click="goTo('/ScanTest')">
             <span>报表管理</span>
+            <van-icon name="arrow" />
+          </li>
+          <li style=""  @click="goTo('/Home_App/UserAccount')">
+            <span>用户信息</span>
             <van-icon name="arrow" />
           </li>
           <li style="margin:0px;padding:0px;height:0px;" >
             <span style="height:4px;background-color:#eee;width:100%;"></span>
           </li>
-          <li style="border-bottom: 1px solid rgba(209, 209, 209, 0.068);height:40px"  @click="goTo('/About')">
+          <li style="border-bottom: 1px solid rgba(209, 209, 209, 0.068);height:40px"  @click="goTo('/Home_App/About')">
             <span>关于我们</span>
             <van-icon name="arrow" />
           </li>
@@ -75,7 +76,9 @@ import NavBar from "@/components/NavBar.vue";
  import 'vant/lib/index.css';
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
-import { ref } from "vue";
+import { ref,reactive,onMounted } from "vue";
+
+import { isNull } from "lodash";
 export default {
   components: {
     NavBar,
@@ -87,6 +90,20 @@ export default {
     let NavHideRight=ref(true);
      let NavHideLeft=ref(true);
     const imglogo = ref(require("../../../assets/images/ren.jpg"));
+    let UserInfo:any=ref({});
+onMounted(()=>{
+  
+  let userinfoStr:string=localStorage.getItem("UserName")||"";
+  UserInfo.value =JSON.parse(userinfoStr);
+  console.log("AppUserInfo",UserInfo);
+
+  
+})
+
+
+
+
+
     const tologOut = () => {
       // logOut().then((res) => {
       //   if (res.status == "204") {
@@ -117,7 +134,10 @@ showSuccessToast("退出成功");
     const goTo=(path:any,query:any)=>{
       router.push({path,query:query||{}});
     }
-    return { NavHideRight,NavHideLeft,tologOut, imglogo ,goTo};
+
+
+
+    return { NavHideRight,NavHideLeft,tologOut, imglogo ,goTo,UserInfo};
   },
 };
 </script>

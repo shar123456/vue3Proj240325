@@ -406,7 +406,18 @@ let routes: Array<RouteRecordRaw> = [
         meta: { rName: "", Sub: "" },
         component: () => import('../views/CrmAppPage/WorkPlan/WorkPlanDetail.vue')
       },
-
+      {
+        path: 'About',
+        name: 'About',
+        meta: { rName: "", Sub: "" },
+        component: () => import('../views/CrmAppPage/Profile/About.vue')
+      },
+      {
+        path: 'UserAccount',
+        name: 'UserAccount',
+        meta: { rName: "", Sub: "" },
+        component: () => import('../views/CrmAppPage/Profile/UserAccount.vue')
+      },
       
 
     ]

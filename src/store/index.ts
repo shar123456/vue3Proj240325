@@ -5,7 +5,7 @@ import {login,register,getCode} from '../Request/login'
 export default createStore({
   state: {
     TOKEN: "",
-    USERNAME:(localStorage.getItem("UserName")==""||localStorage.getItem("UserName")==undefined||localStorage.getItem("UserName")==null)?"***" :localStorage.getItem("UserName"),
+    USERNAME:(localStorage.getItem("UserName")==''||localStorage.getItem("UserName")==undefined||localStorage.getItem("UserName")==null)?[] :localStorage.getItem("UserName"),
     CollapseMark:true,
     NewMessageMark:false,
     allRoutes:[],
@@ -15,7 +15,7 @@ export default createStore({
   //如果state中的值需要过滤或者有其他操作，那么就放在getter中处理
 getters:{
   reverseUserName:function(state){
-    return state.USERNAME?.split('').reverse().join('');
+   // return state.USERNAME?.split('').reverse().join('');
   },
   reverseUserNameLength:function(state,getters)//getters这个参数表示当前store中的getters对象
   {
@@ -34,8 +34,10 @@ getters:{
       state.TOKEN = payLoad;
     },
     SetUserName(state, payLoad) {
+      console.log("Current Use Info",payLoad);
       state.USERNAME = payLoad;
-      localStorage.setItem("UserName",payLoad);
+      localStorage.setItem("UserName",   JSON.stringify(payLoad));
+   
     },
     SetAduitTaskCount(state, payLoad) {
       console.log("SetAduitTaskCount",payLoad);
@@ -53,8 +55,8 @@ getters:{
                 resolve({result:false,msg:res.msg});
               } else {
                 commit("SetToken",res.token);
-                commit("SetUserName",user);
-                
+                commit("SetUserName",res.userEntity);
+               
                 localStorage.setItem("starToken","Bearer "+res.token);
                 resolve({result:true,msg:""});
                }

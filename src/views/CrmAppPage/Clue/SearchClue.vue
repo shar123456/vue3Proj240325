@@ -25,8 +25,8 @@ border-radius: 11px;padding: 3px;">
 
 
         <van-row style="background-color:rgba(127, 155, 95, 0.122);">
-          <van-col class="colTitle_Head" span="4">公司</van-col>
-          <van-col class="colDesc_Head" span="20"><van-text-ellipsis :content="Temp.firm" /></van-col>  
+          <van-col class="colTitle_Head" span="6">线索公司</van-col>
+          <van-col class="colDesc_Head" span="18"><van-text-ellipsis :content="Temp.firm" /></van-col>  
         </van-row>
         <van-row>
           <van-col class="colTitle" span="4">姓名：</van-col>
