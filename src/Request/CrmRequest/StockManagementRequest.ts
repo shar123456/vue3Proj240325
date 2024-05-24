@@ -29,10 +29,10 @@ export function GetStockManagementDatas(param:any):any {
 }
 
 
-  export function AddProduct(param:any):any {
+  export function AddStock(param:any):any {
     
     return instance({
-        url: '/ProductManagement/AddProduct',
+        url: '/StockManagement/AddStock',
         method: 'post',
         data:param,
         transformRequest: [function (data) {//加这个post发送数据到后台才能接收到数据，否则接收不到
@@ -45,10 +45,10 @@ export function GetStockManagementDatas(param:any):any {
     })
 }
 
-export function UpdateProduct(param:any):any {
+export function UpdateStock(param:any):any {
     
   return instance({
-      url: '/ProductManagement/UpdateProduct',
+      url: '/StockManagement/UpdateStock',
       method: 'post',
       data:param,
       transformRequest: [function (data) {//加这个post发送数据到后台才能接收到数据，否则接收不到
@@ -61,10 +61,10 @@ export function UpdateProduct(param:any):any {
   })
 }
 
-export function GetProductById(param:any):any {
+export function GetStockById(param:any):any {
     
   return instance({
-      url: '/ProductManagement/GetById',
+      url: '/StockManagement/GetById',
       method: 'post',
       data:param,
       transformRequest: [function (data) {//加这个post发送数据到后台才能接收到数据，否则接收不到
@@ -79,7 +79,7 @@ export function GetProductById(param:any):any {
 export function DeleteById(param:any):any {
     
   return instance({
-      url: '/ProductManagement/DeleteById',
+      url: '/StockManagement/DeleteById',
       method: 'post',
       data:param,
       transformRequest: [function (data) {//加这个post发送数据到后台才能接收到数据，否则接收不到
@@ -94,7 +94,7 @@ export function DeleteById(param:any):any {
 export function BatchDelete(param:any):any {
     
   return instance({
-      url: '/ProductManagement/BatchDelete',
+      url: '/StockManagement/BatchDelete',
       method: 'post',
       data:param,
       transformRequest: [function (data) {//加这个post发送数据到后台才能接收到数据，否则接收不到

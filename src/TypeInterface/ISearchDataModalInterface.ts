@@ -21,9 +21,10 @@ const SearchUserColumns = [
 
   const SearchProductColumns = [
 
-    { title: '操作', dataIndex: 'action:', key: 'operation',width:20, slots: { customRender: 'action' },fixed:'left' },
-    { title: '产品名称',width:70, dataIndex: 'productName', },
-    {title: '产品代码',width:70, dataIndex: 'productCode',},
+    // { title: '操作', dataIndex: 'action:', key: 'operation',width:20, slots: { customRender: 'action' },fixed:'left' },
+    { title: '产品名称',width:100, dataIndex: 'productName', },
+    {title: '产品代码',width:100, dataIndex: 'productCode',},
+    { title: '操作', dataIndex: 'id', key: 'operation',width:60, slots: { customRender: 'action' } },
  
   
  

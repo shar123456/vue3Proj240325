@@ -317,7 +317,9 @@ let visibleSearchModal_FlowNo = ref<boolean>(false);
 
     onMounted(async () => {
       let UserDatasList = await GetUsers();
-   DataEntityState.EditData.initiator= store.state.USERNAME;
+      let userinfoStr:string=localStorage.getItem("UserName")||"";
+    let UserInfo:any =JSON.parse(userinfoStr);
+   DataEntityState.EditData.initiator= UserInfo.Name;
       UserDatas.value.push(...UserDatasList);
       console.log(localStorage.getItem("UserName"));
         let ExaminationFlowList = await GeExaminationFlow();

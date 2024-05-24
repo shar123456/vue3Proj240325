@@ -161,7 +161,7 @@ import {
 
 
 import {
-  GetStockManagementDatas,AddProduct,UpdateProduct,DeleteById,BatchDelete,BatchExport,CopyDataById
+  GetStockManagementDatas,AddStock,UpdateStock,DeleteById,BatchDelete,BatchExport,CopyDataById
 }
  from "../../Request/CrmRequest/StockManagementRequest";
 
@@ -394,7 +394,7 @@ const SearchBtn = async (payload: any) => {
       console.log("ClearQueryBtn");
     };
  const CreateBtn = (payload: any) => {
-      router.push({ path: "/Home/CreateProductPage", query: {pageType:"add"} });
+      router.push({ path: "/Home/CreateStockPage", query: {pageType:"add"} });
     };
 
     
@@ -480,7 +480,7 @@ const CopyBtn = (item: any) => {
 
 const EditBth = (item: any) => {
 console.log("EditBth",item)
-router.push({ path: "/Home/CreateProductPage", query: {pageType:"edit",id: item} });
+router.push({ path: "/Home/CreateStockPage", query: {pageType:"edit",id: item} });
 
 };
 

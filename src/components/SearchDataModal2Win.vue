@@ -13,7 +13,10 @@
       @ok="handleOk"
   >
 
- 
+  <Common-Query-Win-Header-CRM
+  @SearchBtn="SearchBtn"
+  >
+  </Common-Query-Win-Header-CRM>
     
 <a-table
     :columns="columns"
@@ -85,7 +88,8 @@ let selectedRows=ref<any>([])
  let configName = ref<string|undefined>(props.configName);
 
  const columns =ref<any>(props.ListColumns);
-  const datas =ref<any>(props.ListDatas);
+  let datas =ref<any>(props.ListDatas);
+    let datasTemp =ref<any>(props.ListDatas);
 const handleOk = (e: MouseEvent) => {
 //
 
@@ -108,6 +112,36 @@ context.emit("addStepsFunc",selectedRows.value);
     /***勾选****************/
 
  
+
+
+/***功能按钮****************************************** */
+const SearchBtn = async (payload: any) => {
+   console.log(payload);
+   datas.value=datasTemp.value;
+      if(payload.productCode!="")
+      {
+        datas.value=datas.value.filter(i=>i.productCode.indexOf(payload.productCode)>-1)
+      }
+      if(payload.productName!="")
+      {
+        datas.value=datas.value.filter(i=>i.productName.indexOf(payload.productName)>-1)
+      }else
+      {
+        
+      }
+      
+
+
+     
+    };
+
+
+
+
+
+
+
+
 
 
 const selectRecord=(item:any)=>{
@@ -186,7 +220,7 @@ selectedRows.value.push({
     );
         return {
             ...toRefs(state),visibleConfigGrid,titleConfigGrid,onCancel,handleOk,datas,
-      columns,onSelectChange,selectedRowKeys,selectRecord,configName
+      columns,onSelectChange,selectedRowKeys,selectRecord,configName,SearchBtn
      
    
         }

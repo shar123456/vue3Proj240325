@@ -6,9 +6,9 @@ interface IStockInfo {
     productCode:string;
     vendorID:string;
     vendorName:string;
-    RemainQty:number;
-    TotalQty:number;
-    StockBatchId:string;
+    remainQty:number;
+    totalQty:number;
+    stockBatchId:string;
     unit: string;
      
     createTimeStr: string;
@@ -32,11 +32,11 @@ const StockColumns = [
    
     
     {  oldTitle: '供应商名',title: '供应商名',width:150,  dataIndex: 'vendorName', isUse: true,configOrder: 4  ,resizable: true,ellipsis: true,},
-    {  oldTitle: '批次',title: '批次',width:150,  dataIndex: 'StockBatchId', isUse: true,configOrder: 5  ,resizable: true,ellipsis: true,},
+    {  oldTitle: '批次',title: '批次',width:150,  dataIndex: 'stockBatchId', isUse: true,configOrder: 5  ,resizable: true,ellipsis: true,},
     {  oldTitle: '单位',title: '单位',width:50,  dataIndex: 'unit', isUse: true,configOrder: 6 ,resizable: true,ellipsis: true,},
-    {  oldTitle: '剩余库存',title: '剩余库存',width:80,  dataIndex: 'RemainQty', isUse: true,configOrder: 7  ,resizable: true,ellipsis: true,},
-    {  oldTitle: '总库存',title: '总库存',width:80,  dataIndex: 'TotalQty', isUse: true,configOrder: 8  ,resizable: true,ellipsis: true,},
-    {  oldTitle: '创建时间',title: '创建时间',width:180, dataIndex: 'createTimeStr', isUse: true,configOrder: 9,resizable: true ,ellipsis: true,},
+    {  oldTitle: '剩余库存',title: '剩余库存',width:90,  dataIndex: 'remainQty', isUse: true,configOrder: 7  ,resizable: true,ellipsis: true,},
+    {  oldTitle: '总库存',title: '总库存',width:90,  dataIndex: 'totalQty', isUse: true,configOrder: 8  ,resizable: true,ellipsis: true,},
+    {  oldTitle: '创建时间',title: '创建时间',width:160, dataIndex: 'createTimeStr', isUse: true,configOrder: 9,resizable: true ,ellipsis: true,},
     
     {  oldTitle: '操作',title: '操作',dataIndex: 'id', key: 'operation',width:123, slots: { customRender: 'action' } ,isUse: true,configOrder: 10,fixed: 'right', },
 
@@ -64,9 +64,9 @@ const ProductDatas=[
           RefreshBtn:true,
           ClearQueryBtn:true,
           SearchBtn:true,
-          ConfigExport:true,
-          ExportExcel:true,
-          ConfigGridBtn:true,
+          ConfigExport:false,
+          ExportExcel:false,
+          ConfigGridBtn:false,
           CreateBtn:true,
           BatchDeleteBtn:true,
           ClueShiftBtn:false,
@@ -85,9 +85,9 @@ const ProductDatas=[
   
           unit:"",
   
-          RemainQty: 0,
-          TotalQty: 0,
-          StockBatchId:  "",
+        remainQty: 0,
+          totalQty: 0,
+          stockBatchId:  "",
          
 
 
