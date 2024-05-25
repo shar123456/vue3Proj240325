@@ -120,11 +120,11 @@ const SearchBtn = async (payload: any) => {
    datas.value=datasTemp.value;
       if(payload.productCode!="")
       {
-        datas.value=datas.value.filter(i=>i.productCode.indexOf(payload.productCode)>-1)
+        datas.value=datas.value.filter((i:any)=>i.productCode.indexOf(payload.productCode)>-1)
       }
       if(payload.productName!="")
       {
-        datas.value=datas.value.filter(i=>i.productName.indexOf(payload.productName)>-1)
+        datas.value=datas.value.filter((i:any)=>i.productName.indexOf(payload.productName)>-1)
       }else
       {
         

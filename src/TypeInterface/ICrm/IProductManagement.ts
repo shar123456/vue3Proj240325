@@ -12,7 +12,7 @@ interface IProductInfo {
 
 
     unit: string;
-     requidQty:Number;
+    stockBatchId: string;
      manufactory:string;
      unitPrice:Number;
      volume:string;
@@ -44,7 +44,7 @@ const ProductColumns = [
     {  oldTitle: '供应商名',title: '供应商名',width:150,  dataIndex: 'vendorName', isUse: true,configOrder: 4  ,resizable: true,ellipsis: true,},
     
     {  oldTitle: '单位',title: '单位',width:50,  dataIndex: 'unit', isUse: true,configOrder: 5 ,resizable: true,ellipsis: true,},
-    {  oldTitle: '需求数量',title: '需求数量',width:80,  dataIndex: 'requidQty', isUse: true,configOrder: 6  ,resizable: true,ellipsis: true,},
+    {  oldTitle: '批次',title: '批次',width:80,  dataIndex: 'stockBatchId', isUse: true,configOrder: 6  ,resizable: true,ellipsis: true,},
     {  oldTitle: '制造厂',title: '制造厂',width:100,  dataIndex: 'manufactory', isUse: true,configOrder: 7  ,resizable: true,ellipsis: true,},
     {  oldTitle: '单价',title: '单价',width:60,  dataIndex: 'unitPrice', isUse: true,configOrder: 8  ,resizable: true,ellipsis: true,},
     {  oldTitle: '体积',title: '体积',width:60,  dataIndex: 'volume', isUse: true,configOrder: 9 ,resizable: true,ellipsis: true,},
@@ -108,7 +108,7 @@ const ProductDatas=[
   
           unit:"",
   
-          requidQty: 0,
+          stockBatchId: "",
           
           manufactory:  "",
           unitPrice: 0,

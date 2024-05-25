@@ -98,11 +98,11 @@
 
         <a-row type="flex" justify="center">
           <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
-            <a-form-item label="需求数量" name="requidQty">
-              <a-input-number style="width:100%"
+            <a-form-item label="批次" name="stockBatchId">
+              <a-input style="width:100%"
                 :disabled="IsDisabled"
-                v-model:value="EditData.requidQty"
-                placeholder="请输入需求数量"
+                v-model:value="EditData.stockBatchId"
+                placeholder="请输入批次"
               />
             </a-form-item>
           </a-col>
@@ -498,7 +498,7 @@ let visibleSearchModal_FlowNo = ref<boolean>(false);
     
      DataEntityState.EditData.productCategory="未选择";
    
-     DataEntityState.EditData.requidQty=0;
+     DataEntityState.EditData.stockBatchId="";
      DataEntityState.EditData.manufactory="";
      DataEntityState.EditData.unitPrice=0;
      DataEntityState.EditData.volume="";
@@ -555,7 +555,7 @@ let visibleSearchModal_FlowNo = ref<boolean>(false);
     
      DataEntityState.EditData.productCategory="未选择";
    
-     DataEntityState.EditData.requidQty=0;
+     DataEntityState.EditData.stockBatchId="";
      DataEntityState.EditData.manufactory="";
      DataEntityState.EditData.unitPrice=0;
      DataEntityState.EditData.volume="";

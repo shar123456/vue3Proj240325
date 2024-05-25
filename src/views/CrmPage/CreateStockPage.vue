@@ -475,6 +475,7 @@ console.log("or use this.value111", item);
         DataEntityState.EditData.productName = i.productName;
         DataEntityState.EditData.vendorID = i.vendorID;
         DataEntityState.EditData.vendorName = i.vendorName;
+        DataEntityState.EditData.stockBatchId = i.stockBatchId;
         DataEntityState.EditData.unit = i.unit;
       });
     };
