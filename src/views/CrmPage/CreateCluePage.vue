@@ -38,71 +38,39 @@
         <a-row type="flex" justify="center">
           <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
 
-            <a-form-item label="线索编号" name="clueCode">
-              <a-input
-              :disabled="IsDisabledClueCode"
-               
-                v-model:value="EditData.clueCode"
-                placeholder="请输入线索编号"
-              />
-            </a-form-item>
-            
-          </a-col>
-          <a-col class="col" :xs="{ span: 0 }" :lg="{ span: 1 }"></a-col>
-          <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
-            <a-form-item label="线索所有者" name="clueOwner">
+            <a-form-item label="线索名称" name="name">
               <a-input
               :disabled="IsDisabled"
-                v-model:value="EditData.clueOwner"
-                placeholder="请输入线索所有者"
-              />
-            </a-form-item>
-          </a-col>
-        </a-row>
-
-        <a-row style="height: 0px"></a-row>
-
-        <a-row type="flex" justify="center">
-          <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
-
-            <a-form-item label="姓名" name="name">
-              <a-input
-             :disabled="IsDisabled"
                
                 v-model:value="EditData.name"
-                placeholder="请输入姓名"
+                placeholder="请输入线索名称"
               />
             </a-form-item>
             
           </a-col>
           <a-col class="col" :xs="{ span: 0 }" :lg="{ span: 1 }"></a-col>
           <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
-            <a-form-item label="职位" name="position">
+            <a-form-item label="手机号" name="mobilePhone">
               <a-input
               :disabled="IsDisabled"
-                v-model:value="EditData.position"
-                placeholder="请输入职位"
+                v-model:value="EditData.mobilePhone"
+                placeholder="请输入手机号"
               />
             </a-form-item>
           </a-col>
         </a-row>
 
-
-
         <a-row style="height: 0px"></a-row>
-
-
-
 
         <a-row type="flex" justify="center">
           <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
 
-            <a-form-item label="公司" name="firm">
+            <a-form-item label="电话" name="phone">
               <a-input
              :disabled="IsDisabled"
                
-                v-model:value="EditData.firm"
-                placeholder="请输入公司"
+                v-model:value="EditData.phone"
+                placeholder="请输入电话"
               />
             </a-form-item>
             
@@ -123,175 +91,79 @@
 
         <a-row style="height: 0px"></a-row>
 
-        <a-row type="flex" justify="center">
-          <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
-
-            
-
-            <a-form-item label="年收入" name="annualIncome">
-              <a-input-number style="width:100%"
-                :disabled="IsDisabled"
-                v-model:value="EditData.annualIncome"
-                placeholder="请输入年收入"
-              />
-            </a-form-item>
-
-
-
-            
-          </a-col>
-          <a-col class="col" :xs="{ span: 0 }" :lg="{ span: 1 }"></a-col>
-          <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
-            
-
-            <a-form-item label="员工数量" name="employeeQty">
-              <a-input-number style="width:100%"
-                :disabled="IsDisabled"
-                v-model:value="EditData.employeeQty"
-                placeholder="请输入员工数量"
-              />
-            </a-form-item>
-
-
-
-
-          </a-col>
-        </a-row>
-
-
-
-        <a-row style="height: 0px"></a-row>
-
 
 
 
         <a-row type="flex" justify="center">
           <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
 
-           
-            
-
-
-            <a-form-item label="货币" name="currency">
-              <a-select
-               :disabled="IsDisabled"
-                v-model:value="EditData.currency"
-                style="width: 100%"
-                placeholder="请选择货币"
-              >
-                <a-select-option value="未选择">未选择</a-select-option>
-                <a-select-option value="人民币"
-                  >人民币</a-select-option
-                >
-                <a-select-option value="欧元">欧元</a-select-option>
-                <a-select-option value="英镑">英镑</a-select-option>
-                <a-select-option value="港元">港元</a-select-option>
-                <a-select-option value="日元">日元</a-select-option>
-                <a-select-option value="美元">美元</a-select-option>
-              </a-select>
-            </a-form-item>
-
-
-
-
-
-
-
-
-
-          </a-col>
-          <a-col class="col" :xs="{ span: 0 }" :lg="{ span: 1 }"></a-col>
-          <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
-            <a-form-item label="手机号" name="mobilePhone">
+            <a-form-item label="邮箱" name="email">
               <a-input
-              :disabled="IsDisabled"
-                v-model:value="EditData.mobilePhone"
-                placeholder="请输入手机号"
-              />
-            </a-form-item>
-          </a-col>
-        </a-row>
-
-
-
-        <a-row style="height: 0px"></a-row>
-
-
-
-
-
-        <a-row type="flex" justify="center">
-          <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
-
-            <a-form-item label="电话" name="phone">
-              <a-input
-            
-               
-                v-model:value="EditData.phone"
-                placeholder="请输入电话"
-              />
-            </a-form-item>
-            
-          </a-col>
-          <a-col class="col" :xs="{ span: 0 }" :lg="{ span: 1 }"></a-col>
-          <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
-            <a-form-item label="传真" name="fax">
-              <a-input
-              :disabled="IsDisabled"
-                v-model:value="EditData.fax"
-                placeholder="请输入传真"
-              />
-            </a-form-item>
-          </a-col>
-        </a-row>
-
-
-
-       
-
-
-       
-
-
-
-        <a-row style="height: 0px"></a-row>
-
-
-
-        <a-row type="flex" justify="center">
-          <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
-
-            <a-form-item label="电邮" name="email">
-              <a-input
-            
+             :disabled="IsDisabled"
                
                 v-model:value="EditData.email"
-                placeholder="请输入电邮"
+                placeholder="请输入邮箱"
               />
             </a-form-item>
             
           </a-col>
           <a-col class="col" :xs="{ span: 0 }" :lg="{ span: 1 }"></a-col>
           <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
-           
+            <a-form-item label="线索来源" name="clueOrigin">
+             <a-select :disabled="IsDisabled"  v-model:value="EditData.clueOrigin" style="width: 100%" placeholder="请输入线索来源">
+            <a-select-option value="转介绍">转介绍</a-select-option>
+            <a-select-option value="推广">推广</a-select-option>
+         <a-select-option value="电话咨询">电话咨询</a-select-option>
+          <a-select-option value="邮件咨询">邮件咨询</a-select-option>
+           <a-select-option value="媒体渠道">媒体渠道</a-select-option>
+            <a-select-option value="线下活动">线下活动</a-select-option>
+             <a-select-option value="广告">广告</a-select-option> <a-select-option value="陌拜">陌拜</a-select-option>
+                <a-select-option value="搜索引擎">搜索引擎</a-select-option> <a-select-option value="预约上门">预约上门</a-select-option>
+            <a-select-option value="其他">其他</a-select-option>
 
-
-            <a-form-item label="邮件免打扰" name="emailNoDisturb">
-              <a-select
-               :disabled="IsDisabled"
-                v-model:value="EditData.emailNoDisturb"
-                style="width: 100%"
-                placeholder="请选择邮件免打扰"
-              >
-                <a-select-option value="未选择">未选择</a-select-option>
-                <a-select-option value="是"
-                  >是</a-select-option
-                >
-                <a-select-option value="否">否</a-select-option>
-             
-               
-              </a-select>
+         
+          </a-select>
             </a-form-item>
+          </a-col>
+        </a-row>
+
+
+
+        <a-row style="height: 0px"></a-row>
+
+        <a-row type="flex" justify="center">
+          <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
+
+            
+
+            <a-form-item label="客户级别" name="customerLevel">
+              <a-select :disabled="IsDisabled"  v-model:value="EditData.customerLevel" style="width: 100%" placeholder="请输入客户级别">
+            <a-select-option value="普通客户">普通客户</a-select-option>
+            <a-select-option value="重点客户">重点客户</a-select-option>
+            <a-select-option value="VIP客户"> VIP客户</a-select-option>
+            
+
+
+         
+          </a-select>
+            </a-form-item>
+
+
+
+            
+          </a-col>
+          <a-col class="col" :xs="{ span: 0 }" :lg="{ span: 1 }"></a-col>
+          <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
+            
+
+            <a-form-item label="详细地址" name="address">
+              <a-input style="width:100%"
+                :disabled="IsDisabled"
+                v-model:value="EditData.address"
+                placeholder="请输入详细地址"
+              />
+            </a-form-item>
+
 
 
 
@@ -305,176 +177,74 @@
 
 
 
+      
+
+
+
         <a-row type="flex" justify="center">
           <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
 
-            <a-form-item label="网站" name="webSite">
+            <a-form-item label="省会" name="province">
               <a-input
             
                
-                v-model:value="EditData.webSite"
-                placeholder="请输入网站"
+                v-model:value="EditData.province"
+                placeholder="请输入省会"
               />
             </a-form-item>
             
           </a-col>
           <a-col class="col" :xs="{ span: 0 }" :lg="{ span: 1 }"></a-col>
           <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
-
-           
-            <a-form-item label="线索状态" name="clueState">
-              <a-select
-               :disabled="IsDisabled"
-                v-model:value="EditData.clueState"
-                style="width: 100%"
-                placeholder="请选择线索状态"
-              >
-                <a-select-option value="未选择">未选择</a-select-option>
-                <a-select-option value="启用"
-                  >启用</a-select-option
-                >
-                <a-select-option value="禁用">禁用</a-select-option>
-             
-               
-              </a-select>
+            <a-form-item label="城市" name="city">
+              <a-input
+              :disabled="IsDisabled"
+                v-model:value="EditData.city"
+                placeholder="请输入城市"
+              />
             </a-form-item>
-
-
-
           </a-col>
         </a-row>
 
 
 
-        <a-row style="height: 0px"></a-row>
-
-        <a-row type="flex" justify="center">
-          <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
-
-           
-
-
-            <a-form-item label="评级" name="rate">
-              <a-select
-               :disabled="IsDisabled"
-                v-model:value="EditData.rate"
-                style="width: 100%"
-                placeholder="请选择评级"
-              >
-                <a-select-option value="未选择">未选择</a-select-option>
-                <a-select-option value="Level1"
-                  >Level1</a-select-option
-                >
-                <a-select-option value="Level2">Level2</a-select-option>
-                <a-select-option value="Level3">Level3</a-select-option>
-                <a-select-option value="Level4">Level4</a-select-option>
-            
-               
-              </a-select>
-            </a-form-item>
-
-
-
-
-
-            
-          </a-col>
-          <a-col class="col" :xs="{ span: 0 }" :lg="{ span: 1 }"></a-col>
-          <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
-            
-
-            <a-form-item label="审核状态" name="clueAuditState">
-              <a-select
-               :disabled="IsDisabled"
-                v-model:value="EditData.clueAuditState"
-                style="width: 100%"
-                placeholder="请选择线索审核状态"
-              >
-                <a-select-option value="未审核">未审核</a-select-option>
-                <a-select-option value="通过"
-                  >通过</a-select-option
-                >
-                <a-select-option value="驳回">驳回</a-select-option>
-               
-              </a-select>
-            </a-form-item>
-
-
-
-
-          </a-col>
-        </a-row>
-
-
-
-        <a-row style="height: 0px"></a-row>
-
-
-
-
-
-
-
-        <a-row style="height: 0px"></a-row>
-
-<a-row type="flex" justify="center">
-  <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
-
-    <a-form-item label="地址" name="address">
-      <a-input
-    
        
-        v-model:value="EditData.address"
-        placeholder="请输入地址"
-      />
-    </a-form-item>
-    
-  </a-col>
-  <a-col class="col" :xs="{ span: 0 }" :lg="{ span: 1 }"></a-col>
-  <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
-    <a-form-item label="省份" name="province">
-      <a-input
-      :disabled="IsDisabled"
-        v-model:value="EditData.province"
-        placeholder="省份"
-      />
-    </a-form-item>
-  </a-col>
-</a-row>
+
+
+       
 
 
 
-<a-row style="height: 0px"></a-row>
+        <a-row style="height: 0px"></a-row>
 
 
 <a-row type="flex" justify="center">
   <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
 
-    <a-form-item label="城市" name="city">
-      <a-input
-    
-       
-        v-model:value="EditData.city"
-        placeholder="请输入城市"
-      />
-    </a-form-item>
-    
-  </a-col>
+
+  <a-form-item label="最后跟进时间" name="lastFollowTimeStr">
+               <a-date-picker :disabled="IsDisabled" style="width: 100%"  format="YYYY-MM-DD HH:mm:ss"  v-model:value="EditData.lastFollowTimeStr"
+        />
+            </a-form-item>
+
+</a-col>
   <a-col class="col" :xs="{ span: 0 }" :lg="{ span: 1 }"></a-col>
   <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
-    <a-form-item label="邮政编码" name="postalCode">
-      <a-input
-      :disabled="IsDisabled"
-        v-model:value="EditData.postalCode"
-        placeholder="邮政编码"
-      />
-    </a-form-item>
+    <a-form-item label="下次联系时间" name="nextContactTimeStr">
+  <a-date-picker :disabled="IsDisabled" style="width: 100%"  format="YYYY-MM-DD HH:mm:ss"  v-model:value="EditData.nextContactTimeStr"
+        />
+
+</a-form-item>
   </a-col>
 </a-row>
 
-
-
 <a-row style="height: 0px"></a-row>
+
+
+
+
+
+
 
 <a-row type="flex" justify="center">
           <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
@@ -486,26 +256,7 @@
           <a-col class="col" :xs="{ span: 0 }" :lg="{ span: 1 }"></a-col>
           <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
            
-            <a-form-item label="所属区域" name="belongArea">
-              <a-select
-               :disabled="IsDisabled"
-                v-model:value="EditData.belongArea"
-                style="width: 100%"
-                placeholder="请选择线所属区域"
-              >
-                <a-select-option value="未选择">未选择</a-select-option>
-                <a-select-option value="华中"
-                  >华中</a-select-option
-                >
-                <a-select-option value="华北">华北</a-select-option>
-                <a-select-option value="华东">华东</a-select-option>
-                <a-select-option value="华南">华南</a-select-option>
-                <a-select-option value="西北">西北</a-select-option>
-                <a-select-option value="西南">西南</a-select-option>
-                <a-select-option value="东北">东北</a-select-option>
-               
-              </a-select>
-            </a-form-item>
+         
 
 
           </a-col>
@@ -638,8 +389,33 @@ let visibleSearchModal_FlowNo = ref<boolean>(false);
          state.IsDisabledClueCode=true;
         GetClueById({ Id: Id }).then((res: any) => {
                   if (res.isSuccess) {
-                   
-                 DataEntityState.EditData=res.datas;
+
+                     DataEntityState.EditData=res.datas;
+                    var times=res.datas.nextContactTimeStr;
+        if(res.datas.nextContactTimeStr==null||res.datas.nextContactTimeStr==""||res.datas.nextContactTimeStr==undefined)
+        {
+
+        }else
+        {
+DataEntityState.EditData.nextContactTimeStr= (dayjs(dateFormat("YYYY-mm-dd HH:MM:SS",new Date(times),0),"YYYY-MM-DD HH:mm:ss"));
+        }
+             
+             
+
+ var times1=res.datas.lastFollowTimeStr;
+         if(res.datas.lastFollowTimeStr==null||res.datas.lastFollowTimeStr==""||res.datas.lastFollowTimeStr==undefined)
+        {
+
+        }else
+        {
+DataEntityState.EditData.lastFollowTimeStr= (dayjs(dateFormat("YYYY-mm-dd HH:MM:SS",new Date(times1),0),"YYYY-MM-DD HH:mm:ss"));
+        }
+                
+
+
+               
+                
+
                   }
                   else
                   {
@@ -696,18 +472,18 @@ let visibleSearchModal_FlowNo = ref<boolean>(false);
         },
       ],
       
-      clueState: [
-        {
-          required: true,
-          validator: validateclueState,
-        },
-      ],
-      rate: [
-        {
-          required: true,
-          validator: validaterate,
-        },
-      ],
+      // clueState: [
+      //   {
+      //     required: true,
+      //     validator: validateclueState,
+      //   },
+      // ],
+      // rate: [
+      //   {
+      //     required: true,
+      //     validator: validaterate,
+      //   },
+      // ],
     };
 
      const formRef = ref<FormInstance>();
@@ -762,8 +538,8 @@ let visibleSearchModal_FlowNo = ref<boolean>(false);
            //UpdateorkSchedule
    
    
-   
-         //DataEntityState.EditData.startTimeStr= dayjs(dateFormat("YYYY-mm-dd HH:MM:SS",new Date(values.startTimeStr),0),"YYYY-MM-DD HH:mm:ss");
+
+ 
    UpdateClue(DataEntityState.EditData).then((res: any) => {
            console.log(res);
            if (res.isSuccess) {
@@ -774,45 +550,30 @@ let visibleSearchModal_FlowNo = ref<boolean>(false);
              {
               DataEntityState.EditData.id="";
      DataEntityState.EditData.clueCode= "";
-     DataEntityState.EditData.clueOwner= "";
-     DataEntityState.EditData.name="";
-     DataEntityState.EditData.position= "";
-    
-     DataEntityState.EditData.firm="";
-   
-     DataEntityState.EditData.industry="";
-     DataEntityState.EditData.annualIncome=0;
-     DataEntityState.EditData.employeeQty=0;
-     DataEntityState.EditData.currency="人民币";
+     DataEntityState.EditData.name= "";
      DataEntityState.EditData.mobilePhone="";
-     
-     DataEntityState.EditData.phone="";
-     DataEntityState.EditData.fax="";
+     DataEntityState.EditData.phone= "";
+     DataEntityState.EditData.industry= "";
      DataEntityState.EditData.email="";
-     DataEntityState.EditData.emailNoDisturb="否"
-    
+
+    DataEntityState.EditData.clueState="正常",
+    DataEntityState.EditData.clueOrigin= "其他",
+    DataEntityState.EditData.customerLevel="普通客户",
+     DataEntityState.EditData.address="";
+     DataEntityState.EditData.province="";
+     DataEntityState.EditData.city="";
 
 
-     
-     DataEntityState.EditData.secondEmail="",
-     DataEntityState.EditData.webSite="",
-     DataEntityState.EditData.contactShiftMark=false,
-     DataEntityState.EditData.customerShiftMark=false,
-     DataEntityState.EditData.businessShiftMark=false,
-     DataEntityState.EditData.clueSource="",
-     DataEntityState.EditData.clueState="启用",
-     DataEntityState.EditData.rate="Level1",
-     DataEntityState.EditData.clueAuditState="未审核",
-     DataEntityState.EditData.address="",
-     DataEntityState.EditData.province="",
-     DataEntityState.EditData.city="",
-     DataEntityState.EditData.postalCode="",
+     DataEntityState.EditData.lastFollowTimeStr= (dayjs(dateFormat("YYYY-mm-dd HH:MM:SS",new Date(),0),"YYYY-MM-DD HH:mm:ss"));
+     DataEntityState.EditData.nextContactTimeStr= (dayjs(dateFormat("YYYY-mm-dd HH:MM:SS",new Date(),0),"YYYY-MM-DD HH:mm:ss"));
+     DataEntityState.EditData.createrStr="";
+
      DataEntityState.EditData.remark="",
+   
      DataEntityState.EditData.createTimeStr= dateFormat("YYYY-mm-dd HH:MM:SS",new Date(),0);
      DataEntityState.EditData.key= "";
-     DataEntityState.EditData.belongArea= "未选择";
-     
      DataEntityState.EditData.TmStamp=[];
+
              }
              
    
@@ -848,42 +609,28 @@ let visibleSearchModal_FlowNo = ref<boolean>(false);
 
     if(DataEntityState.EditData!=undefined)
              {
-              DataEntityState.EditData.id="";
+                DataEntityState.EditData.id="";
      DataEntityState.EditData.clueCode= "";
-     DataEntityState.EditData.clueOwner= "";
-     DataEntityState.EditData.name="";
-     DataEntityState.EditData.position= "";
-    
-     DataEntityState.EditData.firm="";
-   
-     DataEntityState.EditData.industry="";
-     DataEntityState.EditData.annualIncome=0;
-     DataEntityState.EditData.employeeQty=0;
-     DataEntityState.EditData.currency="人民币";
+     DataEntityState.EditData.name= "";
      DataEntityState.EditData.mobilePhone="";
-     
-     DataEntityState.EditData.phone="";
-     DataEntityState.EditData.fax="";
+     DataEntityState.EditData.phone= "";
+     DataEntityState.EditData.industry= "";
      DataEntityState.EditData.email="";
-     DataEntityState.EditData.emailNoDisturb="否" 
-     DataEntityState.EditData.belongArea= "未选择";
+
+    DataEntityState.EditData.clueState="正常",
+    DataEntityState.EditData.clueOrigin= "其他",
+    DataEntityState.EditData.customerLevel="普通客户",
+     DataEntityState.EditData.address="";
+     DataEntityState.EditData.province="";
+     DataEntityState.EditData.city="";
 
 
-     
-     DataEntityState.EditData.secondEmail="",
-     DataEntityState.EditData.webSite="",
-     DataEntityState.EditData.contactShiftMark=false,
-     DataEntityState.EditData.customerShiftMark=false,
-     DataEntityState.EditData.businessShiftMark=false,
-     DataEntityState.EditData.clueSource="",
-     DataEntityState.EditData.clueState="启用",
-     DataEntityState.EditData.rate="Level1",
-     DataEntityState.EditData.clueAuditState="未审核",
-     DataEntityState.EditData.address="",
-     DataEntityState.EditData.province="",
-     DataEntityState.EditData.city="",
-     DataEntityState.EditData.postalCode="",
+     DataEntityState.EditData.lastFollowTimeStr= (dayjs(dateFormat("YYYY-mm-dd HH:MM:SS",new Date(),0),"YYYY-MM-DD HH:mm:ss"));
+     DataEntityState.EditData.nextContactTimeStr= (dayjs(dateFormat("YYYY-mm-dd HH:MM:SS",new Date(),0),"YYYY-MM-DD HH:mm:ss"));
+     DataEntityState.EditData.createrStr="";
+
      DataEntityState.EditData.remark="",
+   
      DataEntityState.EditData.createTimeStr= dateFormat("YYYY-mm-dd HH:MM:SS",new Date(),0);
      DataEntityState.EditData.key= "";
      DataEntityState.EditData.TmStamp=[];

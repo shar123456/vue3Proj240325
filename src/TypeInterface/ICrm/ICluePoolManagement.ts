@@ -68,10 +68,10 @@ const CluePoolColumns = [
     {  oldTitle: '城市 ',title: '城市 ',width:70, dataIndex: 'city', isUse: true,configOrder: 3 ,resizable: true,ellipsis: true},
     {  oldTitle: '省会 ',title: '省会 ',width:70, dataIndex: 'province', isUse: true,configOrder: 3 ,resizable: true,ellipsis: true},
 
-    {  oldTitle: '下次联系时间 ',title: '下次联系时间 ',width:140, dataIndex: 'nextContactTimeStr', isUse: true,configOrder: 3 ,resizable: true,ellipsis: true},
-    {  oldTitle: '最后跟进时间 ',title: '最后跟进时间 ',width:140, dataIndex: 'lastFollowTimeStr', isUse: true,configOrder: 3 ,resizable: true,ellipsis: true},
+    {  oldTitle: '下次联系时间 ',title: '下次联系时间 ',width:130, dataIndex: 'nextContactTimeStr', isUse: true,configOrder: 3 ,resizable: true,ellipsis: true},
+    {  oldTitle: '最后跟进时间 ',title: '最后跟进时间 ',width:130, dataIndex: 'lastFollowTimeStr', isUse: true,configOrder: 3 ,resizable: true,ellipsis: true},
 
-    {  oldTitle: '创建时间 ',title: '创建时间 ',width:140, dataIndex: 'createTimeStr', isUse: true,configOrder: 3 ,resizable: true,ellipsis: true},
+    {  oldTitle: '创建时间 ',title: '创建时间 ',width:130, dataIndex: 'createTimeStr', isUse: true,configOrder: 3 ,resizable: true,ellipsis: true},
 
     {  oldTitle: '操作',title: '操作',dataIndex: 'id', key: 'operation',width:240, slots: { customRender: 'action' } ,isUse: true,configOrder: 10,fixed: 'right', },
 

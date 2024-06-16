@@ -77,6 +77,8 @@ export default defineComponent({
             downLoadName:"",
             downLoadHref:""
         })
+
+        console.log("setup","111111111111111111111111111111111111111");
           let visibleExportExcel = ref<boolean>(props.visibleExportExcel);
           let modalTitleeExportExcel = ref<string|undefined>(props.modalExportExcelTitles);
            const EditData:IUserInfo=props.UserData?.EditData as IUserInfo;
@@ -85,7 +87,7 @@ let configType = ref<string|undefined>(props.configType);
   if(configType.value=="ClueManagement")
            {
             state.downLoadName="线索模板下载";
-state.downLoadHref="./线索导入模板.xlsx";
+state.downLoadHref="./downloadfile/线索导入模板.xlsx";
            }
   if(configType.value=="CustomerManagement")
            {
@@ -102,6 +104,9 @@ state.downLoadHref="./商机导入模板.xlsx";
             state.downLoadName="报价单模板下载";
 state.downLoadHref="./报价单模板下载.xlsx";
            }
+
+
+
  const fileList = ref<any['fileList']>([]);
     const uploading = ref<boolean>(false);
 
@@ -203,7 +208,7 @@ message.success(res.data.msg)
            
          console.log(newValue)
           fileList.value=[];
-            visibleExportExcel.value=newValue;
+            visibleExportExcel.value=newValue;  console.log("setup111","111111111111111111111111111111111111111");
       }
     );
      watch(

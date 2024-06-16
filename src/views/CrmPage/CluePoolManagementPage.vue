@@ -1,15 +1,10 @@
 <template>
-   <Common-Query-Header-CRM
+  <Common-Query-Header-CRM
     @SearchBtn="SearchBtn"
-    @RefreshBtn="RefreshBtn"  
-    @ClearQueryBtn="ClearQueryBtn"  
+    @RefreshBtn="RefreshBtn"
+    @ClearQueryBtn="ClearQueryBtn"
     @CreateBtn="CreateBtn"
- @BatchDelete="BatchDeleteBtn"
- 
-
-
-
-    
+    @BatchDelete="BatchDeleteBtn"
     :StateEntity="NewDataEntityState"
   >
   </Common-Query-Header-CRM>
@@ -23,7 +18,7 @@
       :loading="loading"
       :columns="ListGridColumns"
       :data-source="DataList"
-      :scroll="{ x: 1000, y:500 }"
+      :scroll="{ x: 1000, y: 500 }"
       :customRow="rowActionClick"
       :row-selection="{
         selectedRowKeys: selectedRowKeys,
@@ -31,7 +26,6 @@
       }"
       :pagination="false"
     >
-    
       <template #customerLevel="{ text: customerLevel }">
         <span>
           <a-tag color="blue">
@@ -39,7 +33,7 @@
           </a-tag>
         </span>
       </template>
- <template #clueOrigin="{ text: clueOrigin }">
+      <template #clueOrigin="{ text: clueOrigin }">
         <span>
           <a-tag color="blue">
             {{ clueOrigin }}
@@ -47,112 +41,103 @@
         </span>
       </template>
 
-       <template #clueState="{ text: clueState }">
-       
+      <template #clueState="{ text: clueState }">
+        <span>
+          <a-tag v-if="clueState === '正常'" color="green">
+            {{ clueState }}
+          </a-tag>
+          <a-tag v-else-if="clueState === '已锁定'" color="red">
+            {{ clueState }}
+          </a-tag>
 
-         <span>
-          <a-tag v-if="clueState === '正常'"  color='green'>
-            {{ clueState }}
-          </a-tag>
-           <a-tag v-else-if="clueState === '已锁定'"  color='red'>
-            {{ clueState }}
-          </a-tag>
-           
-           <a-tag v-else  color='#A3A98D'>
+          <a-tag v-else color="#A3A98D">
             {{ clueState }}
           </a-tag>
         </span>
       </template>
-  <template #action="{ record }">
-       <a  @click="RemindBth(action)"
+      <template #action="{ record }">
+        <a
+          @click="ReceiveBth(record.id, record.code)"
           style="
             color: #fff;
             font-size: 14px;
             font-weight: 600;
-            border:1px solid #dedede;
-             padding-top:1px;
-               padding-bottom:3px;
-             padding-left:7px;
-               padding-right:7px;
-            background-color:#3c8dbc;
+            border: 1px solid #dedede;
+            padding-top: 1px;
+            padding-bottom: 3px;
+            padding-left: 7px;
+            padding-right: 7px;
+            background-color: #3c8dbc;
             border-radius: 4px;
           "
-         
-          title="提醒"
-          ><BellOutlined   mark="remind"
-        />&nbsp;提醒</a>
-       <a  @click="showDrawer(action)"
+          title="领取"
+          ><FlagOutlined mark="Receive" />&nbsp;领取</a
+        >
+        <a
+          @click="showDrawer(action)"
           style="
             color: #fff;
             font-size: 14px;
             font-weight: 600;
-            border:1px solid #dedede;
-             padding-top:1px;
-               padding-bottom:3px;
-             padding-left:7px;
-               padding-right:7px;
-            background-color:#3c8dbc;
+            border: 1px solid #dedede;
+            padding-top: 1px;
+            padding-bottom: 3px;
+            padding-left: 7px;
+            padding-right: 7px;
+            background-color: #3c8dbc;
             border-radius: 4px;
           "
-         
           title="查看"
-          ><SearchOutlined  mark="delete"
-        />&nbsp;查看</a>
-         <a  @click="EditBth(record.id)"
+          ><SearchOutlined mark="delete" />&nbsp;查看</a
+        >
+        <a
+          @click="EditBth(record.id)"
           style="
             color: #fff;
             font-size: 14px;
             font-weight: 600;
-            border:1px solid #dedede;
-             padding-top:1px;
-               padding-bottom:3px;
-             padding-left:7px;
-               padding-right:7px;
-            background-color:#3c8dbc;
+            border: 1px solid #dedede;
+            padding-top: 1px;
+            padding-bottom: 3px;
+            padding-left: 7px;
+            padding-right: 7px;
+            background-color: #3c8dbc;
             border-radius: 4px;
           "
-         
           title="编辑"
-          ><EditOutlined  mark="delete"
-        />&nbsp;编辑</a>
-        <a  @click="DeleteBth(record.id,record.code)"
+          ><EditOutlined mark="delete" />&nbsp;编辑</a
+        >
+        <a
+          @click="DeleteBth(record.id, record.code)"
           style="
             color: #fff;
             font-size: 14px;
             font-weight: 600;
-            border:1px solid #dedede;
-             padding-top:1px;
-               padding-bottom:3px;
-             padding-left:7px;
-               padding-right:7px;
-            background-color:#dd4b39 ;
+            border: 1px solid #dedede;
+            padding-top: 1px;
+            padding-bottom: 3px;
+            padding-left: 7px;
+            padding-right: 7px;
+            background-color: #dd4b39;
             border-radius: 4px;
           "
-         
           title="删除"
-          ><CloseOutlined  mark="delete"
-        />&nbsp;删除</a>
-     <a-drawer
-    v-model:visible="visible"
-    class="custom-class"
-    style="color: red"
-    title="Basic Drawer"
-    placement="right"
-    size="large" 
-    @after-visible-change="afterVisibleChange"
-  >
-    <p>Some contents...</p>
-    <p>Some contents...</p>
-    <p>Some contents...</p>
-  </a-drawer>
+          ><CloseOutlined mark="delete" />&nbsp;删除</a
+        >
+        <a-drawer
+          v-model:visible="visible"
+          class="custom-class"
+          style="color: red"
+          title="Basic Drawer"
+          placement="right"
+          size="large"
+          @after-visible-change="afterVisibleChange"
+        >
+          <p>Some contents...</p>
+          <p>Some contents...</p>
+          <p>Some contents...</p>
+        </a-drawer>
       </template>
-
-
-    
-
-
-
-
     </a-table>
 
     <div class="userPagination">
@@ -172,7 +157,6 @@
       </a-pagination>
     </div>
   </div>
-
 </template>
 
 <script lang="ts">
@@ -187,13 +171,19 @@ import {
 } from "vue";
 import { message, Modal } from "ant-design-vue";
 import {
-  
-  DeleteFilled,EditOutlined,
-  ExclamationCircleOutlined,SearchOutlined,CloseOutlined,BellOutlined,CopyFilled
-  
+  DeleteFilled,
+  EditOutlined,
+  FlagOutlined,
+  DownOutlined,
+  ExclamationCircleOutlined,
+  SearchOutlined,
+  CloseOutlined,
+  BellOutlined,
+  CopyFilled,
 } from "@ant-design/icons-vue";
 import {
-  CluePoolEntity,CluePoolColumns
+  CluePoolEntity,
+  CluePoolColumns,
 } from "../../TypeInterface/ICrm/ICluePoolManagement";
 import CommonQueryHeaderCRM from "../../components/CommonQueryHeaderCRM.vue";
 import {
@@ -201,58 +191,62 @@ import {
   GetLoginRecordDatas,
   DeleteLoginRecordById,
   BatchDeleteLoginRecord,
-    GetExpColumnsConfig,
+  GetExpColumnsConfig,
 } from "../../Request/userRequest";
 import {
-  StockEntity,StockColumns,ExportColumns
+  StockEntity,
+  StockColumns,
+  ExportColumns,
 } from "../../TypeInterface/ICrm/IStockManagement";
 import {
-  GetStockManagementDatas,AddStock,UpdateStock,BatchExport,CopyDataById
-}
- from "../../Request/CrmRequest/StockManagementRequest";
+  GetStockManagementDatas,
+  AddStock,
+  UpdateStock,
+  BatchExport,
+  CopyDataById,
+} from "../../Request/CrmRequest/StockManagementRequest";
 
 import {
-  GetCluePoolManagementDatas,DeleteById,BatchDelete
-}
- from "../../Request/CrmRequest/CluePoolManagementRequest";
+  GetCluePoolManagementDatas,
+  DeleteById,
+  BatchDelete,ReceiveById,
+} from "../../Request/CrmRequest/CluePoolManagementRequest";
 
 import { deepClone } from "../../utility/commonFunc";
-import{useRouter} from 'vue-router'
+import { useRouter } from "vue-router";
 import configGridModal from "../../components/configGridModal.vue";
 import configExportModal from "../../components/configExportModal.vue";
 export default defineComponent({
   components: {
-configGridModal,configExportModal,
-    DeleteFilled,SearchOutlined,CommonQueryHeaderCRM,CloseOutlined,EditOutlined,BellOutlined,CopyFilled
-
+    configGridModal,
+    configExportModal,
+    DeleteFilled,
+    SearchOutlined,
+    CommonQueryHeaderCRM,
+    CloseOutlined,
+    EditOutlined,
+    BellOutlined,
+    CopyFilled,
+    FlagOutlined,
   },
   setup() {
     const state = reactive({
       count: 0,
     });
-  const router=useRouter();
+    const router = useRouter();
     const DataEntityState = reactive(new CluePoolEntity());
- 
-    let  NewDataEntityState=new CluePoolEntity();
-    
-    
-const visible = ref<boolean>(false);
+
+    let NewDataEntityState = new CluePoolEntity();
+
+    const visible = ref<boolean>(false);
 
     const afterVisibleChange = (bool: boolean) => {
-      console.log('visible', bool);
+      console.log("visible", bool);
     };
 
     const showDrawer = () => {
       visible.value = true;
     };
-
-
-
-
-
-  
-
-
 
     /***分页****************/
     const pageSize = ref(10);
@@ -261,8 +255,7 @@ const visible = ref<boolean>(false);
     let refreshMark = ref<string>("");
     const pageSizeOptions = ref<string[]>(["5", "10", "20", "30", "40", "50"]);
 
-
-      const onShowSizeChange = (current: number, pageSize: number) => {
+    const onShowSizeChange = (current: number, pageSize: number) => {
       loading.value = true;
       GetCluePoolManagementDatas({
         current: current,
@@ -309,26 +302,19 @@ const visible = ref<boolean>(false);
       });
     });
 
+    /***分页****************/
 
- 
-
-
-
-
-
-  /***分页****************/
-
-/***数据初始化****************/
-let loading = ref<boolean>(false);
-onMounted(async () => {
+    /***数据初始化****************/
+    let loading = ref<boolean>(false);
+    onMounted(async () => {
       //获取表格列及处理表格列
       //let columnList = await GetLoginRecordColumn({ pageName: "StockManagement" });
-    
-// if(columnList==undefined||columnList.length==0)
-// {
-//   columnList=deepClone(StockColumns)
-// }
-let columnList=deepClone(CluePoolColumns)
+
+      // if(columnList==undefined||columnList.length==0)
+      // {
+      //   columnList=deepClone(StockColumns)
+      // }
+      let columnList = deepClone(CluePoolColumns);
 
       DataEntityState.ListColumns = deepClone(columnList);
 
@@ -344,17 +330,8 @@ let columnList=deepClone(CluePoolColumns)
           // columnList[j].width = 190;
           // columnList[j].dataIndex = "action";
         }
-
-
-
-
       }
       DataEntityState.ListGridColumns = columnList;
-
-
-
-
-
 
       for (var i in DataEntityState.ListGridColumns) {
         if (DataEntityState.ListGridColumns[i]["slots"] == null) {
@@ -366,14 +343,6 @@ let columnList=deepClone(CluePoolColumns)
           delete DataEntityState.ListColumns[z]["slots"];
         }
       }
-
-
-
-
-
-
-
-
 
       //获用户数据
       loading.value = true;
@@ -390,46 +359,29 @@ let columnList=deepClone(CluePoolColumns)
         totalCount.value = UserDatasList.totalCount;
         current1.value = 1;
       }
-        console.log("amount-DataEntityState.DataList", DataEntityState.DataList);
+      console.log("amount-DataEntityState.DataList", DataEntityState.DataList);
       //测试
       // for(var s=0;s<11;s++)
       // {
       //   DataEntityState.DataList.push(DataEntityState.ProductDatas[0]);
       // }
-       
+
       //    totalCount.value = DataEntityState.DataList.length;
       //  current1.value = 1;
-
     });
     /***数据初始化****************/
 
-
-
-
-
-/***勾选****************/
-    const onSelectChange = (selectedRowKeys: [], selectedRows: []) => { 
+    /***勾选****************/
+    const onSelectChange = (selectedRowKeys: [], selectedRows: []) => {
       DataEntityState.selectedRowKeys = selectedRowKeys;
       DataEntityState.selectedRows = selectedRows;
     };
     /***勾选****************/
 
-
-
-
-
-
-
-
-
-
-
-
-
-/***功能按钮****************************************** */
-const SearchBtn = async (payload: any) => {
-    DataEntityState.selectedRowKeys = [];
-              DataEntityState.selectedRows = [];
+    /***功能按钮****************************************** */
+    const SearchBtn = async (payload: any) => {
+      DataEntityState.selectedRowKeys = [];
+      DataEntityState.selectedRows = [];
       loading.value = true;
 
       let UserDatasList1 = await GetCluePoolManagementDatas({
@@ -447,103 +399,125 @@ const SearchBtn = async (payload: any) => {
       DataEntityState.QueryConditionInfo = payload;
     };
 
-   
-
     const ClearQueryBtn = (payload: any) => {
       console.log("ClearQueryBtn");
     };
- const CreateBtn = (payload: any) => {
-      router.push({ path: "/Home/CreateCluePoolPage", query: {pageType:"add"} });
+    const CreateBtn = (payload: any) => {
+      router.push({
+        path: "/Home/CreateCluePoolPage",
+        query: { pageType: "add" },
+      });
     };
 
-    
-
-   //暂时不用
+    //暂时不用
     const RefreshBtnTemp = async (payload: any) => {
-   
-   loading.value = true;
-for(let item in  DataEntityState.QueryConditionInfo)
-{
-if(DataEntityState.QueryConditionInfoConfig[item].type=="text")
-     {
-         DataEntityState.QueryConditionInfo[item]="";
-     }
-     if(DataEntityState.QueryConditionInfoConfig[item].type=="select")
-     {
-         DataEntityState.QueryConditionInfo[item]="未选择";
-     }
-}
+      loading.value = true;
+      for (let item in DataEntityState.QueryConditionInfo) {
+        if (DataEntityState.QueryConditionInfoConfig[item].type == "text") {
+          DataEntityState.QueryConditionInfo[item] = "";
+        }
+        if (DataEntityState.QueryConditionInfoConfig[item].type == "select") {
+          DataEntityState.QueryConditionInfo[item] = "未选择";
+        }
+      }
 
-GetCluePoolManagementDatas({
-     current: current1.value,
-     pageSize: pageSize.value,
-     ...DataEntityState.QueryConditionInfo,
-   }).then((res: any) => {
-     loading.value = false;
-     if (res.isSuccess) {
-       console.log(res.datas);
-       DataEntityState.DataList = res.datas;
-       totalCount.value = res.totalCount;
-     }
-   });
- };
+      GetCluePoolManagementDatas({
+        current: current1.value,
+        pageSize: pageSize.value,
+        ...DataEntityState.QueryConditionInfo,
+      }).then((res: any) => {
+        loading.value = false;
+        if (res.isSuccess) {
+          console.log(res.datas);
+          DataEntityState.DataList = res.datas;
+          totalCount.value = res.totalCount;
+        }
+      });
+    };
 
-/***功能按钮****************************************** */
+    /***功能按钮****************************************** */
 
 
+  const ReceiveBth = (item: any, Code: any) => {
+      Modal.confirm({
+        title: "您确定要领取这条线索吗?",
+        icon: createVNode(ExclamationCircleOutlined),
+        content: `编号：${Code}`,
+        okText: "Yes",
+        okType: "danger",
+        cancelText: "No",
+        onOk() {
+          // const index = UserDataEntityState.UserDataList.findIndex(
+          //     (i: IUserInfo) => i.sysUserId == Id);
+          //     UserDataEntityState.UserDataList.splice(index, 1);
 
-const DeleteBth = (item: any,Code:any) => {
+          loading.value = true;
+          ReceiveById({ Id: item }).then((res: any) => {
+            if (res.isSuccess) {
+              refreshMark.value = new Date().getTime().toString();
+              message.success("领取成功,请到您的线索管理列表中进行查看.");
+            }
+          });
+        },
+        onCancel() {
+          message.error("已取消.");
+        },
+      });
+    };
 
-Modal.confirm({
-              title: "您确定要删除这条记录吗?",
-              icon: createVNode(ExclamationCircleOutlined),
-              content: `编号：${Code}`,
-              okText: "Yes",
-              okType: "danger",
-              cancelText: "No",
-              onOk() {
-                // const index = UserDataEntityState.UserDataList.findIndex(
-                //     (i: IUserInfo) => i.sysUserId == Id);
-                //     UserDataEntityState.UserDataList.splice(index, 1);
 
-                loading.value = true;
-                DeleteById({ Id: item }).then((res: any) => {
-                  if (res.isSuccess) {
-                    refreshMark.value = new Date().getTime().toString();
-                    message.success("删除成功.");
-                  }
-                });
-              },
-              onCancel() {
-                message.error("已取消.");
-              },
-            });
 
-   };
 
-   
+    const DeleteBth = (item: any, Code: any) => {
+      Modal.confirm({
+        title: "您确定要删除这条记录吗?",
+        icon: createVNode(ExclamationCircleOutlined),
+        content: `编号：${Code}`,
+        okText: "Yes",
+        okType: "danger",
+        cancelText: "No",
+        onOk() {
+          // const index = UserDataEntityState.UserDataList.findIndex(
+          //     (i: IUserInfo) => i.sysUserId == Id);
+          //     UserDataEntityState.UserDataList.splice(index, 1);
 
-const CopyBtn = (item: any) => {
- CopyDataById({ Id: item }).then((res: any) => {
-              //console.log(res);
-              if (res.isSuccess) {
-                refreshMark.value = new Date().getTime().toString();
-                DataEntityState.selectedRowKeys = [];
-                DataEntityState.selectedRows = [];
-                message.success(res.msg);
-              }else{
-                 message.success("error");
-              }
-            });
-}
+          loading.value = true;
+          DeleteById({ Id: item }).then((res: any) => {
+            if (res.isSuccess) {
+              refreshMark.value = new Date().getTime().toString();
+              message.success("删除成功.");
+            }
+          });
+        },
+        onCancel() {
+          message.error("已取消.");
+        },
+      });
+    };
 
-const EditBth = (item: any) => {
-// console.log("EditBth",item)
-router.push({ path: "/Home/CreateCluePoolPage", query: {pageType:"edit",id: item} });
+    const CopyBtn = (item: any) => {
+      CopyDataById({ Id: item }).then((res: any) => {
+        //console.log(res);
+        if (res.isSuccess) {
+          refreshMark.value = new Date().getTime().toString();
+          DataEntityState.selectedRowKeys = [];
+          DataEntityState.selectedRows = [];
+          message.success(res.msg);
+        } else {
+          message.success("error");
+        }
+      });
+    };
 
-};
+    const EditBth = (item: any) => {
+      // console.log("EditBth",item)
+      router.push({
+        path: "/Home/CreateCluePoolPage",
+        query: { pageType: "edit", id: item },
+      });
+    };
 
- const BatchDeleteBtn = (payload: any) => {
+    const BatchDeleteBtn = (payload: any) => {
       let keys: string[] = [];
       for (let i in DataEntityState.selectedRowKeys) {
         keys[i] = DataEntityState.selectedRowKeys[i];
@@ -572,7 +546,6 @@ router.push({ path: "/Home/CreateCluePoolPage", query: {pageType:"edit",id: item
               message.success("批量删除成功.");
             }
           });
-         
         },
         onCancel() {
           message.error("已取消.");
@@ -580,11 +553,9 @@ router.push({ path: "/Home/CreateCluePoolPage", query: {pageType:"edit",id: item
       });
     };
 
+    /***导出 start************** */
 
-
-/***导出 start************** */
-
-  const ExportExcelBtn = () => {
+    const ExportExcelBtn = () => {
       let keys: string[] = [];
       for (let i in DataEntityState.selectedRowKeys) {
         keys[i] = DataEntityState.selectedRowKeys[i];
@@ -643,7 +614,7 @@ router.push({ path: "/Home/CreateCluePoolPage", query: {pageType:"edit",id: item
             //    window.location.href = url;
 
             //注释：有没有引入mock生成的数据文件,文件里引用了mockjs,mock会对返回的数据做处理,导致文件下载 乱码 文件损坏 打开undefind等
-           // console.log("headers", res.headers);
+            // console.log("headers", res.headers);
             const blob = new Blob([res.data], {
               type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
             });
@@ -653,7 +624,7 @@ router.push({ path: "/Home/CreateCluePoolPage", query: {pageType:"edit",id: item
             //   res.headers["Content-Disposition"];
             //   console.log("contentDisposition",contentDisposition)
             //const fileName =(contentDisposition && contentDisposition.split(";")[1]).split("=")[1] ||f ||"";
-         const fileName ="产品-"+new Date().getTime();
+            const fileName = "产品-" + new Date().getTime();
             //const fileName = '统计.xlsx';
             const elink = document.createElement("a");
             elink.download = fileName;
@@ -673,18 +644,14 @@ router.push({ path: "/Home/CreateCluePoolPage", query: {pageType:"edit",id: item
       });
     };
 
+    /***导出 end************** */
 
+    /***导出配置 start************** */
 
-/***导出 end************** */
-
-
-/***导出配置 start************** */
-
-let visibleConfigExport = ref<boolean>(false);
+    let visibleConfigExport = ref<boolean>(false);
     let modalTitleConfigExport = ref<string>("");
 
     const ShowConfigExportBtn = () => {
-
       //console.log(1111)
       visibleConfigExport.value = true;
       modalTitleConfigExport.value = "配置【导出信息】";
@@ -697,8 +664,6 @@ let visibleConfigExport = ref<boolean>(false);
         pageName: "ProductManagement",
       });
 
-  
-
       if (ExportColumnsList != undefined && ExportColumnsList.length > 0) {
         DataEntityState.ExportColumns = ExportColumnsList;
       } else {
@@ -706,17 +671,13 @@ let visibleConfigExport = ref<boolean>(false);
       }
     };
 
-/***导出配置 end************** */
+    /***导出配置 end************** */
 
-
-
-
-
-/***配置列表 start************** */
-let visibleModelConfigGrid = ref<boolean>(false);
+    /***配置列表 start************** */
+    let visibleModelConfigGrid = ref<boolean>(false);
     let modalTitleConfigGrid = ref<string>("");
-  
-  const ShowConfigGridBtn = () => {
+
+    const ShowConfigGridBtn = () => {
       visibleModelConfigGrid.value = true;
       modalTitleConfigGrid.value = "配置【列表显示】";
     };
@@ -725,14 +686,15 @@ let visibleModelConfigGrid = ref<boolean>(false);
       visibleModelConfigGrid.value = false;
     };
 
- const UpdateConfigGrid = async () => {
+    const UpdateConfigGrid = async () => {
       //获取表格列及处理表格列
-      let columnList = await GetLoginRecordColumn({ pageName: "StockManagement" });
-    
-      if(columnList==undefined||columnList.length<=0)
-{
-  columnList=deepClone(StockColumns)
-}
+      let columnList = await GetLoginRecordColumn({
+        pageName: "StockManagement",
+      });
+
+      if (columnList == undefined || columnList.length <= 0) {
+        columnList = deepClone(StockColumns);
+      }
 
       DataEntityState.ListColumns = deepClone(columnList);
 
@@ -760,34 +722,25 @@ let visibleModelConfigGrid = ref<boolean>(false);
       }
     };
 
-
-const RefreshBtn = async (payload: any) => {
-   
- UpdateConfigGrid();
+    const RefreshBtn = async (payload: any) => {
+      UpdateConfigGrid();
       loading.value = true;
-    //   DataEntityState.QueryConditionInfo = {
-    //     workScheduleNo: "",
-    //     workScheduleName: "",
-    //     workScheduleType: "未选择",
-    //       workScheduleStatus: "未选择",
-    //   };
-  DataEntityState.selectedRowKeys = [];
-              DataEntityState.selectedRows = [];
- for(let item in  DataEntityState.QueryConditionInfo)
-  {
-if(DataEntityState.QueryConditionInfoConfig[item].type=="text")
-        {
-            DataEntityState.QueryConditionInfo[item]="";
+      //   DataEntityState.QueryConditionInfo = {
+      //     workScheduleNo: "",
+      //     workScheduleName: "",
+      //     workScheduleType: "未选择",
+      //       workScheduleStatus: "未选择",
+      //   };
+      DataEntityState.selectedRowKeys = [];
+      DataEntityState.selectedRows = [];
+      for (let item in DataEntityState.QueryConditionInfo) {
+        if (DataEntityState.QueryConditionInfoConfig[item].type == "text") {
+          DataEntityState.QueryConditionInfo[item] = "";
         }
-        if(DataEntityState.QueryConditionInfoConfig[item].type=="select")
-        {
-            DataEntityState.QueryConditionInfo[item]="未选择";
+        if (DataEntityState.QueryConditionInfoConfig[item].type == "select") {
+          DataEntityState.QueryConditionInfo[item] = "未选择";
         }
-  }
-
-
-
-
+      }
 
       GetCluePoolManagementDatas({
         current: current1.value,
@@ -802,42 +755,47 @@ if(DataEntityState.QueryConditionInfoConfig[item].type=="text")
         }
       });
     };
-/***配置列表 end************** */
-
-
-
-
-
+    /***配置列表 end************** */
 
     return {
       ...toRefs(state),
       ...toRefs(DataEntityState),
       DataEntityState,
-      NewDataEntityState,SearchBtn,RefreshBtn,ClearQueryBtn,
-    
+      NewDataEntityState,
+      SearchBtn,
+      RefreshBtn,
+      ClearQueryBtn,
+
       pageSize,
       current1,
-      totalCount,      
+      totalCount,
       loading,
       pageSizeOptions,
       onShowSizeChange,
-onSelectChange,
-      DeleteBth,
+      onSelectChange,
+      DeleteBth,ReceiveBth,
       BatchDeleteBtn,
-      EditBth,ExportExcelBtn,CopyBtn,ShowConfigExportBtn,CloseConfigExportMoadl,visibleConfigExport,modalTitleConfigExport,visibleModelConfigGrid,modalTitleConfigGrid,ShowConfigGridBtn,CloseConfigGridMoadl,
+      EditBth,
+      ExportExcelBtn,
+      CopyBtn,
+      ShowConfigExportBtn,
+      CloseConfigExportMoadl,
+      visibleConfigExport,
+      modalTitleConfigExport,
+      visibleModelConfigGrid,
+      modalTitleConfigGrid,
+      ShowConfigGridBtn,
+      CloseConfigGridMoadl,
 
       CreateBtn,
 
-      handleResizeColumn: (w:any, col:any) => {
+      handleResizeColumn: (w: any, col: any) => {
         col.width = w;
       },
 
-
-visible,
+      visible,
       afterVisibleChange,
       showDrawer,
-
-
     };
   },
 });
@@ -845,11 +803,10 @@ visible,
 
 <style >
 #ProductManaDataList {
-   /* height: calc(100vh - 206x);  */
+  /* height: calc(100vh - 206x);  */
   border: 0px solid red;
   box-sizing: border-box;
-   overflow: auto;
-   
+  overflow: auto;
 }
 .userPagination {
   border: 0px solid red;

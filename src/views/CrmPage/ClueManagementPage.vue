@@ -49,7 +49,7 @@
 
 
 
-      <template #bodyCell="{ column, record }">
+      <template #bodyCell="{ column, record }"> 
       <template v-if="column.dataIndex === 'contactShiftMark'">
         <span>
           <a-tag
@@ -92,34 +92,34 @@
         </span>
       </template>
 
-      <template v-if="column.dataIndex === 'clueAuditState'">
+      <template v-if="column.dataIndex === 'customerLevel'">
         <span>
           <a-tag
            
-          :color="record.clueAuditState=='未审核' ? '#b0b0b0' :record.clueAuditState=='通过'?'geekblue':'volcano' ">
+          :color="record.customerLevel=='普通客户' ? 'geekblue' :record.customerLevel=='重点客户'?'volcano':'gold' ">
           
-            {{ record.clueAuditState}}
+            {{ record.customerLevel}}
           </a-tag>
         </span>
       </template>
 
-      <template v-if="column.dataIndex === 'belongArea'">
+      <template v-if="column.dataIndex === 'clueOrigin'">
         <span>
           <a-tag
            
-          :color="record.belongArea=='未选择' ? '#b0b0b0' :'geekblue' ">
+          :color="record.clueOrigin=='未选择' ? 'blue' :'blue' ">
           
-            {{ record.belongArea}}
+            {{ record.clueOrigin}}
           </a-tag>
         </span>
       </template>
-      <template v-if="column.dataIndex === 'clueSource'">
+      <template v-if="column.dataIndex === 'clueType'">
         <span>
           <a-tag
            
-          :color="(record.clueSource=='手动'||record.clueSource=='导入') ? 'geekblue' :'green' ">
+          :color="(record.clueType=='手动'||record.clueType=='导入'||record.clueType=='领取') ? 'green' :'green' ">
           
-            {{ record.clueSource}}
+            {{ record.clueType}}
           </a-tag>
         </span>
       </template>
@@ -193,7 +193,7 @@
  
 
 
-   <a  @click="DeleteBth(record.id,record.clueCode)"
+   <a v-if="record.clueType!='领取'"  @click="DeleteBth(record.id,record.clueCode)"
     style="
       color: #fff;
       font-size: 14px;
@@ -211,7 +211,24 @@
     ><CloseOutlined  mark="delete"
   />&nbsp;</a>
 
-    
+     <a v-if="record.clueType=='领取'"  @click="CancelCluePoolBth(record.id,record.clueCode)"
+    style="
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      border:1px solid #dedede;
+       padding-top:1px;
+         padding-bottom:3px;
+       padding-left:7px;
+         padding-right:3px;
+      background-color:#dd4b39 ;
+      border-radius: 4px;
+    "
+   
+    title="撤销"
+    ><UndoOutlined  mark="撤销"
+  />&nbsp;</a>
+
   
 
 
@@ -296,7 +313,7 @@ import { message, Modal } from "ant-design-vue";
 import {
   
   DeleteFilled,EditOutlined,
-  ExclamationCircleOutlined,SearchOutlined,CloseOutlined,BellOutlined,CopyFilled,InteractionOutlined
+  ExclamationCircleOutlined,SearchOutlined,CloseOutlined,BellOutlined,CopyFilled,InteractionOutlined,UndoOutlined
   
 } from "@ant-design/icons-vue";
 import {
@@ -314,7 +331,7 @@ import {
 import ExportExcelModal from "../../components/ExportExcelModal.vue";
 
 import {
-  GetClueManagementDatas,AddClue,UpdateClue,DeleteById,BatchDelete,BatchExport,CopyDataById,
+  GetClueManagementDatas,AddClue,UpdateClue,DeleteById,BatchDelete,BatchExport,CopyDataById,CancelCluePoolById
 }
  from "../../Request/CrmRequest/ClueManagementRequest";
 
@@ -329,7 +346,7 @@ import ClueShiftModal from "../../components/ClueShiftModal.vue";
 export default defineComponent({
   components: {
 configGridModal,configExportModal,ClueShiftModal,
-    DeleteFilled,SearchOutlined,CommonQueryHeaderCRM,CloseOutlined,EditOutlined,BellOutlined,CopyFilled,InteractionOutlined,ExportExcelModal
+    DeleteFilled,SearchOutlined,CommonQueryHeaderCRM,CloseOutlined,EditOutlined,BellOutlined,CopyFilled,InteractionOutlined,ExportExcelModal,UndoOutlined
 
   },
   setup() {
@@ -635,6 +652,42 @@ Modal.confirm({
    };
 
    
+
+
+const CancelCluePoolBth = (item: any,clueCode:any) => {
+
+Modal.confirm({
+              title: "您确定要撤销这条线索吗?",
+              icon: createVNode(ExclamationCircleOutlined),
+              content: `线索编号：${clueCode}`,
+              okText: "Yes",
+              okType: "danger",
+              cancelText: "No",
+              onOk() {
+                // const index = UserDataEntityState.UserDataList.findIndex(
+                //     (i: IUserInfo) => i.sysUserId == Id);
+                //     UserDataEntityState.UserDataList.splice(index, 1);
+
+                loading.value = true;
+                CancelCluePoolById({ Id: item }).then((res: any) => {
+                  if (res.isSuccess) {
+                    refreshMark.value = new Date().getTime().toString();
+                    message.success("撤销成功.");
+                  }
+                });
+              },
+              onCancel() {
+                message.error("已取消.");
+              },
+            });
+
+   };
+
+
+
+
+
+
 
 const CopyBtn = (item: any) => {
  CopyDataById({ Id: item }).then((res: any) => {
@@ -996,7 +1049,7 @@ onSelectChange,
       BatchDeleteBtn,
       EditBth,ExportExcelBtn,CopyBtn,ShowConfigExportBtn,CloseConfigExportMoadl,visibleConfigExport,modalTitleConfigExport,visibleModelConfigGrid,modalTitleConfigGrid,ShowConfigGridBtn,CloseConfigGridMoadl,
 
-      CreateBtn,ShowClueShiftBtn,visibleConfigClueShift,modalTitleConfigClueShift,CloseClueShiftMoadl,ShowClueShiftRow,
+      CreateBtn,ShowClueShiftBtn,visibleConfigClueShift,modalTitleConfigClueShift,CloseClueShiftMoadl,ShowClueShiftRow,CancelCluePoolBth,
       ImportExcelBtn,closeExportExcelMoadl,visibleExportExcel,modalExportExcelTitle,
 
       handleResizeColumn: (w:any, col:any) => {

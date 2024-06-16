@@ -531,5 +531,7 @@ DataEntityState.EditData.id="";
   font-size: 22px;
   font-weight: 600;
   color: rgba(51, 108, 161, 0.774);
+
+  
 }
 </style>
