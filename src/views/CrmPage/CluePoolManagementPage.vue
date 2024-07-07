@@ -73,6 +73,45 @@
           title="领取"
           ><FlagOutlined mark="Receive" />&nbsp;领取</a
         >
+
+
+ <a v-if="record.clueState=='正常'"
+          @click="LockBth(record.id, record.code)"
+          style="
+            color: #fff;
+            font-size: 14px;
+            font-weight: 600;
+            border: 1px solid #dedede;
+            padding-top: 1px;
+            padding-bottom: 3px;
+            padding-left: 7px;
+            padding-right: 7px;
+            background-color: #3c8dbc;
+            border-radius: 4px;
+          "
+          title="锁定"
+          ><LockOutlined mark="Lock" />&nbsp;锁定</a
+        >
+   
+ <a v-if="record.clueState=='已锁定'"
+          @click="UnLockBth(record.id, record.code)"
+          style="
+            color: #fff;
+            font-size: 14px;
+            font-weight: 600;
+            border: 1px solid #dedede;
+            padding-top: 1px;
+            padding-bottom: 3px;
+            padding-left: 7px;
+            padding-right: 7px;
+            background-color: rgba(68, 194, 40, 0.897);
+            border-radius: 4px;
+          "
+          title="解锁"
+          ><UnlockOutlined mark="UnLock" />&nbsp;解锁</a
+        >
+   
+        
         <a
           @click="showDrawer(action)"
           style="
@@ -88,7 +127,7 @@
             border-radius: 4px;
           "
           title="查看"
-          ><SearchOutlined mark="delete" />&nbsp;查看</a
+          ><SearchOutlined mark="delete" /></a
         >
         <a
           @click="EditBth(record.id)"
@@ -105,7 +144,7 @@
             border-radius: 4px;
           "
           title="编辑"
-          ><EditOutlined mark="delete" />&nbsp;编辑</a
+          ><EditOutlined mark="delete" /></a
         >
         <a
           @click="DeleteBth(record.id, record.code)"
@@ -122,20 +161,21 @@
             border-radius: 4px;
           "
           title="删除"
-          ><CloseOutlined mark="delete" />&nbsp;删除</a
+          ><CloseOutlined mark="delete" /></a
         >
         <a-drawer
           v-model:visible="visible"
           class="custom-class"
-          style="color: red"
-          title="Basic Drawer"
+          style="color: gray"
+          title="线索明细"
           placement="right"
           size="large"
           @after-visible-change="afterVisibleChange"
         >
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-          <p>Some contents...</p>
+         <FollowRecordComm
+         :DetailDatas="DetailDatasInfo"
+         
+          />
         </a-drawer>
       </template>
     </a-table>
@@ -179,13 +219,14 @@ import {
   SearchOutlined,
   CloseOutlined,
   BellOutlined,
-  CopyFilled,
+  CopyFilled,LockOutlined,UnlockOutlined
 } from "@ant-design/icons-vue";
 import {
   CluePoolEntity,
   CluePoolColumns,
 } from "../../TypeInterface/ICrm/ICluePoolManagement";
 import CommonQueryHeaderCRM from "../../components/CommonQueryHeaderCRM.vue";
+import FollowRecordComm from "@/components/FollowRecordComm.vue"
 import {
   GetLoginRecordColumn,
   GetLoginRecordDatas,
@@ -209,17 +250,18 @@ import {
 import {
   GetCluePoolManagementDatas,
   DeleteById,
-  BatchDelete,ReceiveById,
+  BatchDelete,ReceiveById,LockById
 } from "../../Request/CrmRequest/CluePoolManagementRequest";
 
 import { deepClone } from "../../utility/commonFunc";
 import { useRouter } from "vue-router";
 import configGridModal from "../../components/configGridModal.vue";
 import configExportModal from "../../components/configExportModal.vue";
+import FollowRecordCommVue from "@/components/FollowRecordComm.vue";
 export default defineComponent({
   components: {
     configGridModal,
-    configExportModal,
+    configExportModal,FollowRecordComm,
     DeleteFilled,
     SearchOutlined,
     CommonQueryHeaderCRM,
@@ -227,7 +269,7 @@ export default defineComponent({
     EditOutlined,
     BellOutlined,
     CopyFilled,
-    FlagOutlined,
+    FlagOutlined,LockOutlined,UnlockOutlined
   },
   setup() {
     const state = reactive({
@@ -243,9 +285,11 @@ export default defineComponent({
     const afterVisibleChange = (bool: boolean) => {
       console.log("visible", bool);
     };
-
+    const DetailDatasInfo = ref<any>({});
     const showDrawer = () => {
       visible.value = true;
+
+      DetailDatasInfo.value=DataEntityState.DataList
     };
 
     /***分页****************/
@@ -456,7 +500,67 @@ export default defineComponent({
             if (res.isSuccess) {
               refreshMark.value = new Date().getTime().toString();
               message.success("领取成功,请到您的线索管理列表中进行查看.");
+            }else{
+               message.error(res.msg);
+            } loading.value = false;
+          });
+        },
+        onCancel() {
+          message.error("已取消.");
+        },
+      });
+    };
+  const LockBth = (item: any, Code: any) => {
+      Modal.confirm({
+        title: "您确定要锁定这条线索吗?",
+        icon: createVNode(ExclamationCircleOutlined),
+        content: `编号：${Code}`,
+        okText: "Yes",
+        okType: "danger",
+        cancelText: "No",
+        onOk() {
+          // const index = UserDataEntityState.UserDataList.findIndex(
+          //     (i: IUserInfo) => i.sysUserId == Id);
+          //     UserDataEntityState.UserDataList.splice(index, 1);
+
+          loading.value = true;
+          LockById({ Id: item ,OperateType:"Lock"}).then((res: any) => {
+            if (res.isSuccess) {
+              refreshMark.value = new Date().getTime().toString();
+              message.success("锁定成功.");
+            }else{
+               message.error(res.msg);
             }
+             loading.value = false;
+          });
+        },
+        onCancel() {
+          message.error("已取消.");
+        },
+      });
+    };
+  const UnLockBth = (item: any, Code: any) => {
+      Modal.confirm({
+        title: "您确定要锁定这条线索吗?",
+        icon: createVNode(ExclamationCircleOutlined),
+        content: `编号：${Code}`,
+        okText: "Yes",
+        okType: "danger",
+        cancelText: "No",
+        onOk() {
+          // const index = UserDataEntityState.UserDataList.findIndex(
+          //     (i: IUserInfo) => i.sysUserId == Id);
+          //     UserDataEntityState.UserDataList.splice(index, 1);
+
+          loading.value = true;
+          LockById({ Id: item,OperateType:"UnLock"}).then((res: any) => {
+            if (res.isSuccess) {
+              refreshMark.value = new Date().getTime().toString();
+              message.success("解锁成功.");
+            }else{
+               message.error(res.msg);
+            }
+             loading.value = false;
           });
         },
         onCancel() {
@@ -486,7 +590,9 @@ export default defineComponent({
             if (res.isSuccess) {
               refreshMark.value = new Date().getTime().toString();
               message.success("删除成功.");
-            }
+            }else{
+               message.error(res.msg);
+            } loading.value = false;
           });
         },
         onCancel() {
@@ -773,7 +879,7 @@ export default defineComponent({
       pageSizeOptions,
       onShowSizeChange,
       onSelectChange,
-      DeleteBth,ReceiveBth,
+      DeleteBth,ReceiveBth,LockBth,UnLockBth,
       BatchDeleteBtn,
       EditBth,
       ExportExcelBtn,
@@ -795,7 +901,7 @@ export default defineComponent({
 
       visible,
       afterVisibleChange,
-      showDrawer,
+      showDrawer,DetailDatasInfo
     };
   },
 });

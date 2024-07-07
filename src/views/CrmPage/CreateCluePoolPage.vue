@@ -83,9 +83,9 @@
             <a-col class="col" :xs="{ span: 0 }" :lg="{ span: 1 }"></a-col>
             <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
               <a-form-item label="线索状态" name="clueState">
-<a-select :disabled="IsDisabled"  v-model:value="EditData.clueState" style="width: 100%" placeholder="请输入线索状态">
+<a-select :disabled="true"  v-model:value="EditData.clueState" style="width: 100%" placeholder="请输入线索状态">
             <a-select-option value="正常">正常</a-select-option>
-            <a-select-option value="已锁定">已锁定</a-select-option>
+            <!-- <a-select-option value="已锁定">已锁定</a-select-option> -->
         
             
 
