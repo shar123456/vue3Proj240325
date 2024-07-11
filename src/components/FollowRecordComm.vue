@@ -57,20 +57,20 @@ export default defineComponent({
    props: { DetailDatas:Object},
 
      setup (props) {
-      
+        const datas =ref<any>(props.DetailDatas);
   onMounted( () => {
 
 
 
   })
-  const datas =ref<any>(props.DetailDatas);
+
  watch(
       () => props.DetailDatas,
       (newValue) => {
            
      
           console.log("newValue",newValue);
-           
+           datas.value=newValue;
       }
     );
 

@@ -52,7 +52,7 @@ interface ICluePoolInfo {
 const CluePoolColumns = [
   
   {  oldTitle: '编号',title: '编号',width:120, dataIndex: 'code', isUse: true,configOrder: 1 ,resizable: true,ellipsis: true,}, 
-    { oldTitle: '名称', title: '名称',width:180, dataIndex: 'name', isUse: true,configOrder: 2  ,resizable: true,ellipsis: true },
+    { oldTitle: '名称', title: '名称',width:180, dataIndex: 'name', slots: { customRender: 'action1' },isUse: true,configOrder: 2  ,resizable: true,ellipsis: true },
     {  oldTitle: '手机',title: '手机',width:105, dataIndex: 'mobilePhone', isUse: true,configOrder: 3 ,resizable: true,ellipsis: true},
    
     {  oldTitle: '电话',title: '电话',width:110, dataIndex: 'phone', isUse: true,configOrder: 3 ,resizable: true,ellipsis: true},

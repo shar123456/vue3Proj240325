@@ -40,7 +40,13 @@
           </a-tag>
         </span>
       </template>
-
+<template #action1="{ record}">
+        <span>
+          <a-tag style="cursor:pointer" color="blue"  @click="showDrawer(record.code)">
+            {{ record.name }}
+          </a-tag>
+        </span>
+      </template>
       <template #clueState="{ text: clueState }">
         <span>
           <a-tag v-if="clueState === '正常'" color="green">
@@ -113,7 +119,7 @@
    
         
         <a
-          @click="showDrawer(action)"
+          @click="showDrawer(record.code)"
           style="
             color: #fff;
             font-size: 14px;
@@ -286,10 +292,11 @@ export default defineComponent({
       console.log("visible", bool);
     };
     const DetailDatasInfo = ref<any>({});
-    const showDrawer = () => {
+    const showDrawer = (value:any) => {
       visible.value = true;
-
-      DetailDatasInfo.value=DataEntityState.DataList
+  
+      DetailDatasInfo.value=DataEntityState.DataList.filter(i=>i.code==value)
+      console.log(DetailDatasInfo.value);
     };
 
     /***分页****************/
