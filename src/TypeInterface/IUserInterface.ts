@@ -23,7 +23,9 @@ interface IDataItem {
    appLoginStatus: string;
    belongArea: string;
    belongAreaArr:string[];
-  
+   accountId: string;
+   companyId: string;
+   authAccountId: string;
 
 
   }
@@ -77,7 +79,10 @@ interface IDataItem {
         weChatLoginStatus: "",
         appLoginStatus: "",
         belongArea:"",
-        belongAreaArr:["未选择"]
+        belongAreaArr:["未选择"],
+        accountId: "",
+        companyId: "",
+        authAccountId: "",
   }
     UserListColumns:any=[];
     selectedRowKeys:string[]= [];

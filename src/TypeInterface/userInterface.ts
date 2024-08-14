@@ -18,6 +18,11 @@
     email: string;
     level: string;
     desc: string;
+
+    accountId: string;
+    companyId: string;
+    authAccountId: string;
+
   }
     interface IUserQueryInfo {
    
@@ -62,7 +67,9 @@
     email: "",
     level: "",
     desc: "",
-    
+    accountId: "",
+    companyId: "",
+    authAccountId: "",
   }
     UserListColumns=[];
     selectedRowKeys:string[]= [];

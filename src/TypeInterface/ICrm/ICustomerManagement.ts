@@ -1,40 +1,29 @@
-import {dateFormat} from '../../utility/commonFunc'
 
+import {dateFormat} from '../../utility/commonFunc'
+import dayjs, { Dayjs } from 'dayjs';
 interface ICustomerInfo {
     id: string;
     customerCode:string; //客户编号
     clueCode:string; //线索编号
     customername:string;//客户姓名
-    stockCode:string;//股票代码
     
-    industry:string;//行业
-    annualIncome:Number;//年收入
-   employeeQty:Number;//员工数量
+    mobilePhone:string;//备注
+    phone:string;//备注
+    industry:string;//备注
+    email:string;//备注
+
+    customerType:string;//备注
+    customerOrigin:string;//备注
+    customerLevel:string;//备注
+    address:string;//备注
 
 
-    currency: string;//货币
-     
-     
-     phone:string;//电话
-     fax:string;//传真
-     email:string;//电邮
-     emailNoDisturb:string;//邮件免打扰
-     secondEmail:string;//第二电邮
+    city:string;//备注
+    province:string;//备注
+    nextContactTimeStr:any;//备注
 
-     sicCode: string;//SIC代码
-     
-     webSite:string;//网站
+    lastFollowTimeStr:any;//备注
 
-
-
-     customerSource:string;//客户来源
-     customerState:string;//客户状态
-     rate:string;//评级
-     
-address:string;//地址
-province:string;//省份
-city:string;//城市
-postalCode:string;//邮政编码
 remark:string;//备注
 createrStr: string;//创建人
      createTimeStr: string;
@@ -58,39 +47,32 @@ const CustomerColumns = [
    
 
 
-    {  oldTitle: '员工数量',title: '员工数量',width:90,  dataIndex: 'employeeQty', isUse: true,configOrder: 3 ,resizable: true,ellipsis: true,},
-    {  oldTitle: '行业',title: '行业',width:120,  dataIndex: 'industry', isUse: true,configOrder: 4  ,resizable: true,ellipsis: true,},
-    {  oldTitle: '评级',title: '评级',width:80,  dataIndex: 'rate', slots: { customRender: 'rate' },isUse: true,configOrder: 5 ,resizable: true,ellipsis: true,},
-    {  oldTitle: '年收入',title: '年收入',width:100,  dataIndex: 'annualIncome', isUse: true,configOrder: 6 ,resizable: true,ellipsis: true,},
-    {  oldTitle: '货币',title: '货币',width:100,  dataIndex: 'currency', isUse: true,configOrder: 7 ,resizable: true,ellipsis: true,},
-    {  oldTitle: '客户来源',title: '客户来源',width:100,  dataIndex: 'customerSource', isUse: true,configOrder: 8 ,resizable: true,ellipsis: true,},
-
-
-    {  oldTitle: '电话',title: '电话',width:120,  dataIndex: 'phone', isUse: true,configOrder: 9 ,resizable: true,ellipsis: true,},
-    {  oldTitle: '传真',title: '传真',width:120,  dataIndex: 'fax', isUse: true,configOrder: 10  ,resizable: true,ellipsis: true,},
-    {  oldTitle: '电邮',title: '电邮',width:150,  dataIndex: 'email', isUse: true,configOrder: 11 ,resizable: true,ellipsis: true,},
-    {  oldTitle: '第二电邮',title: '第二电邮',width:150,  dataIndex: 'secondEmail', isUse: true,configOrder: 12 ,resizable: true,ellipsis: true,},
-    {  oldTitle: '邮件免打扰',title: '邮件免打扰',width:90,  dataIndex: 'emailNoDisturb', isUse: true,configOrder: 13 ,resizable: true,ellipsis: true,},
+    {  oldTitle: '手机号',title: '手机号',width:105,  dataIndex: 'mobilePhone', isUse: true,configOrder: 3 ,resizable: true,ellipsis: true,},
+    {  oldTitle: '电话',title: '电话',width:110,  dataIndex: 'phone', isUse: true,configOrder: 9 ,resizable: true,ellipsis: true,},
     
-    {  oldTitle: '网站',title: '网站',width:130,  dataIndex: 'webSite', isUse: true,configOrder: 14 ,resizable: true,ellipsis: true,},
-    {  oldTitle: '股票代码',title: '股票代码',width:100, dataIndex: 'stockCode', isUse: true,configOrder: 15 ,resizable: true,ellipsis: true},
+    
+    {  oldTitle: '行业',title: '行业',width:120,  dataIndex: 'industry', isUse: true,configOrder: 4  ,resizable: true,ellipsis: true,},
    
+    {  oldTitle: '线索类型',title: '客户类型',width:80, dataIndex: 'customerType', isUse: true,configOrder: 3 ,resizable: true,ellipsis: true},
+    {  oldTitle: '线索来源 ',title: '客户来源 ',width:100, dataIndex: 'customerOrigin',isUse: true,configOrder: 3 ,resizable: true,ellipsis: true},
+  
+    {  oldTitle: '客户级别 ',title: '客户级别 ',width:80, dataIndex: 'customerLevel',isUse: true,configOrder: 3 ,resizable: true,ellipsis: true},
 
 
    
     {  oldTitle: '线索编号',title: '线索编号',width:130,  dataIndex: 'clueCode', isUse: true,configOrder: 16 ,resizable: true,ellipsis: true,},
 
-    {  oldTitle: '客户状态',title: '客户状态',width:80,  dataIndex: 'customerState', isUse: true,configOrder: 17,resizable: true,ellipsis: true,},
+   
   
   
     
  
     
-    {  oldTitle: '地址',title: '地址',width:160,  dataIndex: 'address', isUse: true,configOrder: 18 ,resizable: true,ellipsis: true,},
+    {  oldTitle: '地址',title: '详细地址',width:160,  dataIndex: 'address', isUse: true,configOrder: 18 ,resizable: true,ellipsis: true,},
     
     {  oldTitle: '省份',title: '省份',width:100,  dataIndex: 'province', isUse: true,configOrder: 19 ,resizable: true,ellipsis: true,},
     {  oldTitle: '城市',title: '城市',width:100,  dataIndex: 'city', isUse: true,configOrder: 20 ,resizable: true,ellipsis: true,},
-    {  oldTitle: '邮政编码',title: '邮政编码',width:110,  dataIndex: 'postalCode', isUse: true,configOrder: 21 ,resizable: true,ellipsis: true,},
+   
  
     {  oldTitle: '创建人',title: '创建人',width:110,  dataIndex: 'createrStr', isUse: true,configOrder: 22 ,resizable: true,ellipsis: true,},
     {  oldTitle: '创建时间',title: '创建时间',width:110,  dataIndex: 'createTimeStr', isUse: true,configOrder: 23 ,resizable: true,ellipsis: true,},
@@ -139,35 +121,24 @@ const CustomerDatas=[
           customerCode:"",  //线索所有者
           customername:"",//姓名
       
-          stockCode:"",//职位
+         
           
           industry:"",//行业
-          annualIncome:0,//年收入
-         employeeQty:0,//员工数量
-         sicCode:"",
+        
+          mobilePhone:"",//行业
+          phone:"",//行业
+          email:"",//行业
+          customerType:"手动",//行业
+          customerOrigin:"其他",//行业
+          customerLevel:"普通客户",//行业
+          address:"",//行业
+          city:"",//行业
+
+          province:"",//行业
+
+          nextContactTimeStr: dayjs(dateFormat("YYYY-mm-dd HH:MM:SS",new Date(),0),"YYYY-MM-DD HH:mm:ss"),
       
-          currency: "人民币",//货币
-           
-         
-           phone:"",//电话
-           fax:"",//传真
-           email:"",//电邮
-           emailNoDisturb:"否",//邮件免打扰
-           secondEmail:"",//第二电邮
-           webSite:"",//网站
-
-         
-
-
-
-           customerSource:"",//线索来源
-           customerState:"启用",//线索状态
-           rate:"Level1",//评级
-      
-      address:"",//地址
-      province:"",//省份
-      city:"",//城市
-      postalCode:"",//邮政编码
+          lastFollowTimeStr: dayjs(dateFormat("YYYY-mm-dd HH:MM:SS",new Date(),0),"YYYY-MM-DD HH:mm:ss"),
       remark:"",//备注
       createrStr: "",//创建人
          

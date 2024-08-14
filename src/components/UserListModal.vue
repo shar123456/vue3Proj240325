@@ -178,6 +178,23 @@
       </div>
     </div>
 
+    <div class="modalEditRow">
+      <div class="modalEditCol">
+        <label>公司码</label>
+        <div><a-input v-model:value="EditData.companyId" placeholder="公司码" /></div>
+      </div>
+      <div class="modalEditCol">
+          <label>用户码：</label>
+        <div><a-input v-model:value="EditData.accountId" placeholder="用户码" /></div>
+      </div>
+    </div>
+
+
+    <div class="modalEditRow">
+    <div class="modalEditCol">
+        <label>数据权限</label>
+        <div><a-input v-model:value="EditData.authAccountId" placeholder="数据权限" /></div>
+      </div>
 
     <div class="modalEditCol">
        <label>所属区域：</label>
@@ -202,7 +219,7 @@
         </div>
       </div>
   
-
+    </div>
 
 
 

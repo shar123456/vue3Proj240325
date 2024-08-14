@@ -368,6 +368,11 @@ export default defineComponent({
       UserDataEntityState.EditData.weChatLoginStatus = "未选择";
       UserDataEntityState.EditData.appLoginStatus = "未选择";
       UserDataEntityState.EditData.belongAreaArr = ["未选择"];
+      UserDataEntityState.EditData.accountId = "";
+      UserDataEntityState.EditData.companyId = "";
+      UserDataEntityState.EditData.authAccountId = "";
+
+  
     };
 
     const closeMoadl = () => {
@@ -796,6 +801,11 @@ export default defineComponent({
             UserDataEntityState.EditData.appLoginStatus = res[0].appLoginStatus;
 
             UserDataEntityState.EditData.belongAreaArr = res[0].belongAreaArr;
+
+
+            UserDataEntityState.EditData.accountId = res[0].accountId;
+            UserDataEntityState.EditData.companyId = res[0].companyId;
+            UserDataEntityState.EditData.authAccountId = res[0].authAccountId;
             visible.value = true;
             modalTitle.value = "编辑【用户信息】";
           }
