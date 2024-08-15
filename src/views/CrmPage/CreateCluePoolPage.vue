@@ -73,13 +73,37 @@
 
          
           <a-row type="flex" justify="center">
-            <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
+              <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
 
-<a-form-item label="行业" name="industry">
-  <a-input :disabled="IsDisabled" v-model:value="EditData.industry" placeholder="请输入行业" />
-</a-form-item>
+                  <!--<a-form-item label="行业" name="industry">
+                      <a-input :disabled="IsDisabled" v-model:value="EditData.industry" placeholder="请输入行业" />
+                  </a-form-item>-->
 
-</a-col>
+
+
+
+                  <a-form-item label="行业" name="industry">
+                      <a-select :disabled="IsDisabled" v-model:value="EditData.industry" style="width: 100%" placeholder="请输入行业">
+                          <a-select-option value="政府">政府</a-select-option>
+                          <a-select-option value="文化传媒">文化传媒</a-select-option>
+                          <a-select-option value="运输/物流">运输/物流</a-select-option>
+                          <a-select-option value="金融业">金融业</a-select-option>
+                          <a-select-option value="房地产">房地产</a-select-option>
+                          <a-select-option value="IT">IT</a-select-option>
+                          <a-select-option value="软件">软件</a-select-option>
+                          <a-select-option value="服务">服务</a-select-option>
+                          <a-select-option value="医美">医美</a-select-option>
+                          <a-select-option value="其他">其他</a-select-option>
+
+                      </a-select>
+                  </a-form-item>
+
+
+
+
+
+
+              </a-col>
             <a-col class="col" :xs="{ span: 0 }" :lg="{ span: 1 }"></a-col>
             <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
               <a-form-item label="线索状态" name="clueState">

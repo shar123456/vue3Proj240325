@@ -77,7 +77,7 @@ const CustomerColumns = [
     {  oldTitle: '创建人',title: '创建人',width:110,  dataIndex: 'createrStr', isUse: true,configOrder: 22 ,resizable: true,ellipsis: true,},
     {  oldTitle: '创建时间',title: '创建时间',width:110,  dataIndex: 'createTimeStr', isUse: true,configOrder: 23 ,resizable: true,ellipsis: true,},
     {  oldTitle: '备注',title: '备注',width:170,  dataIndex: 'remark', isUse: true,configOrder:24,resizable: true,ellipsis: true,},
-    {  oldTitle: '操作',title: '操作',dataIndex: 'id', key: 'operation',width:123, slots: { customRender: 'action' } ,isUse: true,configOrder:25,fixed: 'right', },
+    {  oldTitle: '操作',title: '操作',dataIndex: 'id', key: 'operation',width:153, slots: { customRender: 'action' } ,isUse: true,configOrder:25,fixed: 'right', },
 
   ];
   
@@ -123,7 +123,7 @@ const CustomerDatas=[
       
          
           
-          industry:"",//行业
+          industry:"其他",//行业
         
           mobilePhone:"",//行业
           phone:"",//行业
@@ -209,24 +209,29 @@ const CustomerDatas=[
     
         { name:"CustomerCode",oldTitle: '客户编号', currentTitle: '客户编号', isUse: true,configOrder: 1 },
         { name:"Customername",oldTitle: '客户名称', currentTitle: '客户名称', isUse: true,configOrder: 2 },
-        { name:"StockCode",oldTitle: '股票代码', currentTitle: '股票代码', isUse: true,configOrder: 3 },
-        {name:"EmployeeQty", oldTitle: '员工数量', currentTitle: '员工数量', isUse: true,configOrder: 4 },
+          { name: "MobilePhone", oldTitle: '手机号', currentTitle: '手机号', isUse: true,configOrder: 3 },
+          { name: "Phone", oldTitle: '电话', currentTitle: '电话', isUse: true,configOrder: 4 },
         { name:"Industry",oldTitle: '行业', currentTitle: '行业', isUse: true,configOrder: 5 },
-        {name:"Rate", oldTitle: '评级', currentTitle: '评级', isUse: true,configOrder: 6},
-        { name:"AnnualIncome",oldTitle: '年收入', currentTitle: '年收入', isUse: true,configOrder: 7},
-        { name:"Currency",oldTitle: '货币', currentTitle: '货币', isUse: true,configOrder: 8 },
-        { name:"Phone",oldTitle: '电话', currentTitle: '电话', isUse: true,configOrder: 9 },
-        { name:"Fax",oldTitle: '传真', currentTitle: '传真', isUse: true,configOrder: 10},
-        { name:"Email",oldTitle: '电邮', currentTitle: '电邮', isUse: true,configOrder:11 },
+          { name: "Email", oldTitle: 'Email', currentTitle: 'Email', isUse: true,configOrder: 6},
+          { name: "CustomerType", oldTitle: '客户类型', currentTitle: '客户类型', isUse: true,configOrder: 7},
+          { name: "CustomerOrigin", oldTitle: '客户来源', currentTitle: '客户来源', isUse: true,configOrder: 8 },
+          { name: "CustomerLevel", oldTitle: '客户级别', currentTitle: '客户级别', isUse: true,configOrder: 9 },
+        
         { name:"Address",oldTitle: '地址', currentTitle: '地址', isUse: true,configOrder: 12 },
         { name:"Province",oldTitle: '省份', currentTitle: '省份', isUse: true,configOrder: 13 },
         { name:"City",oldTitle: '城市', currentTitle: '城市', isUse: true,configOrder: 14 },
     
-        { name:"PostalCode",oldTitle: '邮政编码', currentTitle: '邮政编码', isUse: true,configOrder: 15 },
-        { name:"CreateTimeStr",oldTitle: '创建时间', currentTitle: '创建时间', isUse: true,configOrder: 16 },
 
         
       ];
+
+
+
+
+
+
+
+
 
    
    

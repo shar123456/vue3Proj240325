@@ -15,7 +15,7 @@ export function UpdateGlobleParameter(param:any):any {
         }],
   })
 }
-
+ 
 export function GetGlobleParameter():any {
     
   return instance({

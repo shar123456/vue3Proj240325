@@ -16,8 +16,9 @@ interface IClueInfo {
     address: string;
     province: string;
     city: string;
-    nextContactTimeStr:  any;
-
+    nextContactTimeStr: any;
+    contactPerson: string;
+         
 
     lastFollowTimeStr: any;
     remark: string;
@@ -46,7 +47,9 @@ const ClueColumns = [
    
   {  oldTitle: '电话',title: '电话',width:110, dataIndex: 'phone', isUse: true,configOrder: 3 ,resizable: true,ellipsis: true},
   {  oldTitle: '行业',title: '行业',width:100, dataIndex: 'industry', isUse: true,configOrder: 3 ,resizable: true,ellipsis: true},
-  {  oldTitle: '邮箱',title: '邮箱',width:150, dataIndex: 'email', isUse: true,configOrder: 3 ,resizable: true,ellipsis: true},
+    { oldTitle: '邮箱', title: '邮箱', width: 150, dataIndex: 'email', isUse: true, configOrder: 3, resizable: true, ellipsis: true },
+    { oldTitle: '联系人', title: '联系人', width: 150, dataIndex: 'contactPerson', isUse: true, configOrder: 3, resizable: true, ellipsis: true },
+    
   {  oldTitle: '线索类型',title: '线索类型',width:70, dataIndex: 'clueType', isUse: true,configOrder: 3 ,resizable: true,ellipsis: true},
   {  oldTitle: '线索来源 ',title: '线索来源 ',width:100, dataIndex: 'clueOrigin',isUse: true,configOrder: 3 ,resizable: true,ellipsis: true},
 
@@ -112,12 +115,12 @@ const ClueDatas=[
         
   
           
-
-    industry: "",
+            contactPerson: "",
+    industry: "其他",
     email: "",
     clueType: "手动",
     clueOrigin:  "其他",
-
+            
     customerLevel: "普通客户",
     address:  "",
     province: "",

@@ -41,7 +41,7 @@
             "
             >联系人</a-checkbox
           >
-          <a-checkbox
+          <!--<a-checkbox
             value="商机"
             :disabled="IsBuinessDisabled"
             style="
@@ -50,7 +50,7 @@
               font-weight: 600;
             "
             >商机</a-checkbox
-          >
+          >-->
         </a-checkbox-group>
 
 

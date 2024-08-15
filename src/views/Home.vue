@@ -703,7 +703,7 @@ order:3,
         titleTxt.value = "CRM";
         titleTxt1.value = "titleTxt11";
       } else {
-        titleTxt.value = "CRM 迅捷软件";
+        titleTxt.value = "CRM 管理助手";
         titleTxt1.value = "titleTxt12";
       }
     });

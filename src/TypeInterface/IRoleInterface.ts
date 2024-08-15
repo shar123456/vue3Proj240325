@@ -31,7 +31,7 @@ class RoleDataEntity{
       createTimeStr: "",
     
   
-     
+       
 }
     DataList:Array<IRoleInfo>=[];
     

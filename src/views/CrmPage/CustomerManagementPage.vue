@@ -43,28 +43,43 @@
       </template>
 
       <template #bodyCell="{ column, record }">
-      <template v-if="column.dataIndex === 'customerSource'">
-        <span>
-          <a-tag
-           
-          :color="(record.customerSource=='手动'||record.customerSource=='导入') ? 'geekblue' :'green' ">
-          
-            {{ record.customerSource}}
-          </a-tag>
-        </span>
+          <template v-if="column.dataIndex === 'customerType'">
+              <span>
+                  <a-tag :color="(record.customerType=='手动'||record.customerType=='导入') ? 'geekblue' :'green' ">
+
+                      {{ record.customerType}}
+                  </a-tag>
+              </span>
+          </template>
+
+          <template v-if="column.dataIndex === 'customerLevel'">
+              <span>
+                  <a-tag :color="record.customerLevel=='普通客户' ? 'geekblue' :record.customerLevel=='重点客户'?'volcano':'gold' ">
+
+                      {{ record.customerLevel}}
+                  </a-tag>
+              </span>
+          </template>
+
+          <template v-if="column.dataIndex === 'customerOrigin'">
+              <span>
+                  <a-tag :color="record.customerOrigin=='未选择' ? 'blue' :'blue' ">
+
+                      {{ record.customerOrigin}}
+                  </a-tag>
+              </span>
+          </template>
+
+          <template v-if="column.dataIndex === 'customerState'">
+              <span>
+                  <a-tag :color="record.customerState=='启用' ? 'geekblue' :'volcano' ">
+
+                      {{ record.customerState}}
+                  </a-tag>
+              </span>
+          </template>
+
       </template>
-      <template v-if="column.dataIndex === 'customerState'">
-        <span>
-          <a-tag
-           
-          :color="record.customerState=='启用' ? 'geekblue' :'volcano' ">
-          
-            {{ record.customerState}}
-          </a-tag>
-        </span>
-      </template>
-     
-    </template>
 
 
 
@@ -73,7 +88,7 @@
 
     <template #action="{ record }">
 
-      <a  @click="CancelCustomerShift(record)" v-if="record.customerSource === '线索转换'"
+      <a  @click="CancelCustomerShift(record)" v-if="record.customerType === '线索转换'"
 
 style="
   
@@ -137,7 +152,7 @@ title="撤销"
 
 
 <a  @click="DeleteBth(record.id,record.customerCode)"
- v-if="record.customerSource != '线索转换'"
+ v-if="record.customerType != '线索转换'"
   style="
     color: #fff;
     font-size: 14px;

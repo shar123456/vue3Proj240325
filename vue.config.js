@@ -57,8 +57,8 @@ module.exports = {
             '/DevApi': {
                 //target: 'http://119.8.25.19:8059/Api/', //接口域名
               //target: 'http://127.0.0.1:8086/Api/', //接口域名
-                //target: 'http://localhost:5256/Api/', //接口域名
-                target: 'http://120.26.194.72:8086/Api/', //接口域名
+                target: 'http://localhost:5256/Api/', //接口域名
+               // target: 'http://120.26.194.72:8086/Api/', //接口域名
                 ws: true, //是否代理websockets
                 changOrigin: true, //是否跨域
                 pathRewrite: { //重置路径
