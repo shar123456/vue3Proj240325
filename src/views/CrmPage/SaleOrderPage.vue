@@ -1,163 +1,95 @@
 <template>
-   <Common-Query-Header-CRM
-    @SearchBtn="SearchBtn"
-    @RefreshBtn="RefreshBtn"  
-    @ClearQueryBtn="ClearQueryBtn"  
-    @CreateBtn="CreateBtn"
- @BatchDelete="BatchDeleteBtn"
-  @ExportExcel="ExportExcelBtn"
-      @ConfigExport="ShowConfigExportBtn"
-       @ShowConfigGrid="ShowConfigGridBtn"
-       
+    <Common-Query-Header-CRM @SearchBtn="SearchBtn"
+                             @RefreshBtn="RefreshBtn"
+                             @ClearQueryBtn="ClearQueryBtn"
+                             @CreateBtn="CreateBtn"
+                             @BatchDelete="BatchDeleteBtn"
+                             @ExportExcel="ExportExcelBtn"
+                             @ConfigExport="ShowConfigExportBtn"
+                             @ShowConfigGrid="ShowConfigGridBtn"
+                             :StateEntity="NewDataEntityState">
+    </Common-Query-Header-CRM>
 
-
-    
-    :StateEntity="NewDataEntityState"
-  >
-  </Common-Query-Header-CRM>
-
-  <div id="CommercialManaDataList">
-    <a-table
-      bordered
-      @resizeColumn="handleResizeColumn"
-      :rowClassName="(index:number) => (index % 2 == 1 ? 'table-striped' : null)"
-      id="yy"
-      :loading="loading"
-      :columns="ListGridColumns"
-      :data-source="DataList"
-      :scroll="{ x: 1000, y:500 }"
-      :customRow="rowActionClick"
-      :row-selection="{
+    <div id="ProductManaDataList">
+        <a-table bordered
+                 @resizeColumn="handleResizeColumn"
+                 :rowClassName="(index:number) => (index % 2 == 1 ? 'table-striped' : null)"
+                 id="yy"
+                 :loading="loading"
+                 :columns="ListGridColumns"
+                 :data-source="DataList"
+                 :scroll="{ x: 1000, y:500 }"
+                 :customRow="rowActionClick"
+                 :row-selection="{
         selectedRowKeys: selectedRowKeys,
         onChange: onSelectChange,
       }"
-      :pagination="false"
-    >
-    
-      
+                 :pagination="false">
 
-      <template #bodyCell="{ column, record }">
-      <template v-if="column.dataIndex === 'commercialSource'">
-        <span>
-          <a-tag
-           
-          :color="(record.commercialSource=='手动'||record.commercialSource=='导入') ? 'geekblue' :'green' ">
-          
-            {{ record.commercialSource}}
-          </a-tag>
-        </span>
-      </template>
-      <template v-if="column.dataIndex === 'commercialState'">
-        <span>
-          <a-tag
-           
-          :color="record.commercialState=='启用' ? 'geekblue' :'volcano' ">
-          
-            {{ record.commercialState}}
-          </a-tag>
-        </span>
-      </template>
-     
-      <template v-if="column.dataIndex === 'commercialType'">
-        <span>
-          <a-tag
-           
-          :color="record.commercialType=='未选择' ? '#b0b0b0' :'geekblue' ">
-          
-            {{ record.commercialType}}
-          </a-tag>
-        </span>
-      </template>
-      <template v-if="column.dataIndex === 'commercialStage'">
-        <span>
-          <a-tag
-           
-          :color="record.commercialStage=='未选择' ? '#b0b0b0' :'geekblue' ">
-          
-            {{ record.commercialStage}}
-          </a-tag>
-        </span>
-      </template>
+            <template #bodyCell="{ column, record }">
+                <template v-if="column.dataIndex === 'saleOrderState'">
+                    <span>
+                        <a-tag :color="(record.saleOrderState=='未回款') ? '#b0b0b0' :(record.saleOrderState=='已完成')?'green':'volcano' ">
+
+                            {{ record.saleOrderState}}
+                        </a-tag>
+                    </span>
+                </template>
+                <template v-if="column.dataIndex === 'orderAmount'">
+                    <span style="color: #CFC831; font-size: larger; font-weight: bold ">
+                        {{ record.orderAmount}}
+                        <!--<a-tag color='#D8CE08'>
 
 
-    </template>
+                        </a-tag>-->
+                    </span>
+                </template>
+
+                <template v-if="column.dataIndex === 'customername'">
+                    <span>
+                        <a-tag color='geekblue'>
+
+                            {{ record.customername}}
+                        </a-tag>
+                    </span>
+                </template>
+                <template v-if="column.dataIndex === 'commercialStage'">
+                    <span>
+                        <a-tag :color="record.commercialStage=='未选择' ? '#b0b0b0' :'geekblue' ">
+
+                            {{ record.commercialStage}}
+                        </a-tag>
+                    </span>
+                </template>
 
 
+            </template>
 
 
+            <template #action="{ record }">
 
-
-      <template #action="{ record }">
-
-          <a @click="CancelCommercialShift(record)" v-if="record.commercialSource === '线索转换'"
-             style="
-
-  color: #fff;
-  font-size: 14px;
-  font-weight: 600;
-  border:1px solid #dedede;
-   padding-top:1px;
-     padding-bottom:3px;
-   padding-left:7px;
-     padding-right:7px;
-     background-color:#ce6189;
-  border-radius: 4px;
-"
-             title="撤销">
-              <UndoOutlined mark="delete" />&nbsp;
-          </a>
-
-          <a @click="CreateSaleOrderBth(record.id,record.commercialCode)"
-             style=" color: #fff; font-size: 14px; font-weight: 600; border: 1px solid #dedede; padding-top: 1px; padding-bottom: 3px; padding-left: 7px; padding-right: 7px; background-color: #8EB532; border-radius: 4px; "
-             title="生成销售订单">
-              <ContainerOutlined mark="delete" />&nbsp;
-          </a>
-
-
-
-          
-
-          <a @click="EditBth(record.id)"
-             style="
-    color: #fff;
-    font-size: 14px;
-    font-weight: 600;
-    border:1px solid #dedede;
-     padding-top:1px;
-       padding-bottom:3px;
-     padding-left:7px;
-       padding-right:7px;
-     background-color:#3c8dbc;
-    border-radius: 4px;
-  "
-             title="编辑">
-              <EditOutlined mark="delete" />&nbsp;
-          </a>
-
-          <a @click="CopyBtn(record.id)"
-             style="
-    color: #fff;
-    font-size: 14px;
-    font-weight: 600;
-    border:1px solid #dedede;
-     padding-top:1px;
-       padding-bottom:3px;
-     padding-left:7px;
-       padding-right:7px;
-     background-color:#3c8dbc;
-    border-radius: 4px;
-  "
-             title="复制">
-              <CopyFilled mark="delete" />&nbsp;
-          </a>
+                <a @click="ShowSaleOrderState(record)"
+                   style="
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      border:1px solid #dedede;
+       padding-top:1px;
+         padding-bottom:3px;
+       padding-left:7px;
+         padding-right:4px;
+       background-color:#3c8dbc;
+      border-radius: 4px;
+    "
+                   title="设置订单状态">
+                    <InteractionOutlined mark="delete" />&nbsp;
+                </a>
 
 
 
 
-
-          <a @click="DeleteBth(record.id,record.commercialCode)"
-             v-if="record.commercialSource != '线索转换'"
-             style="
+                <a v-if="record.saleOrderState!='已完成'"     @click="DeleteBth(record.id,record.saleOrderCode)"
+                   style="
     color: #fff;
     font-size: 14px;
     font-weight: 600;
@@ -169,9 +101,9 @@
     background-color:#dd4b39 ;
     border-radius: 4px;
   "
-             title="删除">
-              <CloseOutlined mark="delete" />&nbsp;
-          </a>
+                   title="删除">
+                    <CloseOutlined mark="delete" />&nbsp;
+                </a>
 
 
 
@@ -179,61 +111,53 @@
 
 
 
-      </template>
+            </template>
 
 
 
 
 
 
-    </a-table>
+        </a-table>
 
-    <div class="userPagination">
-      <a-pagination
-        show-size-changer
-        show-quick-jumper
-        v-model:current="current1"
-        v-model:pageSize="pageSize"
-        :total="totalCount"
-        :show-total="(totalCount:number) => `共计 ${totalCount} 条记录`"
-        @showSizeChange="onShowSizeChange"
-        :page-size-options="pageSizeOptions"
-      >
-        <template #buildOptionText="props">
-          <span>{{ props.value }}条/页</span>
-        </template>
-      </a-pagination>
+        <div class="userPagination">
+            <a-pagination show-size-changer
+                          show-quick-jumper
+                          v-model:current="current1"
+                          v-model:pageSize="pageSize"
+                          :total="totalCount"
+                          :show-total="(totalCount:number) => `共计 ${totalCount} 条记录`"
+                          @showSizeChange="onShowSizeChange"
+                          :page-size-options="pageSizeOptions">
+                <template #buildOptionText="props">
+                    <span>{{ props.value }}条/页</span>
+                </template>
+            </a-pagination>
+        </div>
     </div>
-  </div>
-<configGridModal
-    :visibleModelConfigGrid="visibleModelConfigGrid"
-    :modalTitleConfigGrid="modalTitleConfigGrid"
-    :ListColumns="DataEntityState.ListColumns"
-    configType="CommercialManagement"
-    @CloseConfigGridMoadl="CloseConfigGridMoadl"
-    @refreshBtn="RefreshBtn"
-  />
-    <configExportModal
-    :visibleModelConfigGrid="visibleConfigExport"
-    :modalTitleConfigGrid="modalTitleConfigExport"
-    :ListColumns="DataEntityState.ExportColumns"
-    configType="CommercialManagement"
-    @CloseConfigGridMoadl="CloseConfigExportMoadl"
-  />
-
- <ExportExcelModal
-    :visibleExportExcel="visibleExportExcel"
-    :modalExportExcelTitles="modalExportExcelTitle"
-    :UserData="UserDataEntityState"
-    @closeExportExcelMoadl="closeExportExcelMoadl"
-    @UpdateInfoBtn="UpdateInfoBtn"
-    @CreateInfoBtn="CreateInfoBtn"
-    urlData="/CommercialManagement/UpLoadFile"
-      configType="CommercialManagement"
-  />
+    <configGridModal :visibleModelConfigGrid="visibleModelConfigGrid"
+                     :modalTitleConfigGrid="modalTitleConfigGrid"
+                     :ListColumns="DataEntityState.ListColumns"
+                     configType="SaleOrderManagement"
+                     @CloseConfigGridMoadl="CloseConfigGridMoadl"
+                     @refreshBtn="RefreshBtn" />
+    <configExportModal :visibleModelConfigGrid="visibleConfigExport"
+                       :modalTitleConfigGrid="modalTitleConfigExport"
+                       :ListColumns="DataEntityState.ExportColumns"
+                       configType="SaleOrderManagement"
+                       @CloseConfigGridMoadl="CloseConfigExportMoadl" />
 
 
-  
+    <SaleOrderStateModal :visibleModelConfigGrid="visibleConfigSaleOrderState"
+                    :modalTitleConfigGrid="modalTitleConfigSaleOrderState"
+                    :Data=DataEntityState.EditData
+                    SelectkeysData=DataEntityState.Selectkeys
+                    configType="SaleOrdereManagement"
+                    @CloseConfigGridMoadl="CloseSaleOrderStateMoadl" />
+
+
+
+
 </template>
 
 <script lang="ts">
@@ -250,12 +174,12 @@ import { message, Modal } from "ant-design-vue";
 import {
   
   DeleteFilled,EditOutlined,
-  ExclamationCircleOutlined,SearchOutlined,CloseOutlined,BellOutlined,CopyFilled,InteractionOutlined,UndoOutlined,ContainerOutlined
+        ExclamationCircleOutlined, SearchOutlined, CloseOutlined, BellOutlined, CopyFilled, InteractionOutlined
   
 } from "@ant-design/icons-vue";
 import {
-  CommercialEntity,CommercialColumns,ExportColumns
-} from "../../TypeInterface/ICrm/ICommercialManagement";
+  SaleOrderEntity,SaleOrderColumns,ExportColumns
+} from "../../TypeInterface/ICrm/ISaleOrderManagement";
 import CommonQueryHeaderCRM from "../../components/CommonQueryHeaderCRM.vue";
 import {
   GetLoginRecordColumn,
@@ -265,27 +189,22 @@ import {
     GetExpColumnsConfig,
 } from "../../Request/userRequest";
 
-import ExportExcelModal from "../../components/ExportExcelModal.vue";
+
 
 import {
-  GetCommercialManagementDatas,AddCommercial,UpdateCommercial,DeleteById,BatchDelete,BatchExport,CopyDataById,CreateSaleOrderById,
-  CancelClueShift
+        GetSaleOrderManagementDatas, DeleteById, BatchDelete, BatchExport
 }
- from "../../Request/CrmRequest/CommercialManagementRequest";
+        from "../../Request/CrmRequest/SaleOrderManagementRequest";
 
 import { deepClone } from "../../utility/commonFunc";
 import{useRouter} from 'vue-router'
 import configGridModal from "../../components/configGridModal.vue";
-import configExportModal from "../../components/configExportModal.vue";
-
-import ClueShiftModal from "../../components/ClueShiftModal.vue";
-
-
+    import configExportModal from "../../components/configExportModal.vue";
+    import SaleOrderStateModal from "../../components/SaleOrderStateModal.vue";
 export default defineComponent({
   components: {
-configGridModal,configExportModal,ClueShiftModal,ExportExcelModal,
-    DeleteFilled,SearchOutlined,CommonQueryHeaderCRM,CloseOutlined,EditOutlined,
-    BellOutlined,CopyFilled,InteractionOutlined,UndoOutlined,ContainerOutlined
+        configGridModal, configExportModal, SaleOrderStateModal,
+        DeleteFilled, SearchOutlined, CommonQueryHeaderCRM, CloseOutlined, EditOutlined, BellOutlined, CopyFilled, InteractionOutlined
 
   },
   setup() {
@@ -293,9 +212,9 @@ configGridModal,configExportModal,ClueShiftModal,ExportExcelModal,
       count: 0,
     });
   const router=useRouter();
-    const DataEntityState = reactive(new CommercialEntity());
+    const DataEntityState = reactive(new SaleOrderEntity());
  
-    let  NewDataEntityState=new CommercialEntity();
+    let  NewDataEntityState=new SaleOrderEntity();
     
     
 
@@ -318,7 +237,7 @@ configGridModal,configExportModal,ClueShiftModal,ExportExcelModal,
 
       const onShowSizeChange = (current: number, pageSize: number) => {
       loading.value = true;
-      GetCommercialManagementDatas({
+          GetSaleOrderManagementDatas({
         current: current,
         pageSize: pageSize,
         ...DataEntityState.QueryConditionInfo,
@@ -335,7 +254,7 @@ configGridModal,configExportModal,ClueShiftModal,ExportExcelModal,
     });
     watch(current1, () => {
       loading.value = true;
-      GetCommercialManagementDatas({
+        GetSaleOrderManagementDatas({
         current: current1.value,
         pageSize: pageSize.value,
         ...DataEntityState.QueryConditionInfo,
@@ -349,7 +268,7 @@ configGridModal,configExportModal,ClueShiftModal,ExportExcelModal,
     });
     watch(refreshMark, () => {
       loading.value = true;
-      GetCommercialManagementDatas({
+        GetSaleOrderManagementDatas({
         current: current1.value,
         pageSize: pageSize.value,
         ...DataEntityState.QueryConditionInfo,
@@ -376,13 +295,13 @@ configGridModal,configExportModal,ClueShiftModal,ExportExcelModal,
 let loading = ref<boolean>(false);
 onMounted(async () => {
       //获取表格列及处理表格列
-      let columnList = await GetLoginRecordColumn({ pageName: "CommercialManagement" });
-      //console.log("ProductManagementColumn1",columnList)
+      let columnList = await GetLoginRecordColumn({ pageName: "SaleOrderManagement" });
+      console.log("ProductManagementColumn1",columnList)
 if(columnList==undefined||columnList.length==0)
 {
-  columnList=deepClone(CommercialColumns)
+    columnList = deepClone(SaleOrderColumns)
 }
-     // console.log("ProductManagementColumn2",columnList)
+      console.log("ProductManagementColumn2",columnList)
 
       DataEntityState.ListColumns = deepClone(columnList);
 
@@ -398,6 +317,10 @@ if(columnList==undefined||columnList.length==0)
           // columnList[j].width = 190;
           // columnList[j].dataIndex = "action";
         }
+
+
+
+
       }
       DataEntityState.ListGridColumns = columnList;
 
@@ -420,7 +343,7 @@ if(columnList==undefined||columnList.length==0)
 
       
 let ExportColumnsList = await GetExpColumnsConfig({
-        pageName: "CommercialManagement",
+        pageName: "SaleOrderManagement",
       });
 
      // console.log("ExportColumnsList", ExportColumnsList);
@@ -439,7 +362,7 @@ let ExportColumnsList = await GetExpColumnsConfig({
 
       //获用户数据
       loading.value = true;
-      let UserDatasList = await GetCommercialManagementDatas({
+    let UserDatasList = await GetSaleOrderManagementDatas({
         current: 1,
         pageSize: pageSize.value,
         ...DataEntityState.QueryConditionInfo,
@@ -456,9 +379,9 @@ let ExportColumnsList = await GetExpColumnsConfig({
       //测试
       // for(var s=0;s<11;s++)
       // {
-      //   DataEntityState.DataList.push(DataEntityState.ClueDatas[0]);
+      //   DataEntityState.DataList.push(DataEntityState.ProductDatas[0]);
       // }
-      //  console.log(DataEntityState.DataList);
+       
       //    totalCount.value = DataEntityState.DataList.length;
       //  current1.value = 1;
 
@@ -478,19 +401,6 @@ let ExportColumnsList = await GetExpColumnsConfig({
 
 
 
- let visibleExportExcel = ref<boolean>(false);
-  let modalExportExcelTitle = ref<string>("");
-
- const ImportExcelBtn = () => {
-      console.log("visibleExportExcel");
-      visibleExportExcel.value = true;
-      modalExportExcelTitle.value = "文件导入";
-    };
-
-    const closeExportExcelMoadl = () => {
-      visibleExportExcel.value = false;
-      refreshMark.value = new Date().getTime().toString();
-    };
 
 
 
@@ -503,11 +413,11 @@ let ExportColumnsList = await GetExpColumnsConfig({
 
 /***功能按钮****************************************** */
 const SearchBtn = async (payload: any) => {
-  DataEntityState.selectedRowKeys = [];
-                DataEntityState.selectedRows = [];
+    DataEntityState.selectedRowKeys = [];
+              DataEntityState.selectedRows = [];
       loading.value = true;
 
-      let UserDatasList1 = await GetCommercialManagementDatas({
+    let UserDatasList1 = await GetSaleOrderManagementDatas({
         current: 1,
         pageSize: pageSize.value,
         ...payload,
@@ -528,7 +438,7 @@ const SearchBtn = async (payload: any) => {
       console.log("ClearQueryBtn");
     };
  const CreateBtn = (payload: any) => {
-      router.push({ path: "/Home/CreateCommercialPage", query: {pageType:"add"} });
+      router.push({ path: "/Home/CreateProductPage", query: {pageType:"add"} });
     };
 
     
@@ -549,7 +459,7 @@ if(DataEntityState.QueryConditionInfoConfig[item].type=="text")
      }
 }
 
-GetCommercialManagementDatas({
+        GetSaleOrderManagementDatas({
      current: current1.value,
      pageSize: pageSize.value,
      ...DataEntityState.QueryConditionInfo,
@@ -567,50 +477,12 @@ GetCommercialManagementDatas({
 
 
 
-
-const CreateSaleOrderBth = (item: any, Code: any) => {
-    Modal.confirm({
-      title: "您确定要生成销售订单吗?",
-      icon: createVNode(ExclamationCircleOutlined),
-      content: `商机编号：${Code}`,
-      okText: "Yes",
-      okType: "danger",
-      cancelText: "No",
-      onOk() {
-        // const index = UserDataEntityState.UserDataList.findIndex(
-        //     (i: IUserInfo) => i.sysUserId == Id);
-        //     UserDataEntityState.UserDataList.splice(index, 1);
-
-        loading.value = true;
-        CreateSaleOrderById({ Id: item }).then((res: any) => {
-          if (res.isSuccess) {
-            refreshMark.value = new Date().getTime().toString();
-            message.success("生成成功,请到您的销售订单管理列表中进行查看.");
-          }else{
-             message.error(res.msg);
-          } loading.value = false;
-        });
-      },
-      onCancel() {
-        message.error("已取消.");
-      },
-    });
-  };
-
-
-
-
-
-
-
-
-
 const DeleteBth = (item: any,productCode:any) => {
 
 Modal.confirm({
               title: "您确定要删除这条记录吗?",
               icon: createVNode(ExclamationCircleOutlined),
-              content: `商机编号：${productCode}`,
+              content: `订单编号：${productCode}`,
               okText: "Yes",
               okType: "danger",
               cancelText: "No",
@@ -637,61 +509,24 @@ Modal.confirm({
    
 
 const CopyBtn = (item: any) => {
- CopyDataById({ Id: item }).then((res: any) => {
-              //console.log(res);
-              if (res.isSuccess) {
-                refreshMark.value = new Date().getTime().toString();
-                DataEntityState.selectedRowKeys = [];
-                DataEntityState.selectedRows = [];
-                message.success(res.msg);
-              }else{
-                 message.success("error");
-              }
-            });
+ //CopyDataById({ Id: item }).then((res: any) => {
+ //             //console.log(res);
+ //             if (res.isSuccess) {
+ //               refreshMark.value = new Date().getTime().toString();
+ //               DataEntityState.selectedRowKeys = [];
+ //               DataEntityState.selectedRows = [];
+ //               message.success(res.msg);
+ //             }else{
+ //                message.success("error");
+ //             }
+ //           });
 }
 
 const EditBth = (item: any) => {
 console.log("EditBth",item)
-router.push({ path: "/Home/CreateCommercialPage", query: {pageType:"edit",id: item} });
+router.push({ path: "/Home/CreateProductPage", query: {pageType:"edit",id: item} });
 
 };
-
-const CancelCommercialShift = (item: any) => {
-
-  Modal.confirm({
-        title: "您确定要执行线索转换撤销操作吗?",
-        icon: createVNode(ExclamationCircleOutlined),
-        content: `商机名称：${item.commercialCode} `,
-        okText: "Yes",
-        okType: "danger",
-        cancelText: "No",
-        okButtonProps: {
-          
-        },
-        onOk() {
-          CancelClueShift(item).then((res: any) => {
-            if (res.isSuccess) {
-              refreshMark.value = new Date().getTime().toString();
-             
-              message.success("线索转换撤销成功.");
-            }
-            else
-            {
-              message.error(res.msg);
-            }
-          });
-         
-        },
-        onCancel() {
-          message.error("已取消.");
-        },
-      });
-};
-
-
-
-
-
 
  const BatchDeleteBtn = (payload: any) => {
       let keys: string[] = [];
@@ -715,12 +550,14 @@ const CancelCommercialShift = (item: any) => {
         },
         onOk() {
           BatchDelete({ keys: keys }).then((res: any) => {
-            if (res.isSuccess) {
-              refreshMark.value = new Date().getTime().toString();
-              DataEntityState.selectedRowKeys = [];
-              DataEntityState.selectedRows = [];
-              message.success("批量删除成功.");
-            }
+              if (res.isSuccess) {
+                  refreshMark.value = new Date().getTime().toString();
+                  DataEntityState.selectedRowKeys = [];
+                  DataEntityState.selectedRows = [];
+                  message.success("批量删除成功.");
+              } else {
+                  message.error(res.msg);
+              }
           });
          
         },
@@ -803,7 +640,7 @@ const CancelCommercialShift = (item: any) => {
             //   res.headers["Content-Disposition"];
             //   console.log("contentDisposition",contentDisposition)
             //const fileName =(contentDisposition && contentDisposition.split(";")[1]).split("=")[1] ||f ||"";
-         const fileName ="商机-"+new Date().getTime();
+         const fileName ="销售订单-"+new Date().getTime();
             //const fileName = '统计.xlsx';
             const elink = document.createElement("a");
             elink.download = fileName;
@@ -844,7 +681,7 @@ let visibleConfigExport = ref<boolean>(false);
       visibleConfigExport.value = false;
 
       let ExportColumnsList = await GetExpColumnsConfig({
-        pageName: "CommercialManagement",
+        pageName: "SaleOrderManagement",
       });
 
   
@@ -877,11 +714,11 @@ let visibleModelConfigGrid = ref<boolean>(false);
 
  const UpdateConfigGrid = async () => {
       //获取表格列及处理表格列
-      let columnList = await GetLoginRecordColumn({ pageName: "CommercialManagement" });
- 
+      let columnList = await GetLoginRecordColumn({ pageName: "SaleOrderManagement" });
+    
       if(columnList==undefined||columnList.length<=0)
 {
-  columnList=deepClone(CommercialColumns)
+          columnList = deepClone(SaleOrderColumns)
 }
 
       DataEntityState.ListColumns = deepClone(columnList);
@@ -892,11 +729,6 @@ let visibleModelConfigGrid = ref<boolean>(false);
         console.log(j + "=" + columnList[j]);
         if (columnList[j]["isUse"] == false) {
           columnList.splice(j, 1);
-        }
-        if (columnList[j].title == "操作") {
-          columnList[j].fixed = "right";
-          // columnList[j].width = 190;
-          // columnList[j].dataIndex = "action";
         }
       }
 
@@ -917,7 +749,7 @@ let visibleModelConfigGrid = ref<boolean>(false);
 
 
 const RefreshBtn = async (payload: any) => {
-  
+   
  UpdateConfigGrid();
       loading.value = true;
     //   DataEntityState.QueryConditionInfo = {
@@ -926,8 +758,8 @@ const RefreshBtn = async (payload: any) => {
     //     workScheduleType: "未选择",
     //       workScheduleStatus: "未选择",
     //   };
-    DataEntityState.selectedRowKeys = [];
-                DataEntityState.selectedRows = [];
+  DataEntityState.selectedRowKeys = [];
+              DataEntityState.selectedRows = [];
  for(let item in  DataEntityState.QueryConditionInfo)
   {
 if(DataEntityState.QueryConditionInfoConfig[item].type=="text")
@@ -944,7 +776,7 @@ if(DataEntityState.QueryConditionInfoConfig[item].type=="text")
 
 
 
-      GetCommercialManagementDatas({
+    GetSaleOrderManagementDatas({
         current: current1.value,
         pageSize: pageSize.value,
         ...DataEntityState.QueryConditionInfo,
@@ -960,6 +792,30 @@ if(DataEntityState.QueryConditionInfoConfig[item].type=="text")
 /***配置列表 end************** */
 
 
+
+
+      
+
+      let visibleConfigSaleOrderState = ref<boolean>(false);
+      let modalTitleConfigSaleOrderState = ref<string>("");
+      const ShowSaleOrderState = (item: any) => {
+ 
+          DataEntityState.EditData = item;
+          DataEntityState.selectedRowKeys = [];
+          DataEntityState.selectedRows = [];
+          DataEntityState.Selectkeys = [];
+          //console.log(1111)
+          visibleConfigSaleOrderState.value = true;
+          modalTitleConfigSaleOrderState.value = "【设置订单状态】订单编号：" + item.saleOrderCode;
+
+
+      };
+
+      const CloseSaleOrderStateMoadl = () => {
+          visibleConfigSaleOrderState.value = false;
+
+          refreshMark.value = new Date().getTime().toString();
+      };
 
 
 
@@ -981,8 +837,10 @@ onSelectChange,
       BatchDeleteBtn,
       EditBth,ExportExcelBtn,CopyBtn,ShowConfigExportBtn,CloseConfigExportMoadl,visibleConfigExport,modalTitleConfigExport,visibleModelConfigGrid,modalTitleConfigGrid,ShowConfigGridBtn,CloseConfigGridMoadl,
 
-      CreateBtn,CancelCommercialShift,
- ImportExcelBtn,closeExportExcelMoadl,visibleExportExcel,modalExportExcelTitle,CreateSaleOrderBth,
+        CreateBtn,
+
+        ShowSaleOrderState, CloseSaleOrderStateMoadl, visibleConfigSaleOrderState, modalTitleConfigSaleOrderState,
+
       handleResizeColumn: (w:any, col:any) => {
         col.width = w;
       },
@@ -997,7 +855,7 @@ onSelectChange,
 </script>
 
 <style >
-#CommercialManaDataList {
+#ProductManaDataList {
    /* height: calc(100vh - 206x);  */
   border: 0px solid red;
   box-sizing: border-box;
@@ -1013,8 +871,8 @@ onSelectChange,
   align-items: center;
 }
 
-#CommercialManaDataList .ant-table-thead > tr > th,
-#CommercialManaDataList .ant-table-tbody > tr > td {
+#ProductManaDataList .ant-table-thead > tr > th,
+#ProductManaDataList .ant-table-tbody > tr > td {
   padding: 9px 9px;
 }
 .table-striped td {

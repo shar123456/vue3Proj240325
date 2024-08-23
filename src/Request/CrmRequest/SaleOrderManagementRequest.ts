@@ -1,9 +1,9 @@
 import instance from '../../Request/request'
 
-export function GetCustomerManagementDatas(param:any):any {
+export function GetSaleOrderManagementDatas(param:any):any {
     
     return instance({
-        url: '/CustomerManagement/SearchCustomerByQuery',
+        url: '/SaleOrderManagement/SearchByQuery',
         method: 'post',
         data:param,
         transformRequest: [function (data) {//加这个post发送数据到后台才能接收到数据，否则接收不到
@@ -17,10 +17,22 @@ export function GetCustomerManagementDatas(param:any):any {
   }
 
 
-  export function AddCustomer(param:any):any {
+
+  export function GetProduct():any {
     
     return instance({
-        url: '/CustomerManagement/AddCustomer',
+        url: '/ProductManagement/GetProduct',
+        method: 'get',
+        //data:param,
+       
+    })
+}
+
+
+  export function AddProduct(param:any):any {
+    
+    return instance({
+        url: '/ProductManagement/AddProduct',
         method: 'post',
         data:param,
         transformRequest: [function (data) {//加这个post发送数据到后台才能接收到数据，否则接收不到
@@ -33,10 +45,10 @@ export function GetCustomerManagementDatas(param:any):any {
     })
 }
 
-export function UpdateCustomer(param:any):any {
+export function UpdateProduct(param:any):any {
     
   return instance({
-      url: '/CustomerManagement/UpdateCustomer',
+      url: '/ProductManagement/UpdateProduct',
       method: 'post',
       data:param,
       transformRequest: [function (data) {//加这个post发送数据到后台才能接收到数据，否则接收不到
@@ -49,10 +61,10 @@ export function UpdateCustomer(param:any):any {
   })
 }
 
-export function GetCustomerById(param:any):any {
+export function SetSaleOrderState(param:any):any {
     
   return instance({
-      url: '/CustomerManagement/GetById',
+      url: '/SaleOrderManagement/SetSaleOrderState',
       method: 'post',
       data:param,
       transformRequest: [function (data) {//加这个post发送数据到后台才能接收到数据，否则接收不到
@@ -67,7 +79,7 @@ export function GetCustomerById(param:any):any {
 export function DeleteById(param:any):any {
     
   return instance({
-      url: '/CustomerManagement/DeleteById',
+      url: '/SaleOrderManagement/DeleteById',
       method: 'post',
       data:param,
       transformRequest: [function (data) {//加这个post发送数据到后台才能接收到数据，否则接收不到
@@ -82,7 +94,7 @@ export function DeleteById(param:any):any {
 export function BatchDelete(param:any):any {
     
   return instance({
-      url: '/CustomerManagement/BatchDelete',
+      url: '/SaleOrderManagement/BatchDelete',
       method: 'post',
       data:param,
       transformRequest: [function (data) {//加这个post发送数据到后台才能接收到数据，否则接收不到
@@ -98,7 +110,7 @@ export function BatchDelete(param:any):any {
 export function BatchExport(param:any):any {
     
   return instance({
-      url: '/CustomerManagement/BatchExport',
+      url: '/SaleOrderManagement/BatchExport',
       method: 'post',
       data:param,
     
@@ -117,7 +129,7 @@ export function BatchExport(param:any):any {
 export function CopyDataById(param:any):any {
     
   return instance({
-      url: '/CustomerManagement/CopyDataById',
+      url: '/ProductManagement/CopyDataById',
       method: 'post',
       data:param,
       transformRequest: [function (data) {//加这个post发送数据到后台才能接收到数据，否则接收不到
@@ -128,31 +140,4 @@ export function CopyDataById(param:any):any {
           return ret
         }],
   })
-}
-
-export function CancelClueShift(param:any):any {
-    
-  return instance({
-      url: '/CustomerManagement/CancelClueShift',
-      method: 'post',
-      data:param,
-      transformRequest: [function (data) {//加这个post发送数据到后台才能接收到数据，否则接收不到
-          let ret = ''
-          for (const it in data) {
-            ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
-          }
-          return ret
-        }],
-  })
-}
-
-
-export function GetCustomers(): any {
-
-    return instance({
-        url: '/CustomerManagement/GetCustomers',
-        method: 'get',
-        //data:param,
-
-    })
 }

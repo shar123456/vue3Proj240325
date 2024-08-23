@@ -276,10 +276,17 @@
          
 
           <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
-            <a-form-item label="备注" name="remark">
-            <a-textarea  :disabled="IsDisabled" v-model:value="EditData.remark" placeholder="请输入备注" :rows="4"
-        />
-            </a-form-item>
+
+              
+              <a-form-item label="联系人" name="contactPerson">
+                  <a-input v-model:value="EditData.contactPerson"
+                           placeholder="请输入联系人" />
+              </a-form-item>
+
+            
+
+
+
           </a-col>
 
            
@@ -288,7 +295,33 @@
 
 
 
+<a-row type="flex" justify="center">
 
+    <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
+        <a-form-item label="备注" name="remark">
+            <a-textarea :disabled="IsDisabled" v-model:value="EditData.remark" placeholder="请输入备注" :rows="4" />
+        </a-form-item>
+    </a-col>
+
+
+    <a-col class="col" :xs="{ span: 0 }" :lg="{ span: 1 }"></a-col>
+
+
+    <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
+
+
+       
+
+       
+
+
+
+
+    </a-col>
+
+
+
+</a-row>
      
 
        
@@ -576,7 +609,7 @@ let visibleSearchModal_FlowNo = ref<boolean>(false);
      DataEntityState.EditData.industry= "";
      DataEntityState.EditData.email="";
 
-   
+     DataEntityState.EditData.contactPerson="";
     DataEntityState.EditData.customerOrigin= "其他",
     DataEntityState.EditData.customerLevel="普通客户",
      DataEntityState.EditData.address="";
@@ -644,7 +677,7 @@ let visibleSearchModal_FlowNo = ref<boolean>(false);
      DataEntityState.EditData.province="";
      DataEntityState.EditData.city="";
 
-
+        DataEntityState.EditData.contactPerson="";
      DataEntityState.EditData.lastFollowTimeStr= (dayjs(dateFormat("YYYY-mm-dd HH:MM:SS",new Date(),0),"YYYY-MM-DD HH:mm:ss"));
      DataEntityState.EditData.nextContactTimeStr= (dayjs(dateFormat("YYYY-mm-dd HH:MM:SS",new Date(),0),"YYYY-MM-DD HH:mm:ss"));
      DataEntityState.EditData.createrStr="";

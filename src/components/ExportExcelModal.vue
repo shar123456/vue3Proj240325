@@ -92,7 +92,7 @@ state.downLoadHref="./downloadfile/线索导入模板.xlsx";
   if(configType.value=="CustomerManagement")
            {
             state.downLoadName="客户模板下载";
-state.downLoadHref="./客户导入模板.xlsx";
+      state.downLoadHref ="./downloadfile/客户导入模板.xlsx";
            }
  if(configType.value=="CommercialManagement")
            {
@@ -145,7 +145,7 @@ const isfile = file.type === 'application/vnd.openxmlformats-officedocument.spre
       });
       uploading.value = true;
 
-   let urlT='http://120.40.187.174:8702/Api/ManagerFile/UpLoadFile';
+        let urlT ='http://localhost:5256//Api/ManagerFile/UpLoadFile';
      
   const token=localStorage.getItem("starToken");
         console.log('formData11111',formData);

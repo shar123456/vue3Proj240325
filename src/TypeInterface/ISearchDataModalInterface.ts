@@ -32,11 +32,11 @@ const SearchUserColumns = [
 
   const SearchCustomerColumns = [
 
-    { title: '操作', dataIndex: 'action:', key: 'operation',width:20, slots: { customRender: 'action' },fixed:'left' },
-    { title: '客户名称',width:70, dataIndex: 'customername', },
-    {title: '客户编号',width:70, dataIndex: 'customerCode',},
+   
+    { title: '客户名称',width:100, dataIndex: 'customername', },
+    {title: '客户编号',width:100, dataIndex: 'customerCode',},
  
-  
+      { title: '操作', dataIndex: 'id', key: 'operation', width: 60, slots: { customRender: 'action' } },
  
   ];
   export {SearchUserColumns,SearchFlowColumns,SearchProductColumns,SearchCustomerColumns}

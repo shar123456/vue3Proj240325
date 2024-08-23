@@ -776,7 +776,7 @@ function IsPC() {
       if (collapsed.value) {
         menuShow.value="";
         setTimeout(() => {
-          titleTxt.value = "CRM 迅捷软件";
+            titleTxt.value = "CRM 管理助手";
         }, 500);
 
         titleTxt1.value = "titleTxt12";

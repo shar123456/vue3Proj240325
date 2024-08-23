@@ -261,6 +261,7 @@
                 <a-select-option value="软件">软件</a-select-option>
                 <a-select-option value="服务">服务</a-select-option>
                 <a-select-option value="医美">医美</a-select-option>
+                <a-select-option value="制造">制造</a-select-option>
                 <a-select-option value="其他">其他</a-select-option>
 
             </a-select>

@@ -145,7 +145,19 @@ selectedRows.value.push({
 })
       }
 
-      }
+    }
+
+    if (configType.value == "CustomerUser") {
+        let Datas = props.ListDatas?.filter((i: any) => i.id == item);
+        if (Datas && Datas.length > 0) {
+            selectedRows.value.push({
+                ...Datas[0]
+            })
+        }
+
+    }
+
+
         console.log("addStepsFunc",selectedRows.value);
       context.emit("addStepsFunc",selectedRows.value);
 }

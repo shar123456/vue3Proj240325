@@ -14,7 +14,9 @@ interface IProductInfo {
     unit: string;
     stockBatchId: string;
      manufactory:string;
-     unitPrice:Number;
+    unitPrice: Number;
+    qty: Number;
+    commercialCode: string;
      volume:string;
      volumeUnit:string;
      volumeSize:string;
@@ -63,7 +65,38 @@ const ProductColumns = [
     {  oldTitle: '操作',title: '操作',dataIndex: 'id', key: 'operation',width:123, slots: { customRender: 'action' } ,isUse: true,configOrder: 19,fixed: 'right', },
 
   ];
-  
+
+
+
+
+
+const ProductColumnsMin = [
+
+    { oldTitle: '产品名称', title: '产品名称', width: 150, dataIndex: 'productName', isUse: true, configOrder: 1, resizable: true, ellipsis: true, },
+    { oldTitle: '产品代码', title: '产品代码', width: 180, dataIndex: 'productCode', isUse: true, configOrder: 2, resizable: true, ellipsis: true },
+    { oldTitle: '供应商编号', title: '供应商编号', width: 150, dataIndex: 'vendorID', isUse: true, configOrder: 3, resizable: true, ellipsis: true },
+
+
+    { oldTitle: '供应商名', title: '供应商名', width: 150, dataIndex: 'vendorName', isUse: true, configOrder: 4, resizable: true, ellipsis: true, },
+
+    { oldTitle: '单位', title: '单位', width: 50, dataIndex: 'unit', isUse: true, configOrder: 5, resizable: true, ellipsis: true, },
+    { oldTitle: '批次', title: '批次', width: 80, dataIndex: 'stockBatchId', isUse: true, configOrder: 6, resizable: true, ellipsis: true, },
+    { oldTitle: '制造厂', title: '制造厂', width: 100, dataIndex: 'manufactory', isUse: true, configOrder: 7, resizable: true, ellipsis: true, },
+    { oldTitle: '单价', title: '单价', width: 60, dataIndex: 'unitPrice', isUse: true, configOrder: 8, resizable: true, ellipsis: true, },
+    { oldTitle: '数量', title: '数量', width: 60, dataIndex: 'qty', isUse: true, configOrder: 8, resizable: true, ellipsis: true, },
+
+    { oldTitle: '产品类别', title: '产品类别', width: 90, dataIndex: 'productCategory', slots: { customRender: 'productCategory' }, isUse: true, configOrder: 16, resizable: true, },
+
+   
+
+    { oldTitle: '操作', title: '操作', dataIndex: 'id', key: 'operation', width: 70, slots: { customRender: 'action' }, isUse: true, configOrder: 19, fixed: 'left', },
+
+];
+
+
+
+
+
 
 
 
@@ -109,14 +142,14 @@ const ProductDatas=[
           unit:"",
   
           stockBatchId: "",
-          
+            commercialCode: "",
           manufactory:  "",
           unitPrice: 0,
           volume:  "",
           volumeUnit: "",
           volumeSize:  "",
           weight: "",
-
+            qty:1,
           weightUnit: "",
           grossWeight: "",
           netWeight: "",
@@ -203,4 +236,4 @@ const ProductDatas=[
 
    
    
-    export {IProductInfo,ProductColumns,ProductEntity,ExportColumns}
+export { IProductInfo, ProductColumns, ProductEntity, ExportColumns, ProductColumnsMin }

@@ -33,6 +33,53 @@ export function GetCommercialManagementDatas(param:any):any {
     })
 }
 
+
+
+export function AddCommercialProdRelation(param: any): any {
+    console.log("JSON.stringify(param)", param);
+    return instance({
+        url: '/CommercialManagement/AddCommercialProdRelation',
+        method: 'post',
+        data: param,
+     
+        //transformRequest: [function (data) {//加这个post发送数据到后台才能接收到数据，否则接收不到
+        //    let ret = ''
+        //    for (const it in data) {
+        //        ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+        //    }
+        //    console.log("ret", ret);
+        //    return ret
+        //}],
+       
+    })
+}
+
+
+
+
+export function CreateSaleOrderById(param: any): any {
+
+    return instance({
+        url: '/CommercialManagement/CreateSaleOrderById',
+        method: 'post',
+        data: param,
+        transformRequest: [function (data) {//加这个post发送数据到后台才能接收到数据，否则接收不到
+            let ret = ''
+            for (const it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+    })
+}
+
+
+
+
+
+
+
+
 export function UpdateCommercial(param:any):any {
     
   return instance({
@@ -49,12 +96,42 @@ export function UpdateCommercial(param:any):any {
   })
 }
 
+
+
+export function UpdateCommercialProdRelation(param: any): any {
+
+    return instance({
+        url: '/CommercialManagement/UpdateCommercialProdRelation',
+        method: 'post',
+        data: param,
+        //transformRequest: [function (data) {//加这个post发送数据到后台才能接收到数据，否则接收不到
+        //    let ret = ''
+        //    for (const it in data) {
+        //        ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+        //    }
+        //    return ret
+        //}],
+    })
+}
+
+
+
+
+
+
+
+
+
+
+
+
 export function GetCommercialById(param:any):any {
     
   return instance({
       url: '/CommercialManagement/GetById',
       method: 'post',
-      data:param,
+      data: param,
+    
       transformRequest: [function (data) {//加这个post发送数据到后台才能接收到数据，否则接收不到
           let ret = ''
           for (const it in data) {
@@ -63,6 +140,25 @@ export function GetCommercialById(param:any):any {
           return ret
         }],
   })
+}
+
+
+
+export function GetCommercialRelationById(param: any): any {
+
+    return instance({
+        url: '/CommercialManagement/GetByCommercialId',
+        method: 'post',
+        data: param,
+
+        transformRequest: [function (data) {//加这个post发送数据到后台才能接收到数据，否则接收不到
+            let ret = ''
+            for (const it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+    })
 }
 export function DeleteById(param:any):any {
     

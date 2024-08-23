@@ -262,9 +262,9 @@
           </a-col>
           <a-col class="col" :xs="{ span: 0 }" :lg="{ span: 1 }"></a-col>
           <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
-            <a-form-item label="备注" name="description">
+            <!--<a-form-item label="备注" name="description">
             <a-textarea  :disabled="IsDisabled" v-model:value="EditData.description" placeholder="请输入备注" :rows="4" />
-            </a-form-item>
+            </a-form-item>-->
           </a-col>
         </a-row>
  

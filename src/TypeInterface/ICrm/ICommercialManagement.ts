@@ -9,7 +9,7 @@ interface ICommercialInfo {
     commercialType:string;//商机类型
     commercialSource:string;//商机来源
     contactName: string;//联系人
-
+    contactPhone: string;//联系人
     prospectionIncome:Number;//预期收入
    
     currency: string;//货币
@@ -34,31 +34,31 @@ remark:string;//备注
 }
 
 const CommercialColumns = [
+    { oldTitle: '商机编号', title: '商机编号', width: 130, dataIndex: 'commercialCode', isUse: true, configOrder: 1, resizable: true, ellipsis: true },
+    { oldTitle: '商机名称', title: '商机名称', width: 110, dataIndex: 'commercialName', isUse: true, configOrder: 2, resizable: true, ellipsis: true },
+  {  oldTitle: '客户编号',title: '客户编号',width:130, dataIndex: 'customerCode', isUse: true,configOrder: 3 ,resizable: true,ellipsis: true,}, 
+    { oldTitle: '客户名称', title: '客户名称',width:180, dataIndex: 'customername', isUse: true,configOrder: 4  ,resizable: true,ellipsis: true },
   
-  {  oldTitle: '客户编号',title: '客户编号',width:130, dataIndex: 'customerCode', isUse: true,configOrder: 1 ,resizable: true,ellipsis: true,}, 
-    { oldTitle: '客户名称', title: '客户名称',width:180, dataIndex: 'customername', isUse: true,configOrder: 2  ,resizable: true,ellipsis: true },
-  
-     {  oldTitle: '商机编号',title: '商机编号',width:130, dataIndex: 'commercialCode', isUse: true,configOrder: 3 ,resizable: true,ellipsis: true},
-     {  oldTitle: '商机名称',title: '商机名称',width:110, dataIndex: 'commercialName', isUse: true,configOrder: 3 ,resizable: true,ellipsis: true},
+   
      {  oldTitle: '商机类型',title: '商机类型',width:110,  dataIndex: 'commercialType', isUse: true,configOrder: 4 ,resizable: true,ellipsis: true,},
 
     {  oldTitle: '商机来源',title: '商机来源',width:100,  dataIndex: 'commercialSource', isUse: true,configOrder: 5 ,resizable: true,ellipsis: true,},
     {  oldTitle: '联系人',title: '联系人',width:120,  dataIndex: 'contactName', isUse: true,configOrder: 6  ,resizable: true,ellipsis: true,},
-    {  oldTitle: '预期收入',title: '预期收入',width:100,  dataIndex: 'prospectionIncome', isUse: true,configOrder: 7  ,resizable: true,ellipsis: true,},
+    { oldTitle: '手机号', title: '手机号', width: 100, dataIndex: 'contactPhone', isUse: true,configOrder: 7  ,resizable: true,ellipsis: true,},
     {  oldTitle: '货币',title: '货币',width:80,  dataIndex: 'currency', isUse: true,configOrder: 8 ,resizable: true,ellipsis: true,},
 
 
 
-    {  oldTitle: '金额',title: '金额',width:130,  dataIndex: 'amount', isUse: true,configOrder: 9  ,resizable: true,ellipsis: true,},
+    { oldTitle: '商机金额', title: '商机金额',width:130,  dataIndex: 'amount', isUse: true,configOrder: 9  ,resizable: true,ellipsis: true,},
     {  oldTitle: '商机状态',title: '商机状态',width:110,  dataIndex: 'commercialState', isUse: true,configOrder: 10  ,resizable: true,ellipsis: true,},
     {  oldTitle: '概率',title: '概率',width:150,  dataIndex: 'probability', isUse: true,configOrder: 11 ,resizable: true,ellipsis: true,},
     {  oldTitle: '阶段',title: '阶段',width:150,  dataIndex: 'commercialStage', isUse: true,configOrder: 12 ,resizable: true,ellipsis: true,},
 
-    {  oldTitle: '线索编号',title: '线索编号',width:130,  dataIndex: 'clueCode', isUse: true,configOrder: 13 ,resizable: true,ellipsis: true,},
+   /* {  oldTitle: '线索编号',title: '线索编号',width:130,  dataIndex: 'clueCode', isUse: true,configOrder: 13 ,resizable: true,ellipsis: true,},*/
     {  oldTitle: '创建人',title: '创建人',width:110,  dataIndex: 'createrStr', isUse: true,configOrder: 14 ,resizable: true,ellipsis: true,},
     {  oldTitle: '创建时间',title: '创建时间',width:110,  dataIndex: 'createTimeStr', isUse: true,configOrder: 15 ,resizable: true,ellipsis: true,},
     {  oldTitle: '备注',title: '备注',width:110,  dataIndex: 'remark', isUse: true,configOrder: 16,resizable: true,ellipsis: true,},
-    {  oldTitle: '操作',title: '操作',dataIndex: 'id', key: 'operation',width:123, slots: { customRender: 'action' } ,isUse: true,configOrder: 17,fixed: 'right', },
+    {  oldTitle: '操作',title: '操作',dataIndex: 'id', key: 'operation',width:183, slots: { customRender: 'action' } ,isUse: true,configOrder: 17,fixed: 'right', },
 
   ];
   
@@ -92,7 +92,7 @@ const CommercialDatas=[
           BatchDeleteBtn:true,
 
           ClueShiftBtn:false,
-          ImportExcel:true,
+            ImportExcel: false,
         }
 
 
@@ -104,18 +104,18 @@ const CommercialDatas=[
           commercialCode:"",
           commercialName:"",//商机名称
           
-          commercialType:"未选择",//商机类型
+          commercialType:"新业务",//商机类型
           prospectionIncome:0,//预期收入
           amount:0,//金额
          commercialSource:"",//商机来源
-      
+            contactPhone: "",//货币
           currency: "人民币",//货币
-           
+            
          
           contactName:"",//联系人
           commercialState:"启用",//商机状态
-          probability:"",//概率
-          commercialStage:"未选择",//商机阶段
+          probability:"10%",//概率
+            commercialStage:"提案/报价",//商机阶段
         
       remark:"",//备注
       createrStr: "",//创建人
@@ -184,9 +184,9 @@ const CommercialDatas=[
         {name:"CommercialType", oldTitle: '商机类型', currentTitle: '商机类型', isUse: true,configOrder: 5 },
        
         {name:"ContactName", oldTitle: '联系人', currentTitle: '联系人', isUse: true,configOrder: 6},
-        { name:"ProspectionIncome",oldTitle: '预期收入', currentTitle: '预期收入', isUse: true,configOrder:7 },
+          { name: "ContactPhone", oldTitle: '手机号', currentTitle: '手机号', isUse: true,configOrder:7 },
         { name:"Currency",oldTitle: '货币', currentTitle: '货币', isUse: true,configOrder:8 },
-        { name:"Amount",oldTitle: '金额', currentTitle: '金额', isUse: true,configOrder: 9 },
+          { name: "Amount", oldTitle: '商机金额', currentTitle: '商机金额', isUse: true,configOrder: 9 },
         { name:"Probability",oldTitle: '概率', currentTitle: '概率', isUse: true,configOrder: 10 },
         { name:"CommercialStage",oldTitle: '阶段', currentTitle: '阶段', isUse: true,configOrder:11 },
      

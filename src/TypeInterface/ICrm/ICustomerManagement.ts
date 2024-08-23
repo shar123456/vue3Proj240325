@@ -16,7 +16,7 @@ interface ICustomerInfo {
     customerOrigin:string;//备注
     customerLevel:string;//备注
     address:string;//备注
-
+    contactPerson: string;//备注
 
     city:string;//备注
     province:string;//备注
@@ -48,19 +48,19 @@ const CustomerColumns = [
 
 
     {  oldTitle: '手机号',title: '手机号',width:105,  dataIndex: 'mobilePhone', isUse: true,configOrder: 3 ,resizable: true,ellipsis: true,},
-    {  oldTitle: '电话',title: '电话',width:110,  dataIndex: 'phone', isUse: true,configOrder: 9 ,resizable: true,ellipsis: true,},
+    {  oldTitle: '电话',title: '电话',width:110,  dataIndex: 'phone', isUse: true,configOrder: 4 ,resizable: true,ellipsis: true,},
+    { oldTitle: '联系人', title: '联系人', width: 110, dataIndex: 'contactPerson', isUse: true, configOrder: 5, resizable: true, ellipsis: true, },
     
-    
-    {  oldTitle: '行业',title: '行业',width:120,  dataIndex: 'industry', isUse: true,configOrder: 4  ,resizable: true,ellipsis: true,},
+    {  oldTitle: '行业',title: '行业',width:120,  dataIndex: 'industry', isUse: true,configOrder: 6 ,resizable: true,ellipsis: true,},
    
-    {  oldTitle: '线索类型',title: '客户类型',width:80, dataIndex: 'customerType', isUse: true,configOrder: 3 ,resizable: true,ellipsis: true},
-    {  oldTitle: '线索来源 ',title: '客户来源 ',width:100, dataIndex: 'customerOrigin',isUse: true,configOrder: 3 ,resizable: true,ellipsis: true},
+    {  oldTitle: '线索类型',title: '客户类型',width:80, dataIndex: 'customerType', isUse: true,configOrder: 7 ,resizable: true,ellipsis: true},
+    {  oldTitle: '线索来源 ',title: '客户来源 ',width:100, dataIndex: 'customerOrigin',isUse: true,configOrder:8 ,resizable: true,ellipsis: true},
   
-    {  oldTitle: '客户级别 ',title: '客户级别 ',width:80, dataIndex: 'customerLevel',isUse: true,configOrder: 3 ,resizable: true,ellipsis: true},
+    {  oldTitle: '客户级别 ',title: '客户级别 ',width:80, dataIndex: 'customerLevel',isUse: true,configOrder: 9 ,resizable: true,ellipsis: true},
 
 
    
-    {  oldTitle: '线索编号',title: '线索编号',width:130,  dataIndex: 'clueCode', isUse: true,configOrder: 16 ,resizable: true,ellipsis: true,},
+    {  oldTitle: '线索编号',title: '线索编号',width:130,  dataIndex: 'clueCode', isUse: true,configOrder: 10 ,resizable: true,ellipsis: true,},
 
    
   
@@ -133,9 +133,9 @@ const CustomerDatas=[
           customerLevel:"普通客户",//行业
           address:"",//行业
           city:"",//行业
-
+            contactPerson: "",//行业
           province:"",//行业
-
+            
           nextContactTimeStr: dayjs(dateFormat("YYYY-mm-dd HH:MM:SS",new Date(),0),"YYYY-MM-DD HH:mm:ss"),
       
           lastFollowTimeStr: dayjs(dateFormat("YYYY-mm-dd HH:MM:SS",new Date(),0),"YYYY-MM-DD HH:mm:ss"),
