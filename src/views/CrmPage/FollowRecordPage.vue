@@ -1,169 +1,69 @@
 <template>
-   <Common-Query-Header-CRM
-    @SearchBtn="SearchBtn"
-    @RefreshBtn="RefreshBtn"  
-    @ClearQueryBtn="ClearQueryBtn"  
-    @CreateBtn="CreateBtn"
- @BatchDelete="BatchDeleteBtn"
-  @ExportExcel="ExportExcelBtn"
-      @ConfigExport="ShowConfigExportBtn"
-       @ShowConfigGrid="ShowConfigGridBtn"
-          @ImportExcel="ImportExcelBtn"
+    <Common-Query-Header-CRM @SearchBtn="SearchBtn"
+                             @RefreshBtn="RefreshBtn"
+                             @ClearQueryBtn="ClearQueryBtn"
+                             @CreateBtn="CreateBtn"
+                             @BatchDelete="BatchDeleteBtn"
+                             @ExportExcel="ExportExcelBtn"
+                             @ConfigExport="ShowConfigExportBtn"
+                             @ShowConfigGrid="ShowConfigGridBtn"
+                             :StateEntity="NewDataEntityState">
+    </Common-Query-Header-CRM>
 
-
-    
-    :StateEntity="NewDataEntityState"
-  >
-  </Common-Query-Header-CRM>
-
-  <div id="CustomerManaDataList">
-    <a-table
-      bordered
-      @resizeColumn="handleResizeColumn"
-      :rowClassName="(index:number) => (index % 2 == 1 ? 'table-striped' : null)"
-      id="yy"
-      :loading="loading"
-      :columns="ListGridColumns"
-      :data-source="DataList"
-      :scroll="{ x: 1000, y:500 }"
-      :customRow="rowActionClick"
-      :row-selection="{
+    <div id="ProductManaDataList">
+        <a-table bordered
+                 @resizeColumn="handleResizeColumn"
+                 :rowClassName="(index:number) => (index % 2 == 1 ? 'table-striped' : null)"
+                 id="yy"
+                 :loading="loading"
+                 :columns="ListGridColumns"
+                 :data-source="DataList"
+                 :scroll="{ x: 1000, y:500 }"
+                 :customRow="rowActionClick"
+                 :row-selection="{
         selectedRowKeys: selectedRowKeys,
         onChange: onSelectChange,
       }"
-      :pagination="false"
-    >
-    
-      <template #rate="{ text: rate }">
+                 :pagination="false">
+
+            <template #bodyCell="{ column, record }">
+                <template v-if="column.dataIndex === 'followRecordType'">
+                    <span>
+                        <a-tag :color="(record.followRecordType=='未回款') ? '#b0b0b0' :(record.followRecordType=='已完成')?'green':'volcano' ">
+
+                            {{ record.followRecordType}}
+                        </a-tag>
+                    </span>
+                </template>
+               
+
+                <template v-if="column.dataIndex === 'followRecordState'">
+                    <span>
+                        <a-tag color='green'>
+
+                            {{ record.followRecordState}}
+                        </a-tag>
+                    </span>
+                </template>
+                <template v-if="column.dataIndex === 'customername'">
+                    <span style="font-weight:bold">
+                        
+                        {{ record.customername}}
+                    </span>
+                </template>
 
 
-        <span>
-          <a-tag :color="rate != '未选择' ? 'geekblue' :'#b0b0b0' ">
-            {{ rate }}
-          </a-tag>
-        </span>
-      </template>
-
-      <template #bodyCell="{ column, record }">
-
-          <template v-if="column.dataIndex === 'customername'">
-              <span style="cursor: pointer; color: #1D39C4; font-weight: bolder;font-size:16px" @click="showDrawer(record.id)">
+            </template>
 
 
-                  {{ record.customername}}
+            <template #action="{ record }">
 
-              </span>
-          </template>
-
-          <template v-if="column.dataIndex === 'customerType'">
-              <span>
-                  <a-tag :color="(record.customerType=='手动'||record.customerType=='导入') ? 'blue' :'blue' ">
-
-                      {{ record.customerType}}
-                  </a-tag>
-              </span>
-          </template>
-
-          <template v-if="column.dataIndex === 'customerLevel'">
-              <span>
-                  <a-tag :color="record.customerLevel=='普通客户' ? 'geekblue' :record.customerLevel=='重点客户'?'volcano':'gold' ">
-
-                      {{ record.customerLevel}}
-                  </a-tag>
-              </span>
-          </template>
-
-          <template v-if="column.dataIndex === 'customerOrigin'">
-              <span>
-                  <a-tag :color="record.customerOrigin=='未选择' ? 'blue' :'blue' ">
-
-                      {{ record.customerOrigin}}
-                  </a-tag>
-              </span>
-          </template>
-
-          <template v-if="column.dataIndex === 'customerState'">
-              <span>
-                  <a-tag :color="record.customerState=='启用' ? 'geekblue' :'volcano' ">
-
-                      {{ record.customerState}}
-                  </a-tag>
-              </span>
-          </template>
-
-      </template>
+              
 
 
 
-
-
-
-      <template #action="{ record }">
-
-          <a @click="CancelCustomerShift(record)" v-if="record.customerType === '线索转换'"
-             style="
-
-  color: #fff;
-  font-size: 14px;
-  font-weight: 600;
-  border:1px solid #dedede;
-   padding-top:1px;
-     padding-bottom:3px;
-   padding-left:7px;
-     padding-right:7px;
-     background-color:#ce6189;
-  border-radius: 4px;
-"
-             title="撤销">
-              <UndoOutlined mark="delete" />&nbsp;
-          </a>
-
-
-          <a @click="showDrawer(record.id)"
-             style=" color: #fff; font-size: 14px; font-weight: 600; border: 1px solid #dedede; padding-top: 1px; padding-bottom: 3px; padding-left: 7px; padding-right: 7px; background-color: #B8C42E; border-radius: 4px; "
-             title="查看"><GlobalOutlined  mark="delete" /></a>
-
-          <a @click="EditBth(record.id)"
-             style="
-    color: #fff;
-    font-size: 14px;
-    font-weight: 600;
-    border:1px solid #dedede;
-     padding-top:1px;
-       padding-bottom:3px;
-     padding-left:7px;
-       padding-right:7px;
-     background-color:#3c8dbc;
-    border-radius: 4px;
-  "
-             title="编辑">
-              <EditOutlined mark="delete" />&nbsp;
-          </a>
-
-          <a @click="CopyBtn(record.id)"
-             style="
-    color: #fff;
-    font-size: 14px;
-    font-weight: 600;
-    border:1px solid #dedede;
-     padding-top:1px;
-       padding-bottom:3px;
-     padding-left:7px;
-       padding-right:7px;
-     background-color:#3c8dbc;
-    border-radius: 4px;
-  "
-             title="复制">
-              <CopyFilled mark="delete" />&nbsp;
-          </a>
-
-
-
-
-
-          <a @click="DeleteBth(record.id,record.customerCode)"
-             v-if="record.customerType != '线索转换'"
-             style="
+                <a    @click="DeleteBth(record.id)"
+                   style="
     color: #fff;
     font-size: 14px;
     font-weight: 600;
@@ -175,80 +75,63 @@
     background-color:#dd4b39 ;
     border-radius: 4px;
   "
-             title="删除">
-              <CloseOutlined mark="delete" />&nbsp;
-          </a>
-
-
-
-
-          <a-drawer v-model:visible="visible"
-                    class="custom-class"
-                    style="color: gray"
-                    title="客户信息"
-                    placement="right"
-                   
-              width="760"
-                    @after-visible-change="afterVisibleChange">
-              <FollowRecordComm :DetailDatas="DetailDatasInfo" />
-          </a-drawer>
-
-
-      </template>
+                   title="删除">
+                    <CloseOutlined mark="delete" />&nbsp;
+                </a>
 
 
 
 
 
 
-    </a-table>
 
-    <div class="userPagination">
-      <a-pagination
-        show-size-changer
-        show-quick-jumper
-        v-model:current="current1"
-        v-model:pageSize="pageSize"
-        :total="totalCount"
-        :show-total="(totalCount:number) => `共计 ${totalCount} 条记录`"
-        @showSizeChange="onShowSizeChange"
-        :page-size-options="pageSizeOptions"
-      >
-        <template #buildOptionText="props">
-          <span>{{ props.value }}条/页</span>
-        </template>
-      </a-pagination>
+            </template>
+
+
+
+
+
+
+        </a-table>
+
+        <div class="userPagination">
+            <a-pagination show-size-changer
+                          show-quick-jumper
+                          v-model:current="current1"
+                          v-model:pageSize="pageSize"
+                          :total="totalCount"
+                          :show-total="(totalCount:number) => `共计 ${totalCount} 条记录`"
+                          @showSizeChange="onShowSizeChange"
+                          :page-size-options="pageSizeOptions">
+                <template #buildOptionText="props">
+                    <span>{{ props.value }}条/页</span>
+                </template>
+            </a-pagination>
+        </div>
     </div>
-  </div>
-<configGridModal
-    :visibleModelConfigGrid="visibleModelConfigGrid"
-    :modalTitleConfigGrid="modalTitleConfigGrid"
-    :ListColumns="DataEntityState.ListColumns"
-    configType="CustomerManagement"
-    @CloseConfigGridMoadl="CloseConfigGridMoadl"
-    @refreshBtn="RefreshBtn"
-  />
-    <configExportModal
-    :visibleModelConfigGrid="visibleConfigExport"
-    :modalTitleConfigGrid="modalTitleConfigExport"
-    :ListColumns="DataEntityState.ExportColumns"
-    configType="CustomerManagement"
-    @CloseConfigGridMoadl="CloseConfigExportMoadl"
-  />
+    <configGridModal :visibleModelConfigGrid="visibleModelConfigGrid"
+                     :modalTitleConfigGrid="modalTitleConfigGrid"
+                     :ListColumns="DataEntityState.ListColumns"
+                     configType="FollowRecordManagement"
+                     @CloseConfigGridMoadl="CloseConfigGridMoadl"
+                     @refreshBtn="RefreshBtn" />
+    <configExportModal :visibleModelConfigGrid="visibleConfigExport"
+                       :modalTitleConfigGrid="modalTitleConfigExport"
+                       :ListColumns="DataEntityState.ExportColumns"
+                       configType="FollowRecordManagement"
+                       @CloseConfigGridMoadl="CloseConfigExportMoadl" />
 
 
- <ExportExcelModal
-    :visibleExportExcel="visibleExportExcel"
-    :modalExportExcelTitles="modalExportExcelTitle"
-    :UserData="UserDataEntityState"
-    @closeExportExcelMoadl="closeExportExcelMoadl"
-    @UpdateInfoBtn="UpdateInfoBtn"
-    @CreateInfoBtn="CreateInfoBtn"
-    urlData="/CustomerManagement/UpLoadFile"
-      configType="CustomerManagement"
-  />
+    <SaleOrderStateModal :visibleModelConfigGrid="visibleConfigSaleOrderState"
+                    :modalTitleConfigGrid="modalTitleConfigSaleOrderState"
+                    :Data=DataEntityState.EditData
+                    SelectkeysData=DataEntityState.Selectkeys
+                    configType="SaleOrdereManagement"
+                    @CloseConfigGridMoadl="CloseSaleOrderStateMoadl" />
 
-  
+
+
+
 </template>
 
 <script lang="ts">
@@ -265,12 +148,12 @@ import { message, Modal } from "ant-design-vue";
 import {
   
   DeleteFilled,EditOutlined,
-        ExclamationCircleOutlined, SearchOutlined, CloseOutlined, BellOutlined, CopyFilled, InteractionOutlined, UndoOutlined, GlobalOutlined
+        ExclamationCircleOutlined, SearchOutlined, CloseOutlined, BellOutlined, CopyFilled, InteractionOutlined
   
 } from "@ant-design/icons-vue";
 import {
-  CustomerEntity,CustomerColumns,ExportColumns
-} from "../../TypeInterface/ICrm/ICustomerManagement";
+        FollowRecordEntity,FollowRecordColumns,ExportColumns
+    } from "../../TypeInterface/ICrm/IFollowRecordManagement";
 import CommonQueryHeaderCRM from "../../components/CommonQueryHeaderCRM.vue";
 import {
   GetLoginRecordColumn,
@@ -280,27 +163,22 @@ import {
     GetExpColumnsConfig,
 } from "../../Request/userRequest";
 
-import ExportExcelModal from "../../components/ExportExcelModal.vue";
+
 
 import {
-  GetCustomerManagementDatas,AddCustomer,UpdateCustomer,DeleteById,BatchDelete,BatchExport,CopyDataById,
-  CancelClueShift
+        GetFollowRecordManagementDatas, DeleteById, BatchDelete, BatchExport
 }
- from "../../Request/CrmRequest/CustomerManagementRequest";
+        from "../../Request/CrmRequest/FollowRecordManagementRequest";
 
 import { deepClone } from "../../utility/commonFunc";
 import{useRouter} from 'vue-router'
 import configGridModal from "../../components/configGridModal.vue";
-import configExportModal from "../../components/configExportModal.vue";
-
-import ClueShiftModal from "../../components/ClueShiftModal.vue";
-    import FollowRecordComm from "@/components/FollowRecordComm.vue";
-
+    import configExportModal from "../../components/configExportModal.vue";
+    import SaleOrderStateModal from "../../components/SaleOrderStateModal.vue";
 export default defineComponent({
   components: {
-configGridModal,configExportModal,ClueShiftModal,ExportExcelModal,
-    DeleteFilled,SearchOutlined,CommonQueryHeaderCRM,CloseOutlined,EditOutlined,
-        BellOutlined, CopyFilled, InteractionOutlined, UndoOutlined, FollowRecordComm, GlobalOutlined
+        configGridModal, configExportModal, SaleOrderStateModal,
+        DeleteFilled, SearchOutlined, CommonQueryHeaderCRM, CloseOutlined, EditOutlined, BellOutlined, CopyFilled, InteractionOutlined
 
   },
   setup() {
@@ -308,24 +186,13 @@ configGridModal,configExportModal,ClueShiftModal,ExportExcelModal,
       count: 0,
     });
   const router=useRouter();
-    const DataEntityState = reactive(new CustomerEntity());
+      const DataEntityState = reactive(new FollowRecordEntity());
  
-    let  NewDataEntityState=new CustomerEntity();
+      let NewDataEntityState = new FollowRecordEntity();
     
     
 
-      const visible = ref<boolean>(false);
 
-      const afterVisibleChange = (bool: boolean) => {
-          console.log("visible", bool);
-      };
-      const DetailDatasInfo = ref<any>({});
-      const showDrawer = (value: any) => {
-          visible.value = true;
-
-          DetailDatasInfo.value = DataEntityState.DataList.filter(i => i.id == value)
-          console.log(DetailDatasInfo.value);
-      };
 
 
 
@@ -344,7 +211,7 @@ configGridModal,configExportModal,ClueShiftModal,ExportExcelModal,
 
       const onShowSizeChange = (current: number, pageSize: number) => {
       loading.value = true;
-      GetCustomerManagementDatas({
+          GetFollowRecordManagementDatas({
         current: current,
         pageSize: pageSize,
         ...DataEntityState.QueryConditionInfo,
@@ -361,7 +228,7 @@ configGridModal,configExportModal,ClueShiftModal,ExportExcelModal,
     });
     watch(current1, () => {
       loading.value = true;
-      GetCustomerManagementDatas({
+        GetFollowRecordManagementDatas({
         current: current1.value,
         pageSize: pageSize.value,
         ...DataEntityState.QueryConditionInfo,
@@ -375,7 +242,7 @@ configGridModal,configExportModal,ClueShiftModal,ExportExcelModal,
     });
     watch(refreshMark, () => {
       loading.value = true;
-      GetCustomerManagementDatas({
+        GetFollowRecordManagementDatas({
         current: current1.value,
         pageSize: pageSize.value,
         ...DataEntityState.QueryConditionInfo,
@@ -402,11 +269,11 @@ configGridModal,configExportModal,ClueShiftModal,ExportExcelModal,
 let loading = ref<boolean>(false);
 onMounted(async () => {
       //获取表格列及处理表格列
-      let columnList = await GetLoginRecordColumn({ pageName: "CustomerManagement" });
+    let columnList = await GetLoginRecordColumn({ pageName: "FollowRecordManagement" });
       console.log("ProductManagementColumn1",columnList)
 if(columnList==undefined||columnList.length==0)
 {
-  columnList=deepClone(CustomerColumns)
+    columnList = deepClone(FollowRecordColumns)
 }
       console.log("ProductManagementColumn2",columnList)
 
@@ -424,6 +291,10 @@ if(columnList==undefined||columnList.length==0)
           // columnList[j].width = 190;
           // columnList[j].dataIndex = "action";
         }
+
+
+
+
       }
       DataEntityState.ListGridColumns = columnList;
 
@@ -446,7 +317,7 @@ if(columnList==undefined||columnList.length==0)
 
       
 let ExportColumnsList = await GetExpColumnsConfig({
-        pageName: "CustomerManagement",
+    pageName: "FollowRecordManagement",
       });
 
      // console.log("ExportColumnsList", ExportColumnsList);
@@ -465,7 +336,7 @@ let ExportColumnsList = await GetExpColumnsConfig({
 
       //获用户数据
       loading.value = true;
-      let UserDatasList = await GetCustomerManagementDatas({
+    let UserDatasList = await GetFollowRecordManagementDatas({
         current: 1,
         pageSize: pageSize.value,
         ...DataEntityState.QueryConditionInfo,
@@ -482,9 +353,9 @@ let ExportColumnsList = await GetExpColumnsConfig({
       //测试
       // for(var s=0;s<11;s++)
       // {
-      //   DataEntityState.DataList.push(DataEntityState.ClueDatas[0]);
+      //   DataEntityState.DataList.push(DataEntityState.ProductDatas[0]);
       // }
-      //  console.log(DataEntityState.DataList);
+       
       //    totalCount.value = DataEntityState.DataList.length;
       //  current1.value = 1;
 
@@ -516,10 +387,11 @@ let ExportColumnsList = await GetExpColumnsConfig({
 
 /***功能按钮****************************************** */
 const SearchBtn = async (payload: any) => {
-      loading.value = true;
- DataEntityState.selectedRowKeys = [];
+    DataEntityState.selectedRowKeys = [];
               DataEntityState.selectedRows = [];
-      let UserDatasList1 = await GetCustomerManagementDatas({
+      loading.value = true;
+
+    let UserDatasList1 = await GetFollowRecordManagementDatas({
         current: 1,
         pageSize: pageSize.value,
         ...payload,
@@ -540,7 +412,7 @@ const SearchBtn = async (payload: any) => {
       console.log("ClearQueryBtn");
     };
  const CreateBtn = (payload: any) => {
-      router.push({ path: "/Home/CreateCustomerPage", query: {pageType:"add"} });
+      router.push({ path: "/Home/CreateProductPage", query: {pageType:"add"} });
     };
 
     
@@ -561,7 +433,7 @@ if(DataEntityState.QueryConditionInfoConfig[item].type=="text")
      }
 }
 
-GetCustomerManagementDatas({
+        GetFollowRecordManagementDatas({
      current: current1.value,
      pageSize: pageSize.value,
      ...DataEntityState.QueryConditionInfo,
@@ -584,7 +456,7 @@ const DeleteBth = (item: any,productCode:any) => {
 Modal.confirm({
               title: "您确定要删除这条记录吗?",
               icon: createVNode(ExclamationCircleOutlined),
-              content: `客户编号：${productCode}`,
+              content: `编号：${productCode}`,
               okText: "Yes",
               okType: "danger",
               cancelText: "No",
@@ -611,61 +483,24 @@ Modal.confirm({
    
 
 const CopyBtn = (item: any) => {
- CopyDataById({ Id: item }).then((res: any) => {
-              //console.log(res);
-              if (res.isSuccess) {
-                refreshMark.value = new Date().getTime().toString();
-                DataEntityState.selectedRowKeys = [];
-                DataEntityState.selectedRows = [];
-                message.success(res.msg);
-              }else{
-                 message.success("error");
-              }
-            });
+ //CopyDataById({ Id: item }).then((res: any) => {
+ //             //console.log(res);
+ //             if (res.isSuccess) {
+ //               refreshMark.value = new Date().getTime().toString();
+ //               DataEntityState.selectedRowKeys = [];
+ //               DataEntityState.selectedRows = [];
+ //               message.success(res.msg);
+ //             }else{
+ //                message.success("error");
+ //             }
+ //           });
 }
 
 const EditBth = (item: any) => {
 console.log("EditBth",item)
-router.push({ path: "/Home/CreateCustomerPage", query: {pageType:"edit",id: item} });
+router.push({ path: "/Home/CreateProductPage", query: {pageType:"edit",id: item} });
 
 };
-
-const CancelCustomerShift = (item: any) => {
-
-  Modal.confirm({
-        title: "您确定要执行线索转换撤销操作吗?",
-        icon: createVNode(ExclamationCircleOutlined),
-        content: `客户姓名：${item.customername} `,
-        okText: "Yes",
-        okType: "danger",
-        cancelText: "No",
-        okButtonProps: {
-          
-        },
-        onOk() {
-          CancelClueShift(item).then((res: any) => {
-            if (res.isSuccess) {
-              refreshMark.value = new Date().getTime().toString();
-             
-              message.success("线索转换撤销成功.");
-            }
-            else
-            {
-              message.error(res.msg);
-            }
-          });
-         
-        },
-        onCancel() {
-          message.error("已取消.");
-        },
-      });
-};
-
-
-
-
-
 
  const BatchDeleteBtn = (payload: any) => {
       let keys: string[] = [];
@@ -689,12 +524,14 @@ const CancelCustomerShift = (item: any) => {
         },
         onOk() {
           BatchDelete({ keys: keys }).then((res: any) => {
-            if (res.isSuccess) {
-              refreshMark.value = new Date().getTime().toString();
-              DataEntityState.selectedRowKeys = [];
-              DataEntityState.selectedRows = [];
-              message.success("批量删除成功.");
-            }
+              if (res.isSuccess) {
+                  refreshMark.value = new Date().getTime().toString();
+                  DataEntityState.selectedRowKeys = [];
+                  DataEntityState.selectedRows = [];
+                  message.success("批量删除成功.");
+              } else {
+                  message.error(res.msg);
+              }
           });
          
         },
@@ -777,7 +614,7 @@ const CancelCustomerShift = (item: any) => {
             //   res.headers["Content-Disposition"];
             //   console.log("contentDisposition",contentDisposition)
             //const fileName =(contentDisposition && contentDisposition.split(";")[1]).split("=")[1] ||f ||"";
-         const fileName ="客户-"+new Date().getTime();
+         const fileName ="销售订单-"+new Date().getTime();
             //const fileName = '统计.xlsx';
             const elink = document.createElement("a");
             elink.download = fileName;
@@ -800,21 +637,6 @@ const CancelCustomerShift = (item: any) => {
 
 
 /***导出 end************** */
- let visibleExportExcel = ref<boolean>(false);
-  let modalExportExcelTitle = ref<string>("");
-
- const ImportExcelBtn = () => {
-      console.log("visibleExportExcel");
-      visibleExportExcel.value = true;
-      modalExportExcelTitle.value = "文件导入";
-    };
-
-    const closeExportExcelMoadl = () => {
-      visibleExportExcel.value = false;
-      refreshMark.value = new Date().getTime().toString();
-    };
-
-
 
 
 /***导出配置 start************** */
@@ -833,7 +655,7 @@ let visibleConfigExport = ref<boolean>(false);
       visibleConfigExport.value = false;
 
       let ExportColumnsList = await GetExpColumnsConfig({
-        pageName: "CustomerManagement",
+          pageName: "FollowRecordManagement",
       });
 
   
@@ -866,11 +688,11 @@ let visibleModelConfigGrid = ref<boolean>(false);
 
  const UpdateConfigGrid = async () => {
       //获取表格列及处理表格列
-      let columnList = await GetLoginRecordColumn({ pageName: "CustomerManagement" });
- 
+     let columnList = await GetLoginRecordColumn({ pageName: "FollowRecordManagement" });
+    
       if(columnList==undefined||columnList.length<=0)
 {
-  columnList=deepClone(CustomerColumns)
+          columnList = deepClone(FollowRecordColumns)
 }
 
       DataEntityState.ListColumns = deepClone(columnList);
@@ -881,11 +703,6 @@ let visibleModelConfigGrid = ref<boolean>(false);
         console.log(j + "=" + columnList[j]);
         if (columnList[j]["isUse"] == false) {
           columnList.splice(j, 1);
-        }
-        if (columnList[j].title == "操作") {
-          columnList[j].fixed = "right";
-          // columnList[j].width = 190;
-          // columnList[j].dataIndex = "action";
         }
       }
 
@@ -906,7 +723,7 @@ let visibleModelConfigGrid = ref<boolean>(false);
 
 
 const RefreshBtn = async (payload: any) => {
-  
+   
  UpdateConfigGrid();
       loading.value = true;
     //   DataEntityState.QueryConditionInfo = {
@@ -915,7 +732,7 @@ const RefreshBtn = async (payload: any) => {
     //     workScheduleType: "未选择",
     //       workScheduleStatus: "未选择",
     //   };
- DataEntityState.selectedRowKeys = [];
+  DataEntityState.selectedRowKeys = [];
               DataEntityState.selectedRows = [];
  for(let item in  DataEntityState.QueryConditionInfo)
   {
@@ -933,7 +750,7 @@ if(DataEntityState.QueryConditionInfoConfig[item].type=="text")
 
 
 
-      GetCustomerManagementDatas({
+    GetFollowRecordManagementDatas({
         current: current1.value,
         pageSize: pageSize.value,
         ...DataEntityState.QueryConditionInfo,
@@ -949,6 +766,30 @@ if(DataEntityState.QueryConditionInfoConfig[item].type=="text")
 /***配置列表 end************** */
 
 
+
+
+      
+
+      let visibleConfigSaleOrderState = ref<boolean>(false);
+      let modalTitleConfigSaleOrderState = ref<string>("");
+      const ShowSaleOrderState = (item: any) => {
+ 
+          DataEntityState.EditData = item;
+          DataEntityState.selectedRowKeys = [];
+          DataEntityState.selectedRows = [];
+          DataEntityState.Selectkeys = [];
+          //console.log(1111)
+          visibleConfigSaleOrderState.value = true;
+          modalTitleConfigSaleOrderState.value = "【设置订单状态】订单编号：" + item.saleOrderCode;
+
+
+      };
+
+      const CloseSaleOrderStateMoadl = () => {
+          visibleConfigSaleOrderState.value = false;
+
+          refreshMark.value = new Date().getTime().toString();
+      };
 
 
 
@@ -970,17 +811,16 @@ onSelectChange,
       BatchDeleteBtn,
       EditBth,ExportExcelBtn,CopyBtn,ShowConfigExportBtn,CloseConfigExportMoadl,visibleConfigExport,modalTitleConfigExport,visibleModelConfigGrid,modalTitleConfigGrid,ShowConfigGridBtn,CloseConfigGridMoadl,
 
-      CreateBtn,CancelCustomerShift,
-       ImportExcelBtn,closeExportExcelMoadl,visibleExportExcel,modalExportExcelTitle,
+        CreateBtn,
+
+        ShowSaleOrderState, CloseSaleOrderStateMoadl, visibleConfigSaleOrderState, modalTitleConfigSaleOrderState,
 
       handleResizeColumn: (w:any, col:any) => {
         col.width = w;
       },
 
 
-        visible,
-        afterVisibleChange,
-        showDrawer, DetailDatasInfo
+
 
 
     };
@@ -989,7 +829,7 @@ onSelectChange,
 </script>
 
 <style >
-#CustomerManaDataList {
+#ProductManaDataList {
    /* height: calc(100vh - 206x);  */
   border: 0px solid red;
   box-sizing: border-box;
@@ -1005,8 +845,8 @@ onSelectChange,
   align-items: center;
 }
 
-#CustomerManaDataList .ant-table-thead > tr > th,
-#CustomerManaDataList .ant-table-tbody > tr > td {
+#ProductManaDataList .ant-table-thead > tr > th,
+#ProductManaDataList .ant-table-tbody > tr > td {
   padding: 9px 9px;
 }
 .table-striped td {

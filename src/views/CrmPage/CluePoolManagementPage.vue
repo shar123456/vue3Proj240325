@@ -42,7 +42,7 @@
       </template>
 <template #action1="{ record}">
         <span>
-          <a-tag style="cursor:pointer" color="blue"  @click="showDrawer(record.code)">
+          <a-tag style="cursor:pointer" color="blue" >
             {{ record.name }}
           </a-tag>
         </span>
@@ -118,23 +118,7 @@
         >
    
         
-        <a
-          @click="showDrawer(record.code)"
-          style="
-            color: #fff;
-            font-size: 14px;
-            font-weight: 600;
-            border: 1px solid #dedede;
-            padding-top: 1px;
-            padding-bottom: 3px;
-            padding-left: 7px;
-            padding-right: 7px;
-            background-color: #3c8dbc;
-            border-radius: 4px;
-          "
-          title="查看"
-          ><SearchOutlined mark="delete" /></a
-        >
+       
         <a
           @click="EditBth(record.id)"
           style="
@@ -263,7 +247,7 @@ import { deepClone } from "../../utility/commonFunc";
 import { useRouter } from "vue-router";
 import configGridModal from "../../components/configGridModal.vue";
 import configExportModal from "../../components/configExportModal.vue";
-import FollowRecordCommVue from "@/components/FollowRecordComm.vue";
+
 export default defineComponent({
   components: {
     configGridModal,

@@ -1,9 +1,9 @@
 import instance from '../../Request/request'
 
-export function GetSaleOrderManagementDatas(param:any):any {
+export function GetFollowRecordManagementDatas(param:any):any {
     
     return instance({
-        url: '/SaleOrderManagement/SearchByQuery',
+        url: '/FollowRecord/SearchByQuery',
         method: 'post',
         data:param,
         transformRequest: [function (data) {//加这个post发送数据到后台才能接收到数据，否则接收不到
@@ -28,25 +28,11 @@ export function GetSaleOrderManagementDatas(param:any):any {
     })
 }
 
-export function GetSaleOrderById(param: any): any {
 
-    return instance({
-        url: '/SaleOrderManagement/GetSaleOrderById',
-        method: 'post',
-        data: param,
-        transformRequest: [function (data) {//加这个post发送数据到后台才能接收到数据，否则接收不到
-            let ret = ''
-            for (const it in data) {
-                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
-            }
-            return ret
-        }],
-    })
-}
-  export function AddProduct(param:any):any {
+export function AddFollowRecord(param:any):any {
     
     return instance({
-        url: '/ProductManagement/AddProduct',
+        url: '/FollowRecord/AddFollowRecord',
         method: 'post',
         data:param,
         transformRequest: [function (data) {//加这个post发送数据到后台才能接收到数据，否则接收不到
@@ -93,7 +79,7 @@ export function SetSaleOrderState(param:any):any {
 export function DeleteById(param:any):any {
     
   return instance({
-      url: '/SaleOrderManagement/DeleteById',
+      url: '/FollowRecord/DeleteById',
       method: 'post',
       data:param,
       transformRequest: [function (data) {//加这个post发送数据到后台才能接收到数据，否则接收不到
@@ -105,10 +91,30 @@ export function DeleteById(param:any):any {
         }],
   })
 }
+
+export function GeFollowRecordById(param: any): any {
+
+    return instance({
+        url: '/FollowRecord/GeFollowRecordById',
+        method: 'post',
+        data: param,
+        transformRequest: [function (data) {//加这个post发送数据到后台才能接收到数据，否则接收不到
+            let ret = ''
+            for (const it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+    })
+}
+
+
+
+
 export function BatchDelete(param:any):any {
     
   return instance({
-      url: '/SaleOrderManagement/BatchDelete',
+      url: '/FollowRecord/BatchDelete',
       method: 'post',
       data:param,
       transformRequest: [function (data) {//加这个post发送数据到后台才能接收到数据，否则接收不到
@@ -124,7 +130,7 @@ export function BatchDelete(param:any):any {
 export function BatchExport(param:any):any {
     
   return instance({
-      url: '/SaleOrderManagement/BatchExport',
+      url: '/FollowRecord/BatchExport',
       method: 'post',
       data:param,
     

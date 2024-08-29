@@ -41,20 +41,20 @@ createrStr: string;//创建人
 
 const CustomerColumns = [
   
-  {  oldTitle: '客户编号',title: '客户编号',width:130, dataIndex: 'customerCode', isUse: true,configOrder: 1 ,resizable: true,ellipsis: true,}, 
+  {  oldTitle: '客户编号',title: '客户编号',width:140, dataIndex: 'customerCode', isUse: true,configOrder: 1 ,resizable: true,ellipsis: true,}, 
     { oldTitle: '客户名称', title: '客户名称',width:170, dataIndex: 'customername', isUse: true,configOrder: 2  ,resizable: true,ellipsis: true },
     
    
 
 
     {  oldTitle: '手机号',title: '手机号',width:105,  dataIndex: 'mobilePhone', isUse: true,configOrder: 3 ,resizable: true,ellipsis: true,},
-    {  oldTitle: '电话',title: '电话',width:110,  dataIndex: 'phone', isUse: true,configOrder: 4 ,resizable: true,ellipsis: true,},
+    {  oldTitle: '电话',title: '电话',width:122,  dataIndex: 'phone', isUse: true,configOrder: 4 ,resizable: true,ellipsis: true,},
     { oldTitle: '联系人', title: '联系人', width: 110, dataIndex: 'contactPerson', isUse: true, configOrder: 5, resizable: true, ellipsis: true, },
     
-    {  oldTitle: '行业',title: '行业',width:120,  dataIndex: 'industry', isUse: true,configOrder: 6 ,resizable: true,ellipsis: true,},
+    {  oldTitle: '行业',title: '行业',width:100,  dataIndex: 'industry', isUse: true,configOrder: 6 ,resizable: true,ellipsis: true,},
    
-    {  oldTitle: '线索类型',title: '客户类型',width:80, dataIndex: 'customerType', isUse: true,configOrder: 7 ,resizable: true,ellipsis: true},
-    {  oldTitle: '线索来源 ',title: '客户来源 ',width:100, dataIndex: 'customerOrigin',isUse: true,configOrder:8 ,resizable: true,ellipsis: true},
+    { oldTitle: '客户类型',title: '客户类型',width:80, dataIndex: 'customerType', isUse: true,configOrder: 7 ,resizable: true,ellipsis: true},
+    { oldTitle: '客户来源 ',title: '客户来源 ',width:100, dataIndex: 'customerOrigin',isUse: true,configOrder:8 ,resizable: true,ellipsis: true},
   
     {  oldTitle: '客户级别 ',title: '客户级别 ',width:80, dataIndex: 'customerLevel',isUse: true,configOrder: 9 ,resizable: true,ellipsis: true},
 
@@ -68,16 +68,16 @@ const CustomerColumns = [
     
  
     
-    {  oldTitle: '地址',title: '详细地址',width:160,  dataIndex: 'address', isUse: true,configOrder: 18 ,resizable: true,ellipsis: true,},
+    { oldTitle: '详细地址',title: '详细地址',width:180,  dataIndex: 'address', isUse: true,configOrder: 18 ,resizable: true,ellipsis: true,},
     
     {  oldTitle: '省份',title: '省份',width:100,  dataIndex: 'province', isUse: true,configOrder: 19 ,resizable: true,ellipsis: true,},
     {  oldTitle: '城市',title: '城市',width:100,  dataIndex: 'city', isUse: true,configOrder: 20 ,resizable: true,ellipsis: true,},
    
  
-    {  oldTitle: '创建人',title: '创建人',width:110,  dataIndex: 'createrStr', isUse: true,configOrder: 22 ,resizable: true,ellipsis: true,},
-    {  oldTitle: '创建时间',title: '创建时间',width:110,  dataIndex: 'createTimeStr', isUse: true,configOrder: 23 ,resizable: true,ellipsis: true,},
+    {  oldTitle: '创建人',title: '创建人',width:90,  dataIndex: 'createrStr', isUse: true,configOrder: 22 ,resizable: true,ellipsis: true,},
+    {  oldTitle: '创建时间',title: '创建时间',width:160,  dataIndex: 'createTimeStr', isUse: true,configOrder: 23 ,resizable: true,ellipsis: true,},
     {  oldTitle: '备注',title: '备注',width:170,  dataIndex: 'remark', isUse: true,configOrder:24,resizable: true,ellipsis: true,},
-    {  oldTitle: '操作',title: '操作',dataIndex: 'id', key: 'operation',width:153, slots: { customRender: 'action' } ,isUse: true,configOrder:25,fixed: 'right', },
+    {  oldTitle: '操作',title: '操作',dataIndex: 'id', key: 'operation',width:173, slots: { customRender: 'action' } ,isUse: true,configOrder:25,fixed: 'right', },
 
   ];
   

@@ -179,47 +179,24 @@
             
             
               <div class="boxall" style="height:450px">
-        <div class="alltitle">销量排行榜</div>
+        <div class="alltitle">产品销量排行榜 TOP5</div>
 	<div class="navboxall">
 		  <table class="table1" width="100%" border="0" cellspacing="0" cellpadding="0">
   <tbody>
     <tr>
       <th scope="col">排名</th>
-      <th scope="col">省份</th>
-      <th scope="col">销售额</th>
-      <th scope="col">增长率</th>
+      <th scope="col">产品名</th>
+      <th scope="col">销售数量</th>
+      <th scope="col">销售金额</th>
     </tr>
-    <tr>
-		<td><span>1</span></td>
-      <td>北京市</td>
-      <td>2114万<br></td>
-      <td>100%<br></td>
+    <tr v-for="item in ProductSaleTop">
+        <td><span>{{item.seq}}</span></td>
+        <td>{{item.productName}}</td>
+
+        <td>{{item.qty}}</td>
+        <td>￥{{item.unitPrice}}</td>
     </tr>
-    <tr>
-		<td><span>2</span></td>
-      <td>四川省</td>
-      <td>1123万</td>
-      <td>69%</td>
-    </tr>
-    
-    <tr>
-		<td><span>3</span></td>
-      <td>湖北省</td>
-      <td>953万</td>
-      <td>43%</td>
-    </tr>
-    <tr>
-		<td><span>4</span></td>
-      <td>山东省</td>
-      <td>674.6万</td>
-      <td>33%</td>
-    </tr>
-	  <tr>
-		  <td><span>5</span></td>
-      <td>辽宁省</td>
-      <td>323万</td>
-      <td>28%</td>
-    </tr>
+   
 	
   </tbody>
 </table>
@@ -334,7 +311,10 @@ import {
   GetExaminationTotal,
 
 } from "../../Request/ExaminationRequest";
+import {
+  GetCommercialProdRelation,
 
+} from "../../Request/KpiDatasRequest";
 export default defineComponent({
   components: {
     NewMessageTip,MyChinaMap
@@ -347,6 +327,10 @@ export default defineComponent({
    
     });
     let saleMap=ref<any>([]);
+
+     let ProductSaleTop=ref<any>([]);
+
+
     const router = useRouter();
     let DataEntityState = reactive(new WorkScheduleEntity());
     const store = useStore();
@@ -372,6 +356,33 @@ export default defineComponent({
     onMounted(async () => {
 
       saleMap.value=[1111,22334];
+
+      ProductSaleTop.value.push({
+
+          Seq:1,
+      ProductName:"22",
+       UnitPrice:"333",
+        Qty:"4444"
+      })
+      
+
+      let resPro = await GetCommercialProdRelation();
+       ProductSaleTop.value=resPro
+       let seqMark=1;;
+       if( ProductSaleTop.value!=undefined&& ProductSaleTop.value.length>0)
+      {
+         for(var t=0;t<ProductSaleTop.value.length;t++)
+
+         {
+             ProductSaleTop.value[t].seq=t+1;
+             ProductSaleTop.value[t].unitPrice= formatStr(ProductSaleTop.value[t].unitPrice);;
+         }
+
+      }
+
+       console.log(" ProductSaleTop.value", ProductSaleTop.value);;
+
+
 
 
 
@@ -1137,12 +1148,23 @@ ProductEfficiencyChart = echarts.init(
         ProductEfficiencyChart?.resize();
       });
     };
-
+    function formatStr(num:any){
+    let strNum = num.toString();
+    let res = '';
+    while (strNum.length > 3) {
+        //选取后三位，在前面添加','并拼接
+        res = ',' + strNum.slice(-3) + res;
+        //除后三位以外全部选取，对原字符串重新赋值来改变长度
+        strNum = strNum.slice(0,strNum.length-3);
+    };
+    res = strNum + res;
+    return res;
+}
     return {
       ...toRefs(state),
       ...toRefs(DataEntityState),
       ShowSchedule,
-      gotoDetail,saleMap
+      gotoDetail,saleMap,ProductSaleTop
     };
   },
 });
@@ -1277,9 +1299,33 @@ ProductEfficiencyChart = echarts.init(
 .numbt span{font-size: 18px; padding-left: 10px;color: black; }
 .numtxt{ color: #fef000; font-size: 80px; font-family: arial; border-top: 1px solid rgba(255,255,255,.1);border-bottom: 1px solid rgba(255,255,255,.1); padding: 10px 0; margin: 18px 0; font-weight: bold; letter-spacing: 2px;}
 
-.table1 th{border-bottom: 1px solid rgba(255,255,255,.2); font-size: 16px; color:black; font-weight: normal; padding:0 0 10px 0;}
-.table1 td{ font-size: 16px; color:black; padding: 15px 0 0 0; }
-.table1 span{ width: 24px; height: 24px; border-radius: 3px; display: block; background: #878787; color: black; line-height: 24px; text-align: center;}
+    .table1 th {
+        border-bottom: 1px solid rgba(255,255,255,.2);
+        font-size: 16px;
+        color: black;
+        font-weight: normal;
+        padding: 0 0 10px 0;
+        
+    }
+    .table1 td {
+        font-size: 16px;
+        color: black;
+        padding: 15px 0 0 0;
+        text-align: center;
+        ;
+        border: 0px solid red;
+    }
+    .table1 span {
+        width: 24px;
+        
+        height: 24px;
+        border-radius: 3px;
+        display: inline-block;
+        background: #878787;
+        color: black;
+        line-height: 24px;
+        text-align: center;
+    }
 
 .table1 tr:nth-child(2) span{ background: #ed405d}
 .table1 tr:nth-child(3) span{ background: #f78c44}

@@ -192,18 +192,66 @@
 
 
         <a-row type="flex" justify="center">
-          <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
+            <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
 
-            <a-form-item label="省会" name="province">
-              <a-input
-            
-               
-                v-model:value="EditData.province"
-                placeholder="请输入省会"
-              />
-            </a-form-item>
-            
-          </a-col>
+                <a-form-item label="省会" name="province">
+
+
+                    <a-select :disabled="IsDisabled" v-model:value="EditData.province" style="width: 100%" placeholder="请输入省会">
+                        <a-select-option value="北京市">北京市</a-select-option>
+                        <a-select-option value="天津市">天津市</a-select-option>
+                        <a-select-option value="上海市">上海市</a-select-option>
+
+                        <a-select-option value="重庆">重庆</a-select-option>
+                        <a-select-option value="河北省">河北省</a-select-option>
+                        <a-select-option value="河南省">河南省</a-select-option>
+                        <a-select-option value="云南省">云南省</a-select-option>
+                        <a-select-option value="辽宁省">辽宁省</a-select-option>
+                        <a-select-option value="黑龙江省">黑龙江省</a-select-option>
+                        <a-select-option value="湖南省">湖南省</a-select-option>
+                        <a-select-option value="安徽省">安徽省</a-select-option>
+                        <a-select-option value="山东省">山东省</a-select-option>
+                        <a-select-option value="新疆维吾尔自治区">新疆维吾尔自治区</a-select-option>
+
+
+                        <a-select-option value="江苏省">江苏省</a-select-option>
+                        <a-select-option value="浙江省">浙江省</a-select-option>
+                        <a-select-option value="江西省">江西省</a-select-option>
+                        <a-select-option value="湖北省">湖北省</a-select-option>
+                        <a-select-option value="广西壮族自治区">广西壮族自治区</a-select-option>
+                        <a-select-option value="甘肃省">甘肃省</a-select-option>
+                        <a-select-option value="山西省">山西省</a-select-option>
+                        <a-select-option value="内蒙古自治区">内蒙古自治区</a-select-option>
+
+
+                        <a-select-option value="陕西省">陕西省</a-select-option>
+                        <a-select-option value="吉林省">吉林省</a-select-option>
+                        <a-select-option value="福建省">福建省</a-select-option>
+                        <a-select-option value="贵州省">贵州省</a-select-option>
+                        <a-select-option value="广东省">广东省</a-select-option>
+                        <a-select-option value="青海省">青海省</a-select-option>
+                        <a-select-option value="西藏自治区">西藏自治区</a-select-option>
+                        <a-select-option value="四川省">四川省</a-select-option>
+
+                        <a-select-option value="宁夏回族自治区">宁夏回族自治区</a-select-option>
+                        <a-select-option value="海南省">海南省</a-select-option>
+                        <a-select-option value="台湾省">台湾省</a-select-option>
+                        <a-select-option value="香港">香港</a-select-option>
+                        <a-select-option value="澳门">澳门</a-select-option>
+                    </a-select>
+
+
+
+
+
+
+
+
+
+
+                </a-form-item>
+
+            </a-col>
           <a-col class="col" :xs="{ span: 0 }" :lg="{ span: 1 }"></a-col>
           <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
             <a-form-item label="城市" name="city">

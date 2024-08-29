@@ -10,29 +10,38 @@
             <a-row>
               <a-col style="border:0px solid red;margin-left:5px;line-height:40px;"
                 v-for="(index, item) in QueryConditionInfo" :key="item" class="col" :xs="{ span: 23 }" :lg="{ span: 5 }">
-                <a-row>
-                  <a-col span="7" style="border:0px solid red;width: 100%;display:flex;align-items: center;">
-                    <label>{{ QueryConditionInfoConfig[item].name }}：</label></a-col>
-                  <a-col v-if="QueryConditionInfoConfig[item].type == 'text'" span="17">
-                    <div>
+                  <a-row>
+                      <a-col span="7" style="border:0px solid red;width: 100%;display:flex;align-items: center;">
+                          <label>{{ QueryConditionInfoConfig[item].name }}：</label>
+                      </a-col>
+                      <a-col v-if="QueryConditionInfoConfig[item].type == 'text'" span="17">
+                          <div>
 
-                      <a-input v-model:value="QueryConditionInfo[item]"
-                        :placeholder="QueryConditionInfoConfig[item].name" />
+                              <a-input v-model:value="QueryConditionInfo[item]"
+                                       :placeholder="QueryConditionInfoConfig[item].name" />
 
 
-                    </div>
-                  </a-col>
-                  <a-col v-if="QueryConditionInfoConfig[item].type == 'select'" span="17">
-                    <div style="border:0px solid red">
-                      <a-select ref="select" v-model:value="QueryConditionInfo[item]" style="width: 100%;">
+                          </div>
+                      </a-col>
+                      <a-col v-if="QueryConditionInfoConfig[item].type == 'Day'" span="17">
+                          <div>
 
-                        <a-select-option v-for="ioption in QueryConditionInfoConfig[item].optionValueArray"
-                          :key="ioption" :value="ioption">{{ ioption }}</a-select-option>
+                              
+                              <a-date-picker  style="width: 100%" format="YYYY-MM-DD HH:mm:ss" v-model:value="QueryConditionInfo[item]"  :placeholder="QueryConditionInfoConfig[item].name" />
 
-                      </a-select>
-                    </div>
-                  </a-col>
-                </a-row>
+                          </div>
+                      </a-col>
+                      <a-col v-if="QueryConditionInfoConfig[item].type == 'select'" span="17">
+                          <div style="border:0px solid red">
+                              <a-select ref="select" v-model:value="QueryConditionInfo[item]" style="width: 100%;">
+
+                                  <a-select-option v-for="ioption in QueryConditionInfoConfig[item].optionValueArray"
+                                                   :key="ioption" :value="ioption">{{ ioption }}</a-select-option>
+
+                              </a-select>
+                          </div>
+                      </a-col>
+                  </a-row>
 
               </a-col>
             </a-row>

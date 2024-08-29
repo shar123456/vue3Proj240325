@@ -19,7 +19,7 @@ export default defineComponent({
     },
     setup(props) {
        let  data=[
-		                {name: '北京市',value: 100},
+		                {name: '北京市',value: 122200},
 		                {name: '天津市',value: 12},
 		                {name: '上海市',value: 90},
 		                {name: '重庆',value: 23},
@@ -31,7 +31,7 @@ export default defineComponent({
 		                {name: '湖南省',value: 87},
 		                {name: '安徽省',value: 29},
 		                {name: '山东省',value: 87},
-		                {name: '新疆维吾尔自治区',value: 99},
+		                {name: '新疆维吾尔自治区',value: 1},
 		                {name: '江苏省',value: 11},
 		                {name: '浙江省',value: 66},
 		                {name: '江西省',value: 57},
@@ -107,9 +107,9 @@ color:'#fff'}
                         mapType: 'china',
                         label:{
 normal:{
-//show:true,
+show:true,
 textStyle:{
-fontsize:8
+fontsize:3
 }
 
 
@@ -146,7 +146,7 @@ visualMap: {
                
                 text: ['high','low'], // 文本，默认为数值文本
                 inRange: {
-                    color:['#DEADA5','#E1897B','#E56D5A','#EF2A0C'],
+                    color: ['#DEC1E1', '#CF8FD6', '#C346D0','#BC3EC9'],
                     symbolSize: [0, 0]
                 },//修改凸缘大小和修改地图不同颜色
                 calculable: true

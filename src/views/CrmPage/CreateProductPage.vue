@@ -314,7 +314,7 @@ export default defineComponent({
       IsShowContinueAdd: false,
        title: "新建产品",
       submitDesc: "提交",
-      IsDisabledproductCode: false,
+      IsDisabledproductCode: true,
     });
     const layout = {
       labelCol: { span: 3 },
